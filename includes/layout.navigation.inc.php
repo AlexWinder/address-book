@@ -10,7 +10,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<?php //<a class="navbar-brand" href="index.php">Address Book</a> ?>
+					<a class="navbar-brand" href="<?php echo PAGELINK_INDEX; ?>">Contacts System</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
