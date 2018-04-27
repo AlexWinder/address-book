@@ -55,7 +55,6 @@
 					?>
 				</tbody>
 			</table>
-			<a href="add-user.php" type="button" class="btn btn-info">Add User</a>
 			<!-- /CONTENT -->
 
 <?php
