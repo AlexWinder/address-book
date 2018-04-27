@@ -32,6 +32,20 @@
 		die();
 	}; // Close if(!empty($errors))
 	
+	// Set page names
+	defined("PAGENAME_INDEX")						?	null	:	define("PAGENAME_INDEX", "Address Book");
+	defined("PAGENAME_LOGIN")						?	null	:	define("PAGENAME_LOGIN", "Log In");
+	defined("PAGENAME_LOGOUT")						?	null	:	define("PAGENAME_LOGOUT", "Log Out");
+	defined("PAGENAME_USERS")						?	null	:	define("PAGENAME_USERS", "Users");
+	defined("PAGENAME_LOGS")						?	null	:	define("PAGENAME_LOGS", "Logs");
+	
+	// Set page links
+	defined("PAGELINK_INDEX")						?	null	:	define("PAGELINK_INDEX", "index.php");
+	defined("PAGELINK_LOGIN")						?	null	:	define("PAGELINK_LOGIN", "login.php");
+	defined("PAGELINK_LOGOUT")						?	null	:	define("PAGELINK_LOGOUT", "logout.php");
+	defined("PAGELINK_USERS")						?	null	:	define("PAGELINK_USERS", "users.php");
+	defined("PAGELINK_LOGS")						?	null	:	define("PAGELINK_LOGS", "logs.php");
+
 	// Server time zone
 	date_default_timezone_set("Europe/London");
 	
