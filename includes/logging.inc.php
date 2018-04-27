@@ -149,7 +149,7 @@
 		};
 		
 		// Obtain the URL of the page that the user is accessing
-		$url = SITE_URL . mysql_prep($_SERVER["REQUEST_URI"]);
+		$url = mysql_prep($_SERVER["REQUEST_URI"]);
 		
 		// If the user is not logged in then there is nothing to enter into the user field
 		if(!isset($_SESSION["user_full_name"]) || !isset($_SESSION["user_username"])) {
