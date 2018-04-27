@@ -3,7 +3,7 @@
 	require_once("../includes/config.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Login";
+	$page_name = PAGENAME_LOGIN;
 	
 	// If user has $_SESSION["user_user_id"] they are likely already logged in - redirect to index.php
 	if(isset($_SESSION["user_user_id"])) {

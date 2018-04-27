@@ -16,7 +16,7 @@
 	$contacts = find_all_contacts();
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Address Book";
+	$page_name = PAGENAME_INDEX;
 	
 	// Log action of accessing the page
 	log_action("view");

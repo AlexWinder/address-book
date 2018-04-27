@@ -16,7 +16,7 @@
 	$logs = find_columns_from_logs();
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Logs";
+	$page_name = PAGENAME_LOGS;
 	
 	// Log action of accessing the page
 	log_action("view");

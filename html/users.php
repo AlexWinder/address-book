@@ -16,7 +16,7 @@
 	$users = find_all_users();
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Users List";
+	$page_name = PAGENAME_USERS;
 	
 	// Log action of accessing the page
 	log_action("view");
