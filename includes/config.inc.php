@@ -32,6 +32,9 @@
 		die();
 	}; // Close if(!empty($errors))
 	
+	// Set the database driver to MySQL
+	define("DB_TYPE", "mysql");
+
 	// Set page names
 	defined("PAGENAME_INDEX")						?	null	:	define("PAGENAME_INDEX", "Address Book");
 	defined("PAGENAME_LOGIN")						?	null	:	define("PAGENAME_LOGIN", "Log In");
