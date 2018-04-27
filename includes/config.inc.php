@@ -52,6 +52,12 @@
 	// Server time zone
 	date_default_timezone_set("Europe/London");
 	
+	// Autoload classes so that they are called as and when they are required
+	spl_autoload_register(function($class_name) { 
+		$class_name = strtolower($class_name);
+		include('class.' . $class_name . '.inc.php');
+	});
+	
 	// Database connection
 	require_once("database.inc.php");
 	
