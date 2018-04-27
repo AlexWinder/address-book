@@ -1,18 +1,39 @@
 <?php
 	
-	// Display errors
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
+	// Check if a custom settings file has been created with all the relevant constants
+	if(!file_exists("../includes/localsettings.inc.php")) {
+		// Output to screen that the file is missing and go no further
+		echo 'A config file could not be found. Please create a file inside the includes/ directory called localsettings.inc.php';
+		die();
+	};
+	
+	// Require the localsetting.inc.php
+	require_once('localsettings.inc.php');
+	
+	// Check that the required settings for the system to function have been defined
+	// Initialise an $errors array to store any errors
+	$errors = array();
+	
+	// Check that constants are defined
+	if(!defined('DB_SERVER')) 	{ $errors[] = "DB_SERVER is not defined. Please add the following as a new line to your includes/localsettings.inc.php file: <b>define('DB_SERVER', 'YOUR DATABASE IP/HOSTNAME');</b>"; };
+	if(!defined('DB_USER')) 	{ $errors[] = "DB_USER is not defined. Please add the following as a new line to your includes/localsettings.inc.php file: <b>define('DB_USER', 'YOUR DATABASE USERNAME');</b>"; };
+	if(!defined('DB_PASS')) 	{ $errors[] = "DB_PASS is not defined. Please add the following as a new line to your includes/localsettings.inc.php file: <b>define('DB_PASS', 'YOUR DATABASE USER PASSWORD');</b>"; };
+	if(!defined('DB_NAME')) 	{ $errors[] = "DB_NAME is not defined. Please add the following as a new line to your includes/localsettings.inc.php file: <b>define('DB_NAME', 'YOUR DATABASE NAME');</b>"; };
+	
+	// Output the errors to screen if any are present
+	if(!empty($errors)) {
+		echo '<p>There appear to be some issues with your configuration. Please review the following errors:</p>';
+		echo '<ul>';
+		foreach($errors as $error) {
+			echo '- '. $error . '<br>';
+		};
+		echo '</ul>';
+		echo '<p>Please remember to include all of the example line but replacing the key information with that which relates to your system. Also ensure that the localsettings.inc.php file starts with the first line with <b>' . htmlspecialchars("<?php ") . '</b>. Without this then any setting you set won\'t work!</p>';
+		die();
+	}; // Close if(!empty($errors))
 	
 	// Server time zone
 	date_default_timezone_set("Europe/London");
-	
-	// Database constants
-	defined("DB_SERVER")    	?	null	:	define("DB_SERVER", "127.0.0.1");
-	defined("DB_USER")			?	null	:	define("DB_USER", "root");
-	defined("DB_PASS")			?	null	:	define("DB_PASS", "");
-	defined("DB_NAME")			?	null	:	define("DB_NAME", "address_book");
 	
 	// Database connection
 	require_once("database.inc.php");
