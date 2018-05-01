@@ -68,10 +68,10 @@
 	require_once("functions.inc.php");
 	
 	// Notifications, for things such as error messages and success alerts
-	require_once("notification.inc.php");
+	require_once("alerts.notification.inc.php");
 	
 	// Validation messages for form fields, such as string lengths too long, or required fields missing
-	require_once("validation.inc.php");
+	require_once("alerts.validation.inc.php");
 	
 	// Logging user activity - functions and log text
 	require_once("logging.inc.php");
