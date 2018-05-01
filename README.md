@@ -18,4 +18,4 @@ A simple PHP-based contact list manager with authentication and logging features
 
 # License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE.md).
