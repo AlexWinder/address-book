@@ -1,6 +1,6 @@
 <?php
-	// Require relevent information for config.inc.php, including functions and database access
-	require_once("../includes/config.inc.php");
+	// Require relevent information for settings.config.inc.php, including functions and database access
+	require_once("../includes/settings.config.inc.php");
 	
 	// Check that the user is logged in
 	require_once("../includes/authenticated.inc.php");

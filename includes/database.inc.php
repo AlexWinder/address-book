@@ -1,6 +1,6 @@
 <?php
 
-	// Requires constants to be set inside config.inc.php
+	// Requires constants to be set inside settings.config.inc.php
 
 	// Create a database connection
 	$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);

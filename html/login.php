@@ -1,6 +1,6 @@
 <?php
 	// Require relevent information for config.inc.php, including functions and database access
-	require_once("../includes/config.inc.php");
+	require_once("../includes/settings.config.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_LOGIN;
