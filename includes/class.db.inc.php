@@ -25,6 +25,6 @@
 			return self::$instance;
 		}
 		
-	}; // Close class Database
+	}; // Close class DB
 	
 // EOF
