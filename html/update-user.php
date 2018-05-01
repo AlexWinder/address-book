@@ -6,11 +6,12 @@
 	require_once("../includes/authenticated.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
 	// If user name could be set - correct GET request, or valid GET i value
 	if(isset($user_full_name)) {
-		$page_name = "Update User - " . $user_full_name;
+		$subpage_name = $user_full_name . " - Update User";
 	} else {
-		$page_name = "Update User - User Not Found";
+		$subpage_name = "User Not Found - Update User";
 	};
 	
 	// If the value of i in GET exists
@@ -25,7 +26,7 @@
 		$user_full_name = htmlentities($user["full_name"] . " [" . $user["username"] . "]");
 		
 		// Set page name as user could be found
-		$page_name = "Update User - " . $user_full_name;
+		$subpage_name = $user_full_name . " - Update User";
 		
 		// If a user is found in the database
 		if($user) {

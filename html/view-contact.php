@@ -33,7 +33,9 @@
 			};
 			
 			// Set $page_name so that the title of each page is correct
-			$page_name = "View Contact - " . $contact_full_name;
+			$page_name = PAGENAME_CONTACTS;
+			// Set $subpage_name as this page isn't the main section
+			$subpage_name = $contact_full_name . " - View Details";
 			
 			// Log action of accessing the page
 			log_action("view");

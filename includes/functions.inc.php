@@ -28,6 +28,19 @@
 		};
 	};
 	
+	function page_name() {
+		// Bring in $page_name and $subpage_name if set
+		global $page_name;
+		global $subpage_name;
+		
+		// If both $subpage_name and $page_name are set, return both
+		if(isset($page_name) && isset($subpage_name)) {
+			return $subpage_name . " - " . $page_name;
+		} else { // Otherwise just return the $page_name
+			return $page_name;
+		};
+	}
+	
 	function remove_white_space($string) {
 		// Remove all white space within the string
 		return preg_replace('/\s+/', '', $string);

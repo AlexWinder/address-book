@@ -6,7 +6,9 @@
 	require_once("../includes/authenticated.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Add Contact";
+	$page_name = PAGENAME_CONTACTS;
+	// Set $subpage_name as this page isn't the main section
+	$subpage_name = "Add Contact";
 	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {

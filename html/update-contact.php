@@ -5,10 +5,13 @@
 	// Check that the user is logged in
 	require_once("../includes/authenticated.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+	// If contact could be set - correct GET request, or valid GET i value
 	if(isset($contact_full_name)) {
-		$page_name = "Update Contact - " . $contact_full_name;
+		$subpage_name = $contact_full_name . " - Update Contact";
 	} else {
-		$page_name = "Update Contact - Contact Not Found";
+		$subpage_name = "Contact Not Found - Update Contact";
 	};
 	
 	// If the value of i in GET exists
@@ -22,7 +25,7 @@
 		// Create a variable to store the contact full name - used in the page name
 		$contact_full_name = htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"]));
 		// Set page name as contact could be found
-		$page_name = "Update Contact - " . $contact_full_name;
+		$subpage_name = $contact_full_name . " - Update Contact";
 		
 		// If a contact is found in the database
 		if($contact) {

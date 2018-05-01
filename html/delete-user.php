@@ -6,11 +6,12 @@
 	require_once("../includes/authenticated.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
 	// If user name could be set - correct GET request, or valid GET i value
 	if(isset($user_full_name)) {
-		$page_name = "Delete User - " . $user_full_name;
+		$subpage_name = $user_full_name . " - Delete User";
 	} else {
-		$page_name = "Delete User - User Not Found";
+		$subpage_name = "User Not Found - Delete User";
 	};
 	
 	// If the value of i in GET exists
@@ -25,7 +26,7 @@
 		$user_full_name_with_username = htmlentities($user["full_name"] . " [" . $user["username"] . "]");
 		
 		// Set page name as user could be found
-		$page_name = "Delete User - " . $user_full_name_with_username;
+		$subpage_name = $user_full_name_with_username . " - Delete User";
 		
 		// If a user is found in the database
 		if($user) {
@@ -89,7 +90,7 @@
 		// Value of i in GET doesn't exist, send message and redirect
 		$_SESSION["message"] = construct_message($notification["user"]["delete"]["not_found"], "danger");
 		// Set $page_name so that the title of each page is correct - user couldn't be found
-		$page_name = "Delete User - User Not Found";
+		$page_name = "User Not Found - Delete User";
 		// Log user accessing incorrect GET key
 		log_action("not_found", $logging["page"]["not_exist"]);
 		redirect_to("users.php");
@@ -105,13 +106,13 @@
 			<?php session_message(); ?>
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once a user has been deleted the only way to restore them to the user list is by manually re-adding.</strong></p>
-			<p>Please confirm that you would like to delete <?php echo $user_full_name_with_username; ?> from the system.</p>
+			<p>Please confirm that you would like to <strong>permanently delete</strong> <?php echo $user_full_name_with_username; ?> from the system.</p>
 			
 			<form class="form-horizontal" action="" method="post">
 				
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to delete <?php echo $user_full_name_with_username; ?>
+						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> <?php echo $user_full_name_with_username; ?>
 					</label>
 				</div>
 				

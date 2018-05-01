@@ -5,10 +5,13 @@
 	// Check that the user is logged in
 	require_once("../includes/authenticated.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+	// If contact could be set - correct GET request, or valid GET i value
 	if(isset($contact_full_name)) {
-		$page_name = "Delete Contact - " . $contact_full_name;
+		$subpage_name = $contact_full_name - "Delete Contact";
 	} else {
-		$page_name = "Delete Contact - Contact Not Found";
+		$subpage_name = "Contact Not Found - Delete Contact";
 	};
 		
 	// If the value of i in GET exists
@@ -22,7 +25,7 @@
 		// Create a varibale to store the contact full name
 		$contact_full_name = htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"]));
 		// Set page name as contact could be found
-		$page_name = "Delete Contact - " . $contact_full_name;
+		$subpage_name = $contact_full_name . " - Delete Contact";
 		
 		// If a contact is found in the database
 		if($contact) {
@@ -93,13 +96,13 @@
 			<?php session_message(); ?>
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once a contact has been deleted the only way to restore them to the contact list is by manually re-adding.</strong></p>
-			<p>Please confirm that you would like to delete <?php if(isset($contact_full_name)) { echo $contact_full_name; }; ?> from the system.</p>
+			<p>Please confirm that you would like to <strong>permanently delete</strong> <?php if(isset($contact_full_name)) { echo $contact_full_name; }; ?> from the system.</p>
 			
 			<form class="form-horizontal" action="" method="post">
 				
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to delete <?php if(isset($contact_full_name)) { echo $contact_full_name; }; ?>
+						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> <?php if(isset($contact_full_name)) { echo $contact_full_name; }; ?>
 					</label>
 				</div>
 				

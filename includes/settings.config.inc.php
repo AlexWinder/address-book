@@ -41,6 +41,7 @@
 	defined("PAGENAME_LOGOUT")						?	null	:	define("PAGENAME_LOGOUT", "Log Out");
 	defined("PAGENAME_USERS")						?	null	:	define("PAGENAME_USERS", "Users");
 	defined("PAGENAME_LOGS")						?	null	:	define("PAGENAME_LOGS", "Logs");
+	defined("PAGENAME_CONTACTS")					?	null	:	define("PAGENAME_CONTACTS", "Contacts");
 	
 	// Set page links
 	defined("PAGELINK_INDEX")						?	null	:	define("PAGELINK_INDEX", "index.php");

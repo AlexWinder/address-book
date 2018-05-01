@@ -6,7 +6,8 @@
 	require_once("../includes/authenticated.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = "Add User";
+	$page_name = PAGENAME_USERS;
+	$subpage_name = "Add User";
 	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
