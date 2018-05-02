@@ -13,8 +13,8 @@
 	$datatables_option = null;
 	
 	// Obtain all contacts from the database, which will be used to populate the table
-	$contacts = find_all_contacts();
-	
+	$contacts = new Contact();
+
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_INDEX;
 	
@@ -25,6 +25,7 @@
 	require_once("../includes/layout.head.inc.php");
 	// Requre navigation content in the page
 	require_once("../includes/layout.navigation.inc.php");
+	
 ?>
 			<!-- CONTENT -->
 			<?php session_message(); ?>
@@ -40,7 +41,7 @@
 				<tbody>
 <?php
 				// Cycle through each item obtained from find_all_contacts() and display them in the DataTable
-				foreach($contacts as $contact){
+				foreach($contacts->all as $contact){
 				?>
 					<tr>
 						<td><a href="view-contact.php?i=<?php echo urlencode($contact["contact_id"]); ?>"><?php echo htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"])); ?></a></td>

@@ -7,27 +7,25 @@
 	
 	// If the value of i in GET exists
 	if($_GET["i"]) {
-		// Sanitise the GET value
-		$id = mysql_prep(urldecode($_GET["i"]));
 		
 		// Find contact in database
-		$contact = find_contact_by_id($id);
+		$contact = new Contact($_GET['i']);
 		
 		// If a contact could be found
-		if($contact) {
+		if($contact->single) {
 			// Assign various variables prior to populating the page
-			$contact_full_name = htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"]));
-			$contact_home_number = htmlentities(remove_white_space($contact["contact_number_home"]));
-			$contact_home_number_formatted = htmlentities(format_phone_number($contact["contact_number_home"]));
-			$contact_mobile_number = htmlentities(remove_white_space($contact["contact_number_mobile"]));
-			$contact_mobile_number_formatted = htmlentities(format_phone_number($contact["contact_number_mobile"]));
-			$contact_email = htmlentities($contact["contact_email"]);
-			$contact_full_address = htmlentities(full_address($contact["address_line_1"], $contact["address_line_2"], $contact["address_town"], $contact["address_county"], $contact["address_post_code"]));
+			$contact_full_name = htmlentities(full_name($contact->single["first_name"], $contact->single["middle_name"], $contact->single["last_name"]));
+			$contact_home_number = htmlentities(remove_white_space($contact->single["contact_number_home"]));
+			$contact_home_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_home"]));
+			$contact_mobile_number = htmlentities(remove_white_space($contact->single["contact_number_mobile"]));
+			$contact_mobile_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_mobile"]));
+			$contact_email = htmlentities($contact->single["contact_email"]);
+			$contact_full_address = htmlentities(full_address($contact->single["address_line_1"], $contact->single["address_line_2"], $contact->single["address_town"], $contact->single["address_county"], $contact->single["address_post_code"]));
 			
 			// If the date of birth field is set to NULL this will generate a date of 1970-01-01 when passed through the cosmetic_date_from_mysqldate() function_exists
 			// So check if the field is empty, if it is then it is not needed in the form
-			if(!empty($contact["date_of_birth"])) {
-				$contact_date_of_birth = htmlentities(cosmetic_date_from_mysqldate($contact["date_of_birth"]));
+			if(!empty($contact->single["date_of_birth"])) {
+				$contact_date_of_birth = htmlentities(cosmetic_date_from_mysqldate($contact->single["date_of_birth"]));
 			} else {
 				$contact_date_of_birth = null;
 			};
@@ -139,8 +137,8 @@
 			
 			<hr>
 			
-			<a href="update-contact.php?i=<?php echo urlencode($contact["contact_id"]); ?>" type="button" role="button" class="btn btn-info">Update Contact</a>
-			<a href="delete-contact.php?i=<?php echo urlencode($contact["contact_id"]); ?>" type="button" role="button" class="btn btn-danger">Delete Contact</a>
+			<a href="update-contact.php?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-info">Update Contact</a>
+			<a href="delete-contact.php?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-danger">Delete Contact</a>
 			<!-- /CONTENT -->
 
 <?php
