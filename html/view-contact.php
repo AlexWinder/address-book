@@ -90,7 +90,7 @@
 			</div>
 			<?php }; ?>
 			
-			<?php if(!empty($contact->email)) { ?>
+			<?php if($contact->email) { ?>
 			<div class="row">	
 				<div class="col-xs-4 col-sm-3">
 					<h3>Email Address:</h3>
@@ -102,7 +102,7 @@
 			</div>
 			<?php }; ?>
 				
-			<?php if(!empty($contact->date_of_birth)) { ?>
+			<?php if($contact->date_of_birth) { ?>
 			<div class="row">
 				<div class="col-xs-4 col-sm-3">
 					<h3>Date Of Birth:</h3>
