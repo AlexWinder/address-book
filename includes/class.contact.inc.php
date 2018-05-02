@@ -4,8 +4,12 @@
 		// Variable to hold a DB instance
 		private $db;
 		
-		public $all = null, // Variable used to hold all 
-			   $single = null; // Variable used to hold details of single contact ID
+		// All variables for when all contacts are searched
+		public $all = null; // Variable used to hold all contacts
+		
+		// All variables which are relating to when a user searches for a particular ID
+		public $single = null, // Variable used to hold details of single contact ID
+			   $full_name = null; // Variable used to hold full name of contact
 		
 		// Constructor
 		function __construct($id = null) {
@@ -49,6 +53,8 @@
 				
 				// Check if a contact could be found
 				if($result) {
+					// Set the $full_name as per the users details
+					$this->full_name = $this->full_name($result['first_name'], $result['middle_name'], $result['last_name']);
 					// Contact found, return all of the details
 					return $this->single = $result;
 				} else {
@@ -58,6 +64,17 @@
 			} else {
 				// $id not sent, return false
 				return false;
+			}
+		}
+		
+		private function full_name($first_name, $middle_name = null, $last_name){
+			// If the person has a middle name
+			if($middle_name != null ) {
+				// Create their name with a middle name
+				return $first_name . " " . $middle_name . " " . $last_name;
+			} else {
+				// Don't include the middle name
+				return $first_name . " " . $last_name;
 			}
 		}
 		
