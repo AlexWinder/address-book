@@ -12,7 +12,7 @@
 		$contact = new Contact($_GET['i']);
 		
 		// If a contact could be found
-		if($contact->single) {
+		if($contact->found) {
 			// Assign various variables prior to populating the page
 			$contact_home_number = htmlentities(remove_white_space($contact->single["contact_number_home"]));
 			$contact_home_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_home"]));

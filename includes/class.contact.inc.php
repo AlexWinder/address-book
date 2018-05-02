@@ -8,7 +8,8 @@
 		public $all = null; // Variable used to hold all contacts
 		
 		// All variables which are relating to when a user searches for a particular ID
-		public $single = null, // Variable used to hold details of single contact ID
+		public $found = false, // Used to check if a contact could be found or not
+			   $single = null, // Variable used to hold details of single contact ID
 			   $email = null, // Contact email address
 			   $date_of_birth = null, // Users date of birth
 			   $full_name = null, // Variable used to hold full name of contact
@@ -57,6 +58,7 @@
 				// Check if a contact could be found
 				if($result) {
 					// Contact found
+					$this->found = true; // Specify that a contact could be found
 					// Set the properties of the class as per the users details
 					$this->full_name = htmlentities($this->full_name($result['first_name'], $result['middle_name'], $result['last_name']));
 					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
