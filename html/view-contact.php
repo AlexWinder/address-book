@@ -18,8 +18,6 @@
 			$contact_home_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_home"]));
 			$contact_mobile_number = htmlentities(remove_white_space($contact->single["contact_number_mobile"]));
 			$contact_mobile_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_mobile"]));
-			$contact_email = htmlentities($contact->single["contact_email"]);
-			$contact_full_address = htmlentities(full_address($contact->single["address_line_1"], $contact->single["address_line_2"], $contact->single["address_town"], $contact->single["address_county"], $contact->single["address_post_code"]));
 			
 			// If the date of birth field is set to NULL this will generate a date of 1970-01-01 when passed through the cosmetic_date_from_mysqldate() function_exists
 			// So check if the field is empty, if it is then it is not needed in the form
@@ -100,14 +98,14 @@
 			</div>
 			<?php }; ?>
 			
-			<?php if(!empty($contact_email)) { ?>
+			<?php if(!empty($contact->email)) { ?>
 			<div class="row">	
 				<div class="col-xs-4 col-sm-3">
 					<h3>Email Address:</h3>
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><a href="mailto:<?php echo $contact_email; ?>"><?php echo $contact_email; ?></a></h3>
+					<h3><a href="mailto:<?php echo $contact->email; ?>"><?php echo $contact->email; ?></a></h3>
 				</div>
 			</div>
 			<?php }; ?>
@@ -130,7 +128,7 @@
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><?php echo $contact_full_address; ?></h3>
+					<h3><?php echo $contact->full_address; ?></h3>
 				</div>
 			</div>
 			

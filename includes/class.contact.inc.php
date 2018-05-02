@@ -9,8 +9,10 @@
 		
 		// All variables which are relating to when a user searches for a particular ID
 		public $single = null, // Variable used to hold details of single contact ID
-			   $full_name = null; // Variable used to hold full name of contact
-		
+			   $email = null, // Contact email address
+			   $full_name = null, // Variable used to hold full name of contact
+			   $full_address = null; // Variable used to hold the full address of the contact
+			   
 		// Constructor
 		public function __construct($id = null) {
 			// Set the $db with an instance of the database
@@ -53,8 +55,11 @@
 				
 				// Check if a contact could be found
 				if($result) {
-					// Set the $full_name as per the users details
-					$this->full_name = $this->full_name($result['first_name'], $result['middle_name'], $result['last_name']);
+					// Set the properties of the class as per the users details
+					$this->full_name = htmlentities($this->full_name($result['first_name'], $result['middle_name'], $result['last_name']));
+					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
+					$this->email = htmlentities($result['contact_email']);
+					
 					// Contact found, return all of the details
 					return $this->single = $result;
 				} else {
@@ -75,6 +80,17 @@
 			} else {
 				// Don't include the middle name
 				return $first_name . " " . $last_name;
+			}
+		}
+		
+		function full_address($address_line_1, $address_line_2=null, $town, $county, $post_code) {
+			// If the address has a value in address line 2
+			if($address_line_2 != null) {
+				// Create the address with the line 2 value
+				return $address = $address_line_1 . ", " . $address_line_2 . ", " . $town . ", " . $county . ", " . $post_code;
+			} else {
+				// Don't include the line 2 value
+				return $address = $address_line_1 . ", " . $town . ", " . $county . ", " . $post_code;
 			}
 		}
 		
