@@ -4,7 +4,7 @@ A simple PHP-based contact list manager with authentication and logging features
 
 # Authors
 
-* Alex Winder 
+* [Alex Winder](https://www.alexwinder.uk) 
 
 # Requirements
 
