@@ -14,7 +14,6 @@
 		// If a contact could be found
 		if($contact->single) {
 			// Assign various variables prior to populating the page
-			$contact_full_name = htmlentities(full_name($contact->single["first_name"], $contact->single["middle_name"], $contact->single["last_name"]));
 			$contact_home_number = htmlentities(remove_white_space($contact->single["contact_number_home"]));
 			$contact_home_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_home"]));
 			$contact_mobile_number = htmlentities(remove_white_space($contact->single["contact_number_mobile"]));
@@ -33,7 +32,7 @@
 			// Set $page_name so that the title of each page is correct
 			$page_name = PAGENAME_CONTACTS;
 			// Set $subpage_name as this page isn't the main section
-			$subpage_name = $contact_full_name . " - View Details";
+			$subpage_name = $contact->full_name . " - View Details";
 			
 			// Log action of accessing the page
 			log_action("view");
@@ -72,7 +71,7 @@
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><?php echo $contact_full_name; ?></h3>
+					<h3><?php echo $contact->full_name; ?></h3>
 				</div>
 			</div>
 			
