@@ -76,6 +76,5 @@
 	
 	// Logging user activity - functions and log text
 	require_once("logging.inc.php");
-	
 
 ?>
