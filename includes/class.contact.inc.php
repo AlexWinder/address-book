@@ -12,7 +12,7 @@
 			   $single = null, // Variable used to hold details of single contact ID
 			   $email = null, // Contact email address
 			   $date_of_birth = null, // Users date of birth
-			   $number = null, // Used as an array to store various formatted and unformatted phone numbers
+			   $number = array(), // Used as an array to store various formatted and unformatted phone numbers
 			   $full_name = null, // Variable used to hold full name of contact
 			   $full_address = null; // Variable used to hold the full address of the contact
 			   
@@ -65,7 +65,10 @@
 					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
 					$this->email = htmlentities($result['contact_email']);
 					$this->date_of_birth = htmlentities($this->cosmetic_mysqldate($result["date_of_birth"]));
-					$this->number[''] = '';
+					$this->number['home']['raw'] = htmlentities($result['contact_number_home']);
+					$this->number['home']['formatted'] = htmlentities($this->format_phone_number($result['contact_number_home']));
+					$this->number['mobile']['raw'] = htmlentities($result['contact_number_mobile']);
+					$this->number['mobile']['formatted'] = htmlentities($this->format_phone_number($result['contact_number_mobile']));
 					
 					// Return all of the details of the contact
 					return $this->single = $result;

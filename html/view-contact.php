@@ -13,12 +13,6 @@
 		
 		// If a contact could be found
 		if($contact->found) {
-			// Assign various variables prior to populating the page
-			$contact_home_number = htmlentities(remove_white_space($contact->single["contact_number_home"]));
-			$contact_home_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_home"]));
-			$contact_mobile_number = htmlentities(remove_white_space($contact->single["contact_number_mobile"]));
-			$contact_mobile_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_mobile"]));
-			
 			// Set $page_name so that the title of each page is correct
 			$page_name = PAGENAME_CONTACTS;
 			// Set $subpage_name as this page isn't the main section
@@ -66,26 +60,26 @@
 			</div>
 			
 				
-			<?php if(!empty($contact_home_number)) { ?>
+			<?php if(!empty($contact->number['home']['raw'])) { ?>
 			<div class="row">
 				<div class="col-xs-4 col-sm-3">
 					<h3>Home Number:</h3>
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><a href="tel:<?php echo $contact_home_number; ?>"><?php echo $contact_home_number_formatted; ?></a></h3>
+					<h3><a href="tel:<?php echo $contact->number['home']['raw']; ?>"><?php echo $contact->number['home']['formatted']; ?></a></h3>
 				</div>
 			</div>
 			<?php }; ?>
 				
-			<?php if(!empty($contact_mobile_number)) { ?>
+			<?php if(!empty($contact->number['mobile']['raw'])) { ?>
 			<div class="row">
 				<div class="col-xs-4 col-sm-3">
 					<h3>Mobile Number:</h3>
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><a href="tel:<?php echo $contact_mobile_number; ?>"><?php echo $contact_mobile_number_formatted; ?></a></h3>
+					<h3><a href="tel:<?php echo $contact->number['mobile']['raw']; ?>"><?php echo $contact->number['mobile']['formatted']; ?></a></h3>
 				</div>
 			</div>
 			<?php }; ?>
