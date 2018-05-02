@@ -6,7 +6,7 @@
 	require_once("../includes/authenticated.inc.php");
 	
 	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_USERS;
+	$page_name = PAGENAME_CONTACTS;
 	// If contact could be set - correct GET request, or valid GET i value
 	if(isset($contact_full_name)) {
 		$subpage_name = $contact_full_name . " - Update Contact";
