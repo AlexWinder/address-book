@@ -83,7 +83,7 @@
 			}
 		}
 		
-		function full_address($address_line_1, $address_line_2=null, $town, $county, $post_code) {
+		private function full_address($address_line_1, $address_line_2=null, $town, $county, $post_code) {
 			// If the address has a value in address line 2
 			if($address_line_2 != null) {
 				// Create the address with the line 2 value
