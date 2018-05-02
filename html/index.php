@@ -46,7 +46,7 @@
 					<tr>
 						<td><a href="view-contact.php?i=<?php echo urlencode($contact["contact_id"]); ?>"><?php echo htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"])); ?></a></td>
 						<td><?php echo htmlentities($contact["address_town"]); ?></td>
-						<td><?php if(!empty($contact["contact_number_mobile"])) { echo htmlentities(format_phone_number($contact["contact_number_mobile"])); } else { echo "NOT SPECIFIED"; }; ?></td>
+						<td><?php if(!empty($contact["contact_number_mobile"])) { echo htmlentities($contacts->format_phone_number($contact["contact_number_mobile"])); } else { echo "NOT SPECIFIED"; }; ?></td>
 						<td><?php if(!empty($contact["contact_email"])) { echo "<a href=\"mailto:" . htmlentities($contact["contact_email"]) . "\">" .  htmlentities($contact["contact_email"]) . "</a>"; } else { echo "NOT SPECIFIED"; }; ?></td>
 					</tr>
 <?php

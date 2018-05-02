@@ -12,6 +12,7 @@
 			   $single = null, // Variable used to hold details of single contact ID
 			   $email = null, // Contact email address
 			   $date_of_birth = null, // Users date of birth
+			   $number = null, // Used as an array to store various formatted and unformatted phone numbers
 			   $full_name = null, // Variable used to hold full name of contact
 			   $full_address = null; // Variable used to hold the full address of the contact
 			   
@@ -64,6 +65,7 @@
 					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
 					$this->email = htmlentities($result['contact_email']);
 					$this->date_of_birth = htmlentities($this->cosmetic_mysqldate($result["date_of_birth"]));
+					$this->number[''] = '';
 					
 					// Return all of the details of the contact
 					return $this->single = $result;
@@ -75,6 +77,18 @@
 				// $id not sent, return false
 				return false;
 			}
+		}
+		
+		public function format_phone_number($phone_number) {
+			// Remove all white space from the phone number
+			$phone_number = $this->remove_white_space($phone_number);
+			// Insert a space at position 5 in a phone number, formatting as 01234 567890
+			return substr_replace($phone_number, " ", 5, 0);
+		}
+		
+		private function remove_white_space($string) {
+			// Remove all white space within the string
+			return preg_replace('/\s+/', '', $string);
 		}
 		
 		private function full_name($first_name, $middle_name = null, $last_name){
