@@ -10,6 +10,7 @@
 		// All variables which are relating to when a user searches for a particular ID
 		public $single = null, // Variable used to hold details of single contact ID
 			   $email = null, // Contact email address
+			   $date_of_birth = null, // Users date of birth
 			   $full_name = null, // Variable used to hold full name of contact
 			   $full_address = null; // Variable used to hold the full address of the contact
 			   
@@ -55,12 +56,14 @@
 				
 				// Check if a contact could be found
 				if($result) {
+					// Contact found
 					// Set the properties of the class as per the users details
 					$this->full_name = htmlentities($this->full_name($result['first_name'], $result['middle_name'], $result['last_name']));
 					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
 					$this->email = htmlentities($result['contact_email']);
+					$this->date_of_birth = htmlentities($this->cosmetic_mysqldate($result["date_of_birth"]));
 					
-					// Contact found, return all of the details
+					// Return all of the details of the contact
 					return $this->single = $result;
 				} else {
 					// Contact not found, return false
@@ -91,6 +94,19 @@
 			} else {
 				// Don't include the line 2 value
 				return $address = $address_line_1 . ", " . $town . ", " . $county . ", " . $post_code;
+			}
+		}
+		
+		private function cosmetic_mysqldate($mysql_date = null) {
+			if($mysql_date) {
+				// Convert MySQL date to a UNIX time stamp
+				$unix_date = strtotime($mysql_date);
+				
+				// Format date into correct string, example: Saturday 1st May 1993
+				$cosmetic_date = date('jS F Y', $unix_date);
+				return $cosmetic_date;
+			} else {
+				return false;
 			}
 		}
 		

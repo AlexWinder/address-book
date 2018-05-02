@@ -19,14 +19,6 @@
 			$contact_mobile_number = htmlentities(remove_white_space($contact->single["contact_number_mobile"]));
 			$contact_mobile_number_formatted = htmlentities(format_phone_number($contact->single["contact_number_mobile"]));
 			
-			// If the date of birth field is set to NULL this will generate a date of 1970-01-01 when passed through the cosmetic_date_from_mysqldate() function_exists
-			// So check if the field is empty, if it is then it is not needed in the form
-			if(!empty($contact->single["date_of_birth"])) {
-				$contact_date_of_birth = htmlentities(cosmetic_date_from_mysqldate($contact->single["date_of_birth"]));
-			} else {
-				$contact_date_of_birth = null;
-			};
-			
 			// Set $page_name so that the title of each page is correct
 			$page_name = PAGENAME_CONTACTS;
 			// Set $subpage_name as this page isn't the main section
@@ -110,14 +102,14 @@
 			</div>
 			<?php }; ?>
 				
-			<?php if(!empty($contact_date_of_birth)) { ?>
+			<?php if(!empty($contact->date_of_birth)) { ?>
 			<div class="row">
 				<div class="col-xs-4 col-sm-3">
 					<h3>Date Of Birth:</h3>
 				</div>
 				
 				<div class="col-xs-8 col-sm-9">
-					<h3><?php echo $contact_date_of_birth; ?></h3>
+					<h3><?php echo $contact->date_of_birth; ?></h3>
 				</div>
 			</div>
 			<?php }; ?>
