@@ -12,7 +12,7 @@
 			   $full_name = null; // Variable used to hold full name of contact
 		
 		// Constructor
-		function __construct($id = null) {
+		public function __construct($id = null) {
 			// Set the $db with an instance of the database
 			$this->db = DB::get_instance();
 			
