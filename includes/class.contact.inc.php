@@ -32,13 +32,13 @@
 			}
 		}
 		
-		// Class to find all contacts in the database
+		// Method to find all contacts in the database
 		public function find_all() {
 			// Return all 
 			return $this->all = $this->db->query('SELECT * FROM contacts', PDO::FETCH_ASSOC);
 		}
 		
-		// Class to find specific contact in the database
+		// Method to find specific contact in the database
 		public function find_id($id = null) {
 			// Check if $id has been sent
 			if($id) {
