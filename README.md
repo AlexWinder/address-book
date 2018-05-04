@@ -9,6 +9,7 @@ A simple PHP-based contact list manager with authentication and logging features
 # Requirements
 
 * Web server with PHP (7+ recommended) and an SQL database back-end, such as MySQL or MariaDB.
+** As part of PHP modules please ensure that the php*-mysql module is installed which is related to your version of PHP on your system. For example, if you are using PHP7 then you need to install the php7-mysql module.
 
 # Usage
 
