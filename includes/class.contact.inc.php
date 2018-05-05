@@ -115,7 +115,7 @@
 					$stmt = $this->db->prepare($sql);
 					
 					// Pass in values from the $values array to complete the prepared statement
-					foreach($values as $key => $value) {
+					foreach($values as $key => &$value) {
 						$stmt->bindParam(':' . $key, $value);
 					}
 					// Bind the contact ID to the prepared statement
