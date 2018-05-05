@@ -32,7 +32,7 @@
 						// Contact successfully deleted
 						$_SESSION["message"] = construct_message($notification["contact"]["delete"]["success"], "success");
 						// Log action of database entry success
-						log_action("delete_success", "Contact of " . $contact->single["first_name"] . " " . $contact->single["last_name"] . " from " . $contact->single["address_town"] . " was deleted.");
+						log_action("delete_success", "Contact of " . $contact->full_name . " from " . $contact->single["address_town"] . " was deleted.");
 						redirect_to("index.php");
 					} else {
 						// Contact failed to be deleted
