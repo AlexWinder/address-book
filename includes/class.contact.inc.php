@@ -81,6 +81,38 @@
 				return false;
 			}
 		}
+
+		// Method to delete a particular contact
+		public function delete() {
+			// This method will only be called if used from a search of a particular ID during instantiation, such as $contact = new Contact(3298)
+			if($this->found) {
+				// Begin prepared statement to delete a single ID from the database
+				$sql = '
+					DELETE FROM contacts 
+					WHERE contact_id = :contact_id 
+					LIMIT 1
+				';
+				$stmt = $this->db->prepare($sql);
+
+				// Pass in the $id into the prepared statement and execute
+				$stmt->bindParam(':contact_id', $this->single['contact_id']);
+
+				// Execute the prepared statement
+				$result = $stmt->execute();
+
+				if($result) {
+					// Delete was successful
+					return true;
+				} else {
+					// Delete failed
+					return false;
+				}
+			} else {
+				// Being called as not part of an ID instance
+				return false;
+			}
+			
+		}
 		
 		public function format_phone_number($phone_number) {
 			// Remove all white space from the phone number
