@@ -78,52 +78,29 @@
 				
 				// If no errors have been found during the field validations
 				if(empty($errors)) {
+				
+					// Assign values to an array which will be used as part of the update
+					$result = $contact->update(array(
+						if(isset($_POST['first_name']) && !empty($_POST["first_name"])) 						{ 'first_name' => $_POST[''], };
+						if(isset($_POST['middle_name']) && !empty($_POST["middle_name"])) 						{ 'middle_name' => $_POST[''], };
+						if(isset($_POST['last_name']) && !empty($_POST["last_name"])) 							{ 'last_name' => $_POST[''], };
+						if(isset($_POST['contact_number_home']) && !empty($_POST["contact_number_home"])) 		{ 'contact_number_home' => $contact->remove_white_space($_POST["contact_number_home"]), };
+						if(isset($_POST['contact_number_mobile']) && !empty($_POST["contact_number_mobile"])) 	{ 'contact_number_mobile' => $contact->remove_white_space($_POST['contact_number_mobile']), };
+						if(isset($_POST['contact_email']) && !empty($_POST["contact_email"])) 					{ 'contact_email' => $_POST['contact_email'], };
+						if(isset($_POST['date_of_birth']) && !empty($_POST["date_of_birth"])) 					{ 'date_of_birth' => $_POST['date_of_birth'], };
+						if(isset($_POST['address_line_1']) && !empty($_POST["address_line_1"])) 				{ 'address_line_1' => $_POST['address_line_1'], };
+						if(isset($_POST['address_line_2']) && !empty($_POST["address_line_2"])) 				{ 'address_line_2' => $_POST['address_line_2'], };
+						if(isset($_POST['address_town']) && !empty($_POST["address_town"])) 					{ 'address_town' => $_POST['address_town'], };
+						if(isset($_POST['address_county']) && !empty($_POST["address_county"])) 				{ 'address_county' => $_POST['address_county'], };
+						if(isset($_POST['address_post_code']) && !empty($_POST["address_post_code"])) 			{ 'address_post_code' => $_POST['address_post_code'], };
+					));
 					
-					// Give each value in the form it's own variable if it is submitted
-					// Variable used to submit to the database
-					!empty($_POST["first_name"]) 				? $form_first_name = mysql_prep($_POST["first_name"]) 										: $form_first_name = null;
-					!empty($_POST["middle_name"]) 				? $form_middle_name = mysql_prep($_POST["middle_name"]) 									: $form_middle_name = null;
-					!empty($_POST["last_name"]) 				? $form_last_name = mysql_prep($_POST["last_name"]) 										: $form_last_name = null;
-					!empty($_POST["contact_number_home"]) 		? $form_home_number = mysql_prep(remove_white_space($_POST["contact_number_home"])) 		: $form_home_number = null;
-					!empty($_POST["contact_number_mobile"]) 	? $form_mobile_number = mysql_prep(remove_white_space($_POST["contact_number_mobile"])) 	: $form_mobile_number = null;
-					!empty($_POST["contact_email"]) 			? $form_email_address = mysql_prep($_POST["contact_email"]) 								: $form_email_address = null;
-					!empty($_POST["date_of_birth"]) 			? $form_date_of_birth = mysql_prep($_POST["date_of_birth"]) 								: $form_date_of_birth = null;
-					!empty($_POST["address_line_1"]) 			? $form_address_line_1 = mysql_prep( $_POST["address_line_1"]) 								: $form_address_line_1 = null;
-					!empty($_POST["address_line_2"]) 			? $form_address_line_2 = mysql_prep($_POST["address_line_2"]) 								: $form_address_line_2 = null;
-					!empty($_POST["address_town"]) 				? $form_address_town = mysql_prep($_POST["address_town"]) 									: $form_address_town = null;
-					!empty($_POST["address_county"]) 			? $form_address_county = mysql_prep($_POST["address_county"]) 								: $form_address_county = null;
-					!empty($_POST["address_post_code"]) 		? $form_address_post_code = mysql_prep($_POST["address_post_code"]) 						: $form_address_post_code = null;
-					
-					// Create SQL query to update entry in the database
-					$sql = "UPDATE contacts SET ";
-					$sql .= "first_name = '{$form_first_name}', ";
-					// Middle name is optional - if no value then send NULL
-					if(!is_null($form_middle_name)) { $sql .= "middle_name = '{$form_middle_name}', "; } else { $sql .= "middle_name = NULL, "; };
-					$sql .= "last_name = '{$form_last_name}', ";
-					// Home phone number is optional - if no value then send NULL
-					if(!is_null($form_home_number)) { $sql .= "contact_number_home = '{$form_home_number}', "; } else { $sql .= "contact_number_home = NULL, "; };
-					// Mobile phone number is optional - if no value then send NULL
-					if(!is_null($form_mobile_number)) { $sql .= "contact_number_mobile = '{$form_mobile_number}', "; } else { $sql .= "contact_number_mobile = NULL, "; };
-					// Email address is optional - if no value then send NULL
-					if(!is_null($form_email_address)) { $sql .= "contact_email = '{$form_email_address}', "; } else { $sql .= "contact_email = NULL, "; };
-					// Date of birth is optional - if no value then send NULL
-					if(!is_null($form_date_of_birth)) { $sql .= "date_of_birth = '{$form_date_of_birth}', "; } else { $sql .= "date_of_birth = NULL, "; };
-					$sql .= "address_line_1 = '{$form_address_line_1}', ";
-					// Address line 2 is optional - if no value then send NULL
-					if(!is_null($form_address_line_2)) { $sql .= "address_line_2 = '{$form_address_line_2}', "; } else { $sql .= "address_line_2 = NULL, "; };
-					$sql .= "address_town = '{$form_address_town}', ";
-					$sql .= "address_county = '{$form_address_county}', ";
-					$sql .= "address_post_code = '{$form_address_post_code}' ";
-					$sql .= "WHERE contact_id = '{$id}' ";
-					$sql .= "LIMIT 1";
-					
-					$result = mysqli_query($db, $sql);
-					
+					// Check if the update was successful
 					if($result){
 						// Contact successfully updated on the database
 						$_SESSION["message"] = construct_message($notification["contact"]["update"]["success"], "success");
 						// Log action of add entry success, with contact updated 
-						log_action("update_success", "Contact Updated: " . $form_first_name . " " . $form_last_name . " from " . $form_address_town . " (" . $_GET['i'] . ")");
+						log_action("update_success", "Contact Updated: " . $contact->full_name . " from " . $contact->single['address_town'] . " (" . $_GET['i'] . ")");
 						redirect_to("index.php");
 					} else {
 						$_SESSION["message"] = construct_message($notification["contact"]["update"]["failure"], "danger");
