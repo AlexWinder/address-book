@@ -2,9 +2,6 @@
 
 	// Contains all information relating to the session
 	
-	// Start session
-	session_start();
-	
 	// All session functions
 	
 	// Display a message if it exists in the session
