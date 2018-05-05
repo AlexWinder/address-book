@@ -5,45 +5,35 @@
 	// Check that the user is logged in
 	require_once("../includes/authenticated.inc.php");
 	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_CONTACTS;
-	// If contact could be set - correct GET request, or valid GET i value
-	if(isset($contact_full_name)) {
-		$subpage_name = $contact_full_name . " - Update Contact";
-	} else {
-		$subpage_name = "Contact Not Found - Update Contact";
-	};
-	
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
-		// Sanitise the GET value
-		$id = mysql_prep(urldecode($_GET["i"]));
 		
 		// Find contact in database
-		$contact = find_contact_by_id($id);
-		
-		// Create a variable to store the contact full name - used in the page name
-		$contact_full_name = htmlentities(full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"]));
-		// Set page name as contact could be found
-		$subpage_name = $contact_full_name . " - Update Contact";
+		$contact = new Contact($_GET['i']);
 		
 		// If a contact is found in the database
-		if($contact) {
+		if($contact->found) {
+				
+			// Set $page_name so that the title of each page is correct
+			$page_name = PAGENAME_CONTACTS;
 			
+			// Set page name as contact could be found
+			$subpage_name = $contact->full_name . " - Update Contact";
+		
 			// Assign all the various database values to their own variables
 			// First check if value has been sent in $_POST, if not then check if it exists in the database, if not then assign as null
-			if(!empty($_POST["first_name"]) && isset($_POST["first_name"])) 						{ $form_first_name = htmlentities($_POST["first_name"]); } 							elseif(!empty($contact["first_name"]) && isset($contact["first_name"])) 							{ $form_first_name = htmlentities($contact["first_name"]); } 						else { $form_first_name = null; };
-			if(!empty($_POST["middle_name"]) && isset($_POST["middle_name"])) 						{ $form_middle_name = htmlentities($_POST["middle_name"]); } 						elseif(!empty($contact["middle_name"]) && isset($contact["middle_name"])) 							{ $form_middle_name = htmlentities($contact["middle_name"]); } 						else { $form_middle_name = null; };
-			if(!empty($_POST["last_name"]) && isset($_POST["last_name"])) 							{ $form_last_name = htmlentities($_POST["last_name"]); } 							elseif(!empty($contact["last_name"]) && isset($contact["last_name"])) 								{ $form_last_name = htmlentities($contact["last_name"]); } 							else { $form_last_name = null; };
-			if(!empty($_POST["contact_number_home"]) && isset($_POST["contact_number_home"]))		{ $form_contact_number_home = htmlentities($_POST["contact_number_home"]); } 		elseif(!empty($contact["contact_number_home"]) && isset($contact["contact_number_home"])) 			{ $form_contact_number_home = htmlentities($contact["contact_number_home"]); } 		else { $form_contact_number_home = null; };
-			if(!empty($_POST["contact_number_mobile"]) && isset($_POST["contact_number_mobile"])) 	{ $form_contact_number_mobile = htmlentities($_POST["contact_number_mobile"]); } 	elseif(!empty($contact["contact_number_mobile"]) && isset($contact["contact_number_mobile"])) 		{ $form_contact_number_mobile = htmlentities($contact["contact_number_mobile"]); } 	else { $form_contact_number_mobile = null; };
-			if(!empty($_POST["contact_email"]) && isset($_POST["contact_email"])) 					{ $form_contact_email = htmlentities($_POST["contact_email"]); } 					elseif(!empty($contact["contact_email"]) && isset($contact["contact_email"])) 						{ $form_contact_email = htmlentities($contact["contact_email"]); } 					else { $form_contact_email = null; };
-			if(!empty($_POST["date_of_birth"]) && isset($_POST["date_of_birth"])) 					{ $form_date_of_birth = htmlentities($_POST["date_of_birth"]); } 					elseif(!empty($contact["date_of_birth"]) && isset($contact["date_of_birth"])) 						{ $form_date_of_birth = htmlentities($contact["date_of_birth"]); } 					else { $form_date_of_birth = null; };
-			if(!empty($_POST["address_line_1"]) && isset($_POST["address_line_1"])) 				{ $form_address_line_1 = htmlentities($_POST["address_line_1"]); } 					elseif(!empty($contact["address_line_1"]) && isset($contact["address_line_1"])) 					{ $form_address_line_1 = htmlentities($contact["address_line_1"]); } 				else { $form_address_line_1 = null; };
-			if(!empty($_POST["address_line_2"]) && isset($_POST["address_line_2"])) 				{ $form_address_line_2 = htmlentities($_POST["address_line_2"]); } 					elseif(!empty($contact["address_line_2"]) && isset($contact["address_line_2"])) 					{ $form_address_line_2 = htmlentities($contact["address_line_2"]); } 				else { $form_address_line_2 = null; };
-			if(!empty($_POST["address_town"]) && isset($_POST["address_town"])) 					{ $form_address_town = htmlentities($_POST["address_town"]); } 						elseif(!empty($contact["address_town"]) && isset($contact["address_town"])) 						{ $form_address_town = htmlentities($contact["address_town"]); } 					else { $form_address_town = null; };
-			if(!empty($_POST["address_county"]) && isset($_POST["address_county"])) 				{ $form_address_county = htmlentities($_POST["address_county"]); } 					elseif(!empty($contact["address_county"]) && isset($contact["address_county"])) 					{ $form_address_county = htmlentities($contact["address_county"]); } 				else { $form_address_county = null; };
-			if(!empty($_POST["address_post_code"]) && isset($_POST["address_post_code"])) 			{ $form_address_post_code = htmlentities($_POST["address_post_code"]); } 			elseif(!empty($contact["address_post_code"]) && isset($contact["address_post_code"])) 				{ $form_address_post_code = htmlentities($contact["address_post_code"]); } 			else { $form_address_post_code = null; };
+			if(!empty($_POST["first_name"]) && isset($_POST["first_name"])) 						{ $form_first_name = htmlentities($_POST["first_name"]); } 							elseif(!empty($contact->single["first_name"]) && isset($contact->single["first_name"])) 							{ $form_first_name = htmlentities($contact->single["first_name"]); } 						else { $form_first_name = null; };
+			if(!empty($_POST["middle_name"]) && isset($_POST["middle_name"])) 						{ $form_middle_name = htmlentities($_POST["middle_name"]); } 						elseif(!empty($contact->single["middle_name"]) && isset($contact->single["middle_name"])) 							{ $form_middle_name = htmlentities($contact->single["middle_name"]); } 						else { $form_middle_name = null; };
+			if(!empty($_POST["last_name"]) && isset($_POST["last_name"])) 							{ $form_last_name = htmlentities($_POST["last_name"]); } 							elseif(!empty($contact->single["last_name"]) && isset($contact->single["last_name"])) 								{ $form_last_name = htmlentities($contact->single["last_name"]); } 							else { $form_last_name = null; };
+			if(!empty($_POST["contact_number_home"]) && isset($_POST["contact_number_home"]))		{ $form_contact_number_home = htmlentities($_POST["contact_number_home"]); } 		elseif(!empty($contact->single["contact_number_home"]) && isset($contact->single["contact_number_home"])) 			{ $form_contact_number_home = htmlentities($contact->single["contact_number_home"]); } 		else { $form_contact_number_home = null; };
+			if(!empty($_POST["contact_number_mobile"]) && isset($_POST["contact_number_mobile"])) 	{ $form_contact_number_mobile = htmlentities($_POST["contact_number_mobile"]); } 	elseif(!empty($contact->single["contact_number_mobile"]) && isset($contact->single["contact_number_mobile"])) 		{ $form_contact_number_mobile = htmlentities($contact->single["contact_number_mobile"]); } 	else { $form_contact_number_mobile = null; };
+			if(!empty($_POST["contact_email"]) && isset($_POST["contact_email"])) 					{ $form_contact_email = htmlentities($_POST["contact_email"]); } 					elseif(!empty($contact->single["contact_email"]) && isset($contact->single["contact_email"])) 						{ $form_contact_email = htmlentities($contact->single["contact_email"]); } 					else { $form_contact_email = null; };
+			if(!empty($_POST["date_of_birth"]) && isset($_POST["date_of_birth"])) 					{ $form_date_of_birth = htmlentities($_POST["date_of_birth"]); } 					elseif(!empty($contact->single["date_of_birth"]) && isset($contact->single["date_of_birth"])) 						{ $form_date_of_birth = htmlentities($contact->single["date_of_birth"]); } 					else { $form_date_of_birth = null; };
+			if(!empty($_POST["address_line_1"]) && isset($_POST["address_line_1"])) 				{ $form_address_line_1 = htmlentities($_POST["address_line_1"]); } 					elseif(!empty($contact->single["address_line_1"]) && isset($contact->single["address_line_1"])) 					{ $form_address_line_1 = htmlentities($contact->single["address_line_1"]); } 				else { $form_address_line_1 = null; };
+			if(!empty($_POST["address_line_2"]) && isset($_POST["address_line_2"])) 				{ $form_address_line_2 = htmlentities($_POST["address_line_2"]); } 					elseif(!empty($contact->single["address_line_2"]) && isset($contact->single["address_line_2"])) 					{ $form_address_line_2 = htmlentities($contact->single["address_line_2"]); } 				else { $form_address_line_2 = null; };
+			if(!empty($_POST["address_town"]) && isset($_POST["address_town"])) 					{ $form_address_town = htmlentities($_POST["address_town"]); } 						elseif(!empty($contact->single["address_town"]) && isset($contact->single["address_town"])) 						{ $form_address_town = htmlentities($contact->single["address_town"]); } 					else { $form_address_town = null; };
+			if(!empty($_POST["address_county"]) && isset($_POST["address_county"])) 				{ $form_address_county = htmlentities($_POST["address_county"]); } 					elseif(!empty($contact->single["address_county"]) && isset($contact->single["address_county"])) 					{ $form_address_county = htmlentities($contact->single["address_county"]); } 				else { $form_address_county = null; };
+			if(!empty($_POST["address_post_code"]) && isset($_POST["address_post_code"])) 			{ $form_address_post_code = htmlentities($_POST["address_post_code"]); } 			elseif(!empty($contact->single["address_post_code"]) && isset($contact->single["address_post_code"])) 				{ $form_address_post_code = htmlentities($contact->single["address_post_code"]); } 			else { $form_address_post_code = null; };
 			
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
@@ -133,7 +123,7 @@
 						// Contact successfully updated on the database
 						$_SESSION["message"] = construct_message($notification["contact"]["update"]["success"], "success");
 						// Log action of add entry success, with contact updated 
-						log_action("update_success", "Contact Updated: " . $form_first_name . " " . $form_last_name . " from " . $form_address_town . " (" . $id . ")");
+						log_action("update_success", "Contact Updated: " . $form_first_name . " " . $form_last_name . " from " . $form_address_town . " (" . $_GET['i'] . ")");
 						redirect_to("index.php");
 					} else {
 						$_SESSION["message"] = construct_message($notification["contact"]["update"]["failure"], "danger");
