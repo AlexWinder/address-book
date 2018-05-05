@@ -82,7 +82,7 @@
 
 ?>
 			<!-- CONTENT -->
-			<?php session_message();  ?>
+			<?php $session->output_message(); ?>
 			
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once a contact has been deleted the only way to restore them to the contact list is by manually re-adding.</strong></p>

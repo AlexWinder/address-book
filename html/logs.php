@@ -28,7 +28,8 @@
 ?>
 	
 			<!-- CONTENT -->
-			<?php session_message(); ?>
+			<?php $session->output_message(); ?>
+			
 			<table id="<?php echo $datatables_table_id; ?>">
 				<thead>
 					<tr>

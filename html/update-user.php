@@ -196,7 +196,7 @@
 ?>
 	
 			<!-- CONTENT -->
-			<?php session_message(); ?>
+			<?php $session->output_message(); ?>
 			
 			
 			<form class="form-horizontal" action="" method="post">

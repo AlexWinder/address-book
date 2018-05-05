@@ -89,7 +89,9 @@
 				
 					<form class="form-signin" action="" method="post">
 						<h2 class="form-signin-heading text-center"><?php echo $page_name; ?></h2>
-						<?php session_message(); ?>
+						
+						<?php $session->output_message(); ?>
+						
 						<div class="pt-15">
 							<label class="sr-only">Username</label>
 							<input type="text" name="username" class="form-control" placeholder="Username" <?php if(isset($_POST["username"])) { echo "value=\"{$_POST["username"]}\""; }; ?> autofocus>

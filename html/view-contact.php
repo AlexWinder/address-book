@@ -48,7 +48,8 @@
 ?>
 			
 			<!-- CONTENT -->
-			<?php session_message(); ?>
+			<?php $session->output_message(); ?>
+			
 			<div class="row">
 				<div class="col-xs-4 col-sm-3">
 					<h3>Full Name:</h3>

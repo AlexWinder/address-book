@@ -103,7 +103,8 @@
 
 ?>
 			<!-- CONTENT -->
-			<?php session_message(); ?>
+			<?php $session->output_message(); ?>
+			
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once a user has been deleted the only way to restore them to the user list is by manually re-adding.</strong></p>
 			<p>Please confirm that you would like to <strong>permanently delete</strong> <?php echo $user_full_name_with_username; ?> from the system.</p>
