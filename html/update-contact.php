@@ -78,22 +78,25 @@
 				
 				// If no errors have been found during the field validations
 				if(empty($errors)) {
-				
+					
+					// Begin an array to store values to update the database
+					$update_values = array();
+					
+					if(isset($_POST['first_name']) && !empty($_POST["first_name"])) 						{ $update_values['first_name'] = $_POST['first_name']; } else { $update_values['middle_name'] = null; };
+					if(isset($_POST['middle_name']) && !empty($_POST["middle_name"])) 						{ $update_values['middle_name'] = $_POST['middle_name']; } else { $update_values['middle_name'] = null; };
+					if(isset($_POST['last_name']) && !empty($_POST["last_name"])) 							{ $update_values['last_name'] = $_POST['last_name']; } else { $update_values['last_name'] = null; };
+					if(isset($_POST['contact_number_home']) && !empty($_POST["contact_number_home"])) 		{ $update_values['contact_number_home'] = $contact->remove_white_space($_POST["contact_number_home"]); };
+					if(isset($_POST['contact_number_mobile']) && !empty($_POST["contact_number_mobile"])) 	{ $update_values['contact_number_mobile'] = $contact->remove_white_space($_POST['contact_number_mobile']); };
+					if(isset($_POST['contact_email']) && !empty($_POST["contact_email"])) 					{ $update_values['contact_email'] = $_POST['contact_email']; };
+					if(isset($_POST['date_of_birth']) && !empty($_POST["date_of_birth"])) 					{ $update_values['date_of_birth'] = $_POST['date_of_birth']; };
+					if(isset($_POST['address_line_1']) && !empty($_POST["address_line_1"])) 				{ $update_values['address_line_1'] = $_POST['address_line_1']; };
+					if(isset($_POST['address_line_2']) && !empty($_POST["address_line_2"])) 				{ $update_values['address_line_2'] = $_POST['address_line_2']; };
+					if(isset($_POST['address_town']) && !empty($_POST["address_town"])) 					{ $update_values['address_town'] = $_POST['address_town']; };
+					if(isset($_POST['address_county']) && !empty($_POST["address_county"])) 				{ $update_values['address_county'] = $_POST['address_county']; };
+					if(isset($_POST['address_post_code']) && !empty($_POST["address_post_code"])) 			{ $update_values['address_post_code'] = $_POST['address_post_code']; };
+					
 					// Assign values to an array which will be used as part of the update
-					$result = $contact->update(array(
-						if(isset($_POST['first_name']) && !empty($_POST["first_name"])) 						{ 'first_name' => $_POST[''], };
-						if(isset($_POST['middle_name']) && !empty($_POST["middle_name"])) 						{ 'middle_name' => $_POST[''], };
-						if(isset($_POST['last_name']) && !empty($_POST["last_name"])) 							{ 'last_name' => $_POST[''], };
-						if(isset($_POST['contact_number_home']) && !empty($_POST["contact_number_home"])) 		{ 'contact_number_home' => $contact->remove_white_space($_POST["contact_number_home"]), };
-						if(isset($_POST['contact_number_mobile']) && !empty($_POST["contact_number_mobile"])) 	{ 'contact_number_mobile' => $contact->remove_white_space($_POST['contact_number_mobile']), };
-						if(isset($_POST['contact_email']) && !empty($_POST["contact_email"])) 					{ 'contact_email' => $_POST['contact_email'], };
-						if(isset($_POST['date_of_birth']) && !empty($_POST["date_of_birth"])) 					{ 'date_of_birth' => $_POST['date_of_birth'], };
-						if(isset($_POST['address_line_1']) && !empty($_POST["address_line_1"])) 				{ 'address_line_1' => $_POST['address_line_1'], };
-						if(isset($_POST['address_line_2']) && !empty($_POST["address_line_2"])) 				{ 'address_line_2' => $_POST['address_line_2'], };
-						if(isset($_POST['address_town']) && !empty($_POST["address_town"])) 					{ 'address_town' => $_POST['address_town'], };
-						if(isset($_POST['address_county']) && !empty($_POST["address_county"])) 				{ 'address_county' => $_POST['address_county'], };
-						if(isset($_POST['address_post_code']) && !empty($_POST["address_post_code"])) 			{ 'address_post_code' => $_POST['address_post_code'], };
-					));
+					$result = $contact->update($update_values);
 					
 					// Check if the update was successful
 					if($result){
