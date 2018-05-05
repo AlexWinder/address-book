@@ -181,7 +181,7 @@
 			return substr_replace($phone_number, " ", 5, 0);
 		}
 		
-		private function remove_white_space($string) {
+		public function remove_white_space($string) {
 			// Remove all white space within the string
 			return preg_replace('/\s+/', '', $string);
 		}
