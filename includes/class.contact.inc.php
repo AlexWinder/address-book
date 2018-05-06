@@ -207,6 +207,7 @@
 				// Add in the contact_id as won't be submitted as part of the $values array
 				$sql .= ":contact_id, ";
 				
+				// Reset counters
 				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
 				$i = 0;
 				$c = count($values);
