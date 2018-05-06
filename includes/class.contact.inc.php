@@ -132,14 +132,14 @@
 						// Update failed
 						return false;
 					}
-					
 				} else {
+					// Array was empty
 					return false;
 				}
 			} else {
+				// User wasn't found
 				return false;
 			}
-			
 		}
 
 		// Method to delete a particular contact
@@ -171,7 +171,106 @@
 				// Being called as not part of an ID instance
 				return false;
 			}
+		}
+		
+		// Static method to create a new contact
+		public static function create($values = array()) {
+			// This method works by accepting a $values array which contains the details of the fields which are to be inserted
+			// Check that the array isn't empty
+			if(!empty($values)) {
+				// Obtain a DB instance
+				$db = DB::get_instance();
+				
+				// Array has values, begin building the SQL query to be used to update contact
+				$sql = "INSERT INTO contacts (";
+				
+				// Add in the contact_id as won't be submitted as part of the $values array
+				$sql .= "contact_id, ";
+				
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= $key . " ";
+					}
+				}
+				
+				$sql .= ") VALUES (";
+				
+				// Add in the contact_id as won't be submitted as part of the $values array
+				$sql .= ":contact_id, ";
+				
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array, this time specifying the keys to insert as part of the prepared statement
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= ":" . $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= ":" . $key . " ";
+					}
+				}
+				// End the $sql
+				$sql .= ")";
+				
+				// Begin a prepared statement using the previous $sql
+				$stmt = $db->prepare($sql);
+				
+				// Generate an ID with a length of 12
+				$id = self::generate_id(12);
+				$stmt->bindParam(':contact_id', $id);
+				
+				// Pass in values from the $values array to complete the prepared statement
+				foreach($values as $key => &$value) {
+					$stmt->bindParam(':' . $key, $value);
+				}
+				
+				// Execute the prepared statement
+				$result = $stmt->execute();
+				
+				// Check if successful
+				if($result) {
+					// Insert successful
+					return true;
+				} else {
+					// Insert failed
+					return false;
+				}
+			} else {
+				// Array was empty
+				return false;
+			}
+		}
+		
+		// Generate an ID to be used as the unique key associated with a new contact which is being created
+		private static function generate_id($token_length) {
+			// Used to generate a token
+			// Initialise a variable used to store the token
+			$token = null;
+			// Create a salt of accepted characters
+			$salt = "abcdefghjkmnpqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789";
 			
+			srand((double)microtime()*1000000);
+			$i = 0;
+			while ($i < $token_length) {
+				$num = rand() % strlen($salt);
+				$tmp = substr($salt, $num, 1);
+				$token = $token . $tmp;
+				$i++;
+			}
+			// Return the token
+			return $token;
 		}
 		
 		public function format_phone_number($phone_number) {
