@@ -55,7 +55,6 @@
 				
 				// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
 				if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
-		
 				
 				// Length of fields
 				$length_first_name = 		strlen($_POST["first_name"]);
