@@ -18,27 +18,47 @@
 			$page_name = PAGENAME_CONTACTS;
 			// Set page name as contact could be found
 			$subpage_name = $contact->full_name . " - Delete Contact";
-
+			
+			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+			$csrf_token = CSRF::get_token();
+			
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 				// Ensure that the user actually wants to delete the user
 				if(isset($_POST["confirm_delete"])) {
+					// Validate all fields and ensure that required fields are submitted
+				
+					// Initialise the $errors are where errors will be sent and then retrieved from
+					$errors = array();
 					
-					// Delete the contact
-					$result = $contact->delete();
+					// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+					if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+					
+					// If no errors have been found during the field validations
+					if(empty($errors)) {
+						// Delete the contact
+						$result = $contact->delete();
 
-					// Confirm that the result was successful, and that only 1 item was deleted
-					if($result) {
-						// Contact successfully deleted
-						$_SESSION["message"] = construct_message($notification["contact"]["delete"]["success"], "success");
-						// Log action of database entry success
-						log_action("delete_success", "Contact of " . $contact->full_name . " from " . $contact->single["address_town"] . " was deleted.");
-						redirect_to("index.php");
+						// Confirm that the result was successful, and that only 1 item was deleted
+						if($result) {
+							// Contact successfully deleted
+							$_SESSION["message"] = construct_message($notification["contact"]["delete"]["success"], "success");
+							// Log action of database entry success
+							log_action("delete_success", "Contact of " . $contact->full_name . " from " . $contact->single["address_town"] . " was deleted.");
+							redirect_to("index.php");
+						} else {
+							// Contact failed to be deleted
+							$_SESSION["message"] = construct_message($notification["contact"]["delete"]["failure"], "danger");
+							// Log action of database entry failing
+							log_action("delete_failed", $logging["database"]["failure"]);
+						};
 					} else {
-						// Contact failed to be deleted
-						$_SESSION["message"] = construct_message($notification["contact"]["delete"]["failure"], "danger");
-						// Log action of database entry failing
-						log_action("delete_failed", $logging["database"]["failure"]);
+						// Form field validation has failed - $errors array is not empty
+						// If there are any error messages in the $errors array then display them to the screen
+						$_SESSION["message"] = validation_failure_message($errors);
+						// Log action of failing form process
+						$log_errors = log_validation_failures($errors);
+						log_action("update_failed", $log_errors);
 					};
 
 				} else {
@@ -95,6 +115,8 @@
 						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> <?php echo $contact->full_name; ?>
 					</label>
 				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 
 				<hr>
 
