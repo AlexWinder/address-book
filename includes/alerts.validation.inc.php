@@ -30,6 +30,13 @@
 			),
 		),
 		
+		// Field are of an invalid format or match
+		'invalid' => array(
+			'security' => array(
+				'csrf_token' => 'Your form submission has been blocked due to an failing a CSRF security check. Please refresh the page and try again.',
+			),
+		),
+		
 		// Field lengths are too long
 		"too_long" => array (
 			// Contact related fields
