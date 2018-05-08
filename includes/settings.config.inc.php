@@ -62,6 +62,9 @@
 	// Begin running the Session as items in constructor are required for the system to function correctly
 	$session = new Session();
 	
+	// Begin a new User instance as will automatically check details of the user if they are logged in etc
+	$user = new User();
+	
 	// Database connection
 	require_once("database.inc.php");
 	
