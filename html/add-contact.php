@@ -10,6 +10,9 @@
 	// Set $subpage_name as this page isn't the main section
 	$subpage_name = "Add Contact";
 	
+	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+	$csrf_token = CSRF::get_token();
+	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 		
@@ -25,6 +28,9 @@
 		if(!isset($_POST["address_town"]) 		|| empty($_POST["address_town"])) 		{ $errors[] = $validation["field_required"]["contact"]["address_town"]; };
 		if(!isset($_POST["address_county"]) 	|| empty($_POST["address_county"])) 	{ $errors[] = $validation["field_required"]["contact"]["address_county"]; };
 		if(!isset($_POST["address_post_code"]) 	|| empty($_POST["address_post_code"])) 	{ $errors[] = $validation["field_required"]["contact"]["address_post_code"]; };
+		
+		// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+		if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
 		
 		// Length of fields
 		$length_first_name = 		strlen($_POST["first_name"]);
@@ -186,6 +192,8 @@
 						<input type="text" class="form-control" name="address_post_code" placeholder="Address Postcode" maxlength="20" <?php if(isset($_POST["address_post_code"])){ echo "value=\"" . htmlentities($_POST["address_post_code"]) . "\""; }; ?> required>
 					</div>
 				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
