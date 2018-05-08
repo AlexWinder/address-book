@@ -5,6 +5,9 @@
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_LOGIN;
 	
+	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+	$csrf_token = CSRF::get_token();
+	
 	// If user has $_SESSION["user_user_id"] they are likely already logged in - redirect to index.php
 	if(isset($_SESSION["user_user_id"])) {
 		// User is already logged in, so will be redirected, log action
@@ -23,6 +26,9 @@
 		// Required fields, if a field is not present or empty then populate the $errors array
 		if(!isset($_POST["username"]) 			|| empty($_POST["username"])) 			{ $errors[] = $validation["field_required"]["user"]["username"]; };
 		if(!isset($_POST["password"]) 			|| empty($_POST["password"])) 			{ $errors[] = $validation["field_required"]["user"]["password"]; };
+		
+		// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+		if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
 		
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
@@ -100,6 +106,7 @@
 							<label class="sr-only">Password</label>
 							<input type="password" name="password" class="form-control" placeholder="Password">
 						</div>
+						<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 						<div class="pt-15 text-center">
 							<button class="btn btn-info" name="submit" type="submit" value="submit">Sign in</button>
 						</div>
