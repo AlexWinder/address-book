@@ -73,13 +73,13 @@
 			!empty($_POST['last_name']) 				? $fields['last_name'] = $_POST['last_name'] 														: $fields['last_name'] = null;
 			!empty($_POST['contact_number_home']) 		? $fields['contact_number_home'] = $contact->remove_white_space($_POST['contact_number_home']) 		: $fields['contact_number_home'] = null;
 			!empty($_POST['contact_number_mobile']) 	? $fields['contact_number_mobile'] = $contact->remove_white_space($_POST['contact_number_mobile'])	: $fields['contact_number_mobile'] = null;
-			!empty($_POST['contact_email']) 			? $fields['contact_email'] = mysql_prep($_POST['contact_email']) 									: $fields['contact_email'] = null;
-			!empty($_POST['date_of_birth']) 			? $fields['date_of_birth'] = mysql_prep($_POST['date_of_birth']) 									: $fields['date_of_birth'] = null;
-			!empty($_POST['address_line_1']) 			? $fields['address_line_1'] = mysql_prep( $_POST['address_line_1']) 								: $fields['address_line_1'] = null;
-			!empty($_POST['address_line_2']) 			? $fields['address_line_2'] = mysql_prep($_POST['address_line_2']) 									: $fields['address_line_2'] = null;
-			!empty($_POST['address_town']) 				? $fields['address_town'] = mysql_prep($_POST['address_town']) 										: $fields['address_town'] = null;
-			!empty($_POST['address_county']) 			? $fields['address_county'] = mysql_prep($_POST['address_county']) 									: $fields['address_county'] = null;
-			!empty($_POST['address_post_code']) 		? $fields['address_post_code'] = mysql_prep($_POST['address_post_code']) 							: $fields['address_post_code'] = null;
+			!empty($_POST['contact_email']) 			? $fields['contact_email'] = $_POST['contact_email'] 												: $fields['contact_email'] = null;
+			!empty($_POST['date_of_birth']) 			? $fields['date_of_birth'] = $_POST['date_of_birth'] 												: $fields['date_of_birth'] = null;
+			!empty($_POST['address_line_1']) 			? $fields['address_line_1'] =  $_POST['address_line_1'] 											: $fields['address_line_1'] = null;
+			!empty($_POST['address_line_2']) 			? $fields['address_line_2'] = $_POST['address_line_2'] 												: $fields['address_line_2'] = null;
+			!empty($_POST['address_town']) 				? $fields['address_town'] = $_POST['address_town']													: $fields['address_town'] = null;
+			!empty($_POST['address_county']) 			? $fields['address_county'] = $_POST['address_county'])												: $fields['address_county'] = null;
+			!empty($_POST['address_post_code']) 		? $fields['address_post_code'] = $_POST['address_post_code'] 										: $fields['address_post_code'] = null;
 			
 			// Create the new contact, inserting the fields from the $fields array
 			$result = $contact->create($fields);
