@@ -55,56 +55,28 @@
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
 			
-			// Give each value in the form it's own variable if it is submitted
-			// Variable used to submit to the database
-			!empty($_POST["first_name"]) 				? $form_first_name = mysql_prep($_POST["first_name"]) 										: $form_first_name = null;
-			!empty($_POST["middle_name"]) 				? $form_middle_name = mysql_prep($_POST["middle_name"]) 									: $form_middle_name = null;
-			!empty($_POST["last_name"]) 				? $form_last_name = mysql_prep($_POST["last_name"]) 										: $form_last_name = null;
-			!empty($_POST["contact_number_home"]) 		? $form_home_number = mysql_prep(remove_white_space($_POST["contact_number_home"])) 		: $form_home_number = null;
-			!empty($_POST["contact_number_mobile"]) 	? $form_mobile_number = mysql_prep(remove_white_space($_POST["contact_number_mobile"])) 	: $form_mobile_number = null;
-			!empty($_POST["contact_email"]) 			? $form_email_address = mysql_prep($_POST["contact_email"]) 								: $form_email_address = null;
-			!empty($_POST["date_of_birth"]) 			? $form_date_of_birth = mysql_prep($_POST["date_of_birth"]) 								: $form_date_of_birth = null;
-			!empty($_POST["address_line_1"]) 			? $form_address_line_1 = mysql_prep( $_POST["address_line_1"]) 								: $form_address_line_1 = null;
-			!empty($_POST["address_line_2"]) 			? $form_address_line_2 = mysql_prep($_POST["address_line_2"]) 								: $form_address_line_2 = null;
-			!empty($_POST["address_town"]) 				? $form_address_town = mysql_prep($_POST["address_town"]) 									: $form_address_town = null;
-			!empty($_POST["address_county"]) 			? $form_address_county = mysql_prep($_POST["address_county"]) 								: $form_address_county = null;
-			!empty($_POST["address_post_code"]) 		? $form_address_post_code = mysql_prep($_POST["address_post_code"]) 						: $form_address_post_code = null;
+			// Initialise a new Contact object
+			$contact = new Contact();
 			
-			$id = generate_key(11);
+			// Prepare an array to be used to insert into the database
+			$fields = array();
 			
-			// Create SQL query to input into the database
-			// If a field is optional, then pass through an if statement to set if it has a value, or set as null if not
-			$sql = "INSERT INTO contacts (";
-			$sql .= "contact_id, first_name, middle_name, last_name, contact_number_home, contact_number_mobile, contact_email, date_of_birth, address_line_1, address_line_2, address_town, address_county, address_post_code ";
-			$sql .= ") VALUES ( ";
-			$sql .= "'{$id}', '{$form_first_name}', ";
+			// Populate the $fields array with values where applicable
+			!empty($_POST['first_name']) 				? $fields['first_name'] = $_POST['first_name']														: $fields['first_name'] = null;
+			!empty($_POST['middle_name']) 				? $fields['middle_name'] = $_POST['middle_name'] 													: $fields['middle_name'] = null;
+			!empty($_POST['last_name']) 				? $fields['last_name'] = $_POST['last_name'] 														: $fields['last_name'] = null;
+			!empty($_POST['contact_number_home']) 		? $fields['contact_number_home'] = $contact->remove_white_space($_POST['contact_number_home']) 		: $fields['contact_number_home'] = null;
+			!empty($_POST['contact_number_mobile']) 	? $fields['contact_number_mobile'] = $contact->remove_white_space($_POST['contact_number_mobile'])	: $fields['contact_number_mobile'] = null;
+			!empty($_POST['contact_email']) 			? $fields['contact_email'] = mysql_prep($_POST['contact_email']) 									: $fields['contact_email'] = null;
+			!empty($_POST['date_of_birth']) 			? $fields['date_of_birth'] = mysql_prep($_POST['date_of_birth']) 									: $fields['date_of_birth'] = null;
+			!empty($_POST['address_line_1']) 			? $fields['address_line_1'] = mysql_prep( $_POST['address_line_1']) 								: $fields['address_line_1'] = null;
+			!empty($_POST['address_line_2']) 			? $fields['address_line_2'] = mysql_prep($_POST['address_line_2']) 									: $fields['address_line_2'] = null;
+			!empty($_POST['address_town']) 				? $fields['address_town'] = mysql_prep($_POST['address_town']) 										: $fields['address_town'] = null;
+			!empty($_POST['address_county']) 			? $fields['address_county'] = mysql_prep($_POST['address_county']) 									: $fields['address_county'] = null;
+			!empty($_POST['address_post_code']) 		? $fields['address_post_code'] = mysql_prep($_POST['address_post_code']) 							: $fields['address_post_code'] = null;
 			
-			// Middle name is optional, so can be sent as a null value
-			if(!is_null($form_middle_name)) { $sql .= " '{$form_middle_name}', "; } else { $sql .= " NULL, "; };
-			
-			$sql .= "'{$form_last_name}', ";
-			
-			// Home phone number is optional so can be sent as a null value
-			if(!is_null($form_home_number)) { $sql .= "'{$form_home_number}', "; } else { $sql .= " NULL, "; };
-			
-			// Mobile phone number is optional so can be sent as a null value
-			if(!is_null($form_mobile_number)) {	$sql .= "'{$form_mobile_number}', "; } else { $sql .= " NULL, "; };
-			
-			// Email address is optional so can be sent as a null value
-			if(!is_null($form_email_address)) { $sql .= "'{$form_email_address}', "; } else { $sql .= " NULL, "; };
-			
-			// Date of birth is optional so can be sent as a null value
-			if(!is_null($form_date_of_birth)) { $sql .= "'{$form_date_of_birth}', "; } else { $sql .= " NULL, "; };
-			
-			$sql .= "'{$form_address_line_1}', ";
-			
-			// Address line 2 is optional so can be sent as a null value
-			if(!is_null($form_address_line_2)) { $sql .= "'{$form_address_line_2}', "; } else { $sql .= " NULL, "; };
-			
-			$sql .= "'{$form_address_town}', '{$form_address_county}', '{$form_address_post_code}' ";
-			$sql .= ")";
-
-			$result = mysqli_query($db, $sql);
+			// Create the new contact, inserting the fields from the $fields array
+			$result = $contact->create($fields);
 			
 			if($result){
 				// Contact successfully added to the database
