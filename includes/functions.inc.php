@@ -17,17 +17,6 @@
 		};
 	};
 	
-	function full_address($address_line_1, $address_line_2=null, $town, $county, $post_code) {
-		// If the address has a value in address line 2
-		if($address_line_2 != null) {
-			// Create the address with the line 2 value
-			return $address = $address_line_1 . ", " . $address_line_2 . ", " . $town . ", " . $county . ", " . $post_code;
-		} else {
-			// Don't include the line 2 value
-			return $address = $address_line_1 . ", " . $town . ", " . $county . ", " . $post_code;
-		};
-	};
-	
 	function page_name() {
 		// Bring in $page_name and $subpage_name if set
 		global $page_name;
@@ -40,19 +29,7 @@
 			return $page_name;
 		};
 	}
-	
-	function remove_white_space($string) {
-		// Remove all white space within the string
-		return preg_replace('/\s+/', '', $string);
-	};
 
-	function format_phone_number($phone_number) {
-		// Remove all white space from the phone number
-		$phone_number = remove_white_space($phone_number);
-		// Insert a space at position 5 in a phone number, formatting as 01234 567890
-		return substr_replace($phone_number, " ", 5, 0);
-	};
-	
 	function cosmetic_date_from_mysqldate($mysql_date) {
 		// Set correct time zone
 		date_default_timezone_set("Europe/London");
@@ -161,38 +138,6 @@
 	};
 	
 	// Find from database
-	
-	// Contacts
-	function find_all_contacts(){
-		global $db;
-	
-		$sql = "SELECT * ";
-		$sql .= "FROM contacts";
-		
-		$result_set = mysqli_query($db, $sql);
-		confirm_query($result_set, $sql);
-		return $result_set;
-	};
-	
-	function find_contact_by_id($id) {
-		// Find a contact based on their contact_id in the database
-		global $db;
-		
-		$sql = "SELECT * "; 
-		$sql .= "FROM contacts "; 
-		$sql .= "WHERE BINARY contact_id = '{$id}' "; 
-		$sql .= "LIMIT 1"; 
-		
-		$result_set = mysqli_query($db, $sql); 
-		confirm_query($result_set, $sql); 
-		
-		if($contact = mysqli_fetch_assoc($result_set)){
-			return $contact;
-		} else {
-			return null; 
-		};
-	};
-	// End of Contacts
 	
 	// Users
 	function find_all_users() {
