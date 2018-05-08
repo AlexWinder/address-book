@@ -41,7 +41,7 @@
 				</thead>
 				<tbody>
 <?php
-				// Cycle through each item obtained from find_all_contacts() and display them in the DataTable
+				// Cycle through each item in $contacts and display them in the DataTable
 				foreach($contacts->all as $contact){
 				?>
 					<tr>
