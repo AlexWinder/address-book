@@ -173,8 +173,8 @@
 			}
 		}
 		
-		// Static method to create a new contact
-		public static function create($values = array()) {
+		// Method to create a new contact
+		public function create($values = array()) {
 			// This method works by accepting a $values array which contains the details of the fields which are to be inserted
 			// Check that the array isn't empty
 			if(!empty($values)) {
