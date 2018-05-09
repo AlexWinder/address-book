@@ -8,18 +8,17 @@
 	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 	$csrf_token = CSRF::get_token();
 	
-	// If user has $_SESSION["user_user_id"] they are likely already logged in - redirect to index.php
-	if(isset($_SESSION["user_user_id"])) {
-		// User is already logged in, so will be redirected, log action
-		log_action("login_redirect", "User: " . $_SESSION["user_full_name"] . " [" . $_SESSION["user_username"] . "]");
-		redirect_to("index.php");
+	// If user is already authenticated - redirect to index.php
+	if($user->authenticated) {
+		// User is already logged in, so will be redirected
+		log_action("login_redirect", "User: " . $user->name . " [" . $user->details['username'] . "]");
+		Redirect::to(PAGELINK_INDEX);
 	}
 	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 		
 		// Validate all fields and ensure that required fields are submitted
-		
 		// Initialise the $errors array where errors will be sent and then retrieved from
 		$errors = array();
 		
@@ -49,8 +48,8 @@
 				// Log action
 				log_action("login_success", "Successful login for " . $found_user["full_name"] . " [" . $found_user["username"] . "]");
 				
-				// Redirect the user to the index.php page
-				redirect_to("index.php");
+				// Redirect the user
+				Redirect::to(PAGELINK_INDEX);
 				
 			} else {
 				// Username/password not successfully authenticated
