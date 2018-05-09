@@ -8,7 +8,7 @@
 	};
 
 	// Log user logging out
-	log_action("logout", "User: " . $_SESSION["user_full_name"] . " [" . $_SESSION["user_username"] . "]");
+	log_action("logout", "User: " . $user->name . " [" . $user->details['username'] . "]");
 	
 	// Log the user out
 	$user->logout();
