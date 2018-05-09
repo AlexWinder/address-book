@@ -84,12 +84,14 @@
 					
 					if($result){
 						// User full name/username successfully updated on the database
-						$_SESSION["message"] = construct_message($notification["user"]["update"]["name"]["success"], "success");
+						// Set session message
+						$session->message_alert($notification["user"]["update"]["name"]["success"], "success");
 						// Log action of add entry success, with user updated 
 						log_action("update_success", "User Updated: Full name/username updated from " . $user["full_name"] . " [" . $user["username"] . "] to " . $form_full_name . " [" . $form_username . "]");
 						redirect_to("users.php");
 					} else {
-						$_SESSION["message"] = construct_message($notification["user"]["update"]["name"]["failure"], "danger");
+						// Set session message
+						$session->message_alert($notification["user"]["update"]["name"]["failure"], "danger");
 						// Log action of database entry failing
 						log_action("update_failed", $logging["database"]["failure"]);
 					};
@@ -97,7 +99,7 @@
 				} else {
 					// Form field validation has failed - $errors array is not empty
 					// If there are any error messages in the $errors array then display them to the screen
-					$_SESSION["message"] = validation_failure_message($errors);
+					$session->message_validation($errors);
 					// Log action of failing form process
 					$log_errors = log_validation_failures($errors);
 					log_action("update_failed", $log_errors);
@@ -148,12 +150,14 @@
 					
 					if($result){
 						// User password successfully updated on the database
-						$_SESSION["message"] = construct_message($notification["user"]["update"]["password"]["success"], "success");
+						// Set session message
+						$session->message_alert($notification["user"]["update"]["password"]["success"], "success");
 						// Log action of add entry success, with user updated 
 						log_action("update_success", "User updated: Password updated for " . $user_full_name);
 						redirect_to("users.php");
 					} else {
-						$_SESSION["message"] = construct_message($notification["user"]["update"]["password"]["failure"], "danger");
+						// Set session message
+						$session->message_alert($notification["user"]["update"]["password"]["failure"], "danger");
 						// Log action of database entry failing
 						log_action("update_failed", $logging["database"]["failure"]);
 					};
@@ -161,7 +165,7 @@
 				} else {
 					// Form field validation has failed - $errors array is not empty
 					// If there are any error messages in the $errors array then display them to the screen
-					$_SESSION["message"] = validation_failure_message($errors);
+					$session->message_validation($errors);
 					// Log action of failing form process
 					$log_errors = log_validation_failures($errors);
 					log_action("update_failed", $log_errors);
@@ -174,8 +178,8 @@
 			// User could not be found in the database
 			// Set $page_name so that the title of each page is correct - user couldn't be found
 			$page_name = "Update User - User Not Found";
-			// Send message and redirect
-			$_SESSION["message"] = construct_message($notification["user"]["update"]["not_found"], "danger");
+			// Send session message and redirect
+			$session->message_alert($notification["user"]["update"]["not_found"], "danger");
 			// Log user accessing incorrect GET value
 			log_action("not_found", $logging["page"]["not_exist"]);
 			redirect_to("users.php");
@@ -184,8 +188,8 @@
 		// Value of i in GET doesn't exist
 		// Set $page_name so that the title of each page is correct - user couldn't be found
 		$page_name = "Update User - User Not Found";
-		// Send message and redirect
-		$_SESSION["message"] = construct_message($notification["user"]["update"]["not_found"], "danger");
+		// Send session message and redirect
+		$session->message_alert($notification["user"]["update"]["not_found"], "danger");
 		// Log user accessing incorrect GET key
 		log_action("not_found", $logging["page"]["not_exist"]);
 		redirect_to("users.php");

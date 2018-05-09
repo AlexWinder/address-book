@@ -90,17 +90,19 @@
 				// Contact successfully added to the database
 				// Log action of add entry success, with contact added 
 				log_action("add_success", "Contact added: " . $form_first_name . " " . $form_last_name . " from " . $form_address_town . " (" . $id . ")");
-				$_SESSION["message"] = construct_message($notification["contact"]["add"]["success"], "success");
+				// Add session message
+				$session->message_alert($notification["contact"]["add"]["success"], "success");
 				redirect_to("index.php");
 			} else {
-				$_SESSION["message"] = construct_message($notification["contact"]["add"]["failure"], "danger");
+				// Add session message
+				$session->message_alert($notification["contact"]["add"]["failure"], "danger");
 				// Log action of database entry failing
 				log_action("add_failed", $logging["database"]["failure"]);
 			};
 		} else {
 			// Form field validation has failed - $errors array is not empty
 			// If there are any error messages in the $errors array then display them to the screen
-			$_SESSION["message"] = validation_failure_message($errors);
+			$session->message_validation($errors);
 			
 			// Log action of failing form process
 			$log_errors = log_validation_failures($errors);

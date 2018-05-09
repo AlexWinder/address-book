@@ -29,8 +29,8 @@
 			$page_name = "View Contact - Contact Not Found";
 			// Log user accessing incorrect GET value
 			log_action("not_found", $logging["page"]["not_exist"]);
-			// Send message and redirect
-			$_SESSION["message"] = construct_message($notification["contact"]["view"]["not_found"], "danger");
+			// Send session message and redirect
+			$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
 			redirect_to("index.php");
 		}
 	} else {
@@ -39,7 +39,8 @@
 		$page_name = "View Contact - Contact Not Found";
 		// Log user accessing incorrect GET key
 		log_action("not_found", $logging["page"]["not_exist"]);
-		$_SESSION["message"] = construct_message($notification["contact"]["view"]["not_found"], "danger");
+		// Set session message
+		$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
 		redirect_to("index.php");
 	};
 	

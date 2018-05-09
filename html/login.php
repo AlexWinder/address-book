@@ -43,7 +43,7 @@
 				$user->set_logged_in($found_user);
 				
 				// Set success message
-				$_SESSION["message"] = construct_message($notification["login"]["success"], "success");
+				$session->message_alert($notification["login"]["success"], "success");
 				
 				// Log action
 				log_action("login_success", "Successful login for " . $found_user["full_name"] . " [" . $found_user["username"] . "]");
@@ -53,14 +53,14 @@
 				
 			} else {
 				// Username/password not successfully authenticated
-				$_SESSION["message"] = construct_message($notification["login"]["failure"], "danger");
+				$session->message_alert($notification["login"]["failure"], "danger");
 				log_action("login_failed", "Attempted login with incorrect username/password. Username attempted: " . $_POST["username"]);
 			};
 			
 		} else {
 			// Form field validation has failed - $errors array is not empty
 			// If there are any error messages in the $errors array then display them to the screen
-			$_SESSION["message"] = validation_failure_message($errors);
+			$session->message_validation($errors);
 			
 			// Log action of failing form process
 			$log_errors = log_validation_failures($errors);

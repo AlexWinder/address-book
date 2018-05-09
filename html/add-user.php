@@ -78,18 +78,20 @@
 					// User successfully added to the database
 					// Log action of add entry success, with contact added 
 					log_action("add_success", "User added: " . $form_full_name . " [" . $form_username . "]");
-					
-					$_SESSION["message"] = construct_message($notification["user"]["add"]["success"], "success");
+					// Set session message
+					$session->message_alert($notification["user"]["add"]["success"], "success");
 					redirect_to("users.php");
 				} else {
-					$_SESSION["message"] = construct_message($notification["user"]["add"]["failure"], "danger");
+					// Set session message
+					$session->message_alert($notification["user"]["add"]["failure"], "danger");
 					// Log action of database entry failing
 					log_action("add_failed", $logging["database"]["failure"]);
 				};
 				
 			} else {
 				// Username already exists in the database
-				$_SESSION["message"] = construct_message($notification["user"]["add"]["duplicate"], "danger");
+				// Set session message
+				$session->message_alert($notification["user"]["add"]["duplicate"], "danger");
 				
 				// Log action of failing form process
 				$log_errors = log_validation_failures($errors);
@@ -99,7 +101,7 @@
 		} else {
 			// Form field validation has failed - $errors array is not empty
 			// If there are any error messages in the $errors array then display them to the screen
-			$_SESSION["message"] = validation_failure_message($errors);
+			$session->message_validation($errors);
 			
 			// Log action of failing form process
 			$log_errors = log_validation_failures($errors);

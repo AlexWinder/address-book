@@ -109,12 +109,14 @@
 					// Check if the update was successful
 					if($result){
 						// Contact successfully updated on the database
-						$_SESSION["message"] = construct_message($notification["contact"]["update"]["success"], "success");
+						// Set session message
+						$session->message_alert($notification["contact"]["update"]["success"], "success");
 						// Log action of add entry success, with contact updated 
 						log_action("update_success", "Contact Updated: " . $contact->full_name . " from " . $contact->single['address_town'] . " (" . $_GET['i'] . ")");
 						redirect_to("index.php");
 					} else {
-						$_SESSION["message"] = construct_message($notification["contact"]["update"]["failure"], "danger");
+						// Set session message
+						$session->message_alert($notification["contact"]["update"]["failure"], "danger");
 						// Log action of database entry failing
 						log_action("update_failed", $logging["database"]["failure"]);
 					};
@@ -122,7 +124,7 @@
 				} else {
 					// Form field validation has failed - $errors array is not empty
 					// If there are any error messages in the $errors array then display them to the screen
-					$_SESSION["message"] = validation_failure_message($errors);
+					$session->message_validation($errors);
 					// Log action of failing form process
 					$log_errors = log_validation_failures($errors);
 					log_action("update_failed", $log_errors);
@@ -136,8 +138,9 @@
 			// Contact could not be found in the database
 			// Set $page_name so that the title of each page is correct - contact couldn't be found
 			$page_name = "Update Contact - Contact Not Found";
+			
 			// Send message and redirect
-			$_SESSION["message"] = construct_message($notification["contact"]["update"]["not_found"], "danger");
+			$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 			// Log user accessing incorrect GET value
 			log_action("not_found", $logging["page"]["not_exist"]);
 			redirect_to("index.php");
@@ -147,7 +150,7 @@
 		// Value of i in GET doesn't exist, send message and redirect
 		// Set $page_name so that the title of each page is correct - contact couldn't be found
 		$page_name = "Update Contact - Contact Not Found";
-		$_SESSION["message"] = construct_message($notification["contact"]["update"]["not_found"], "danger");
+		$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 		// Log user accessing incorrect GET key
 		log_action("not_found", $logging["page"]["not_exist"]);
 		redirect_to("index.php");
