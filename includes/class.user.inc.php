@@ -268,11 +268,11 @@
 			// Use switch statement to determine if user has been automatically logged out due to failing a security check
 			switch($message) {
 				case 'security_failed':
-					$session->set('message', construct_message($notification['logout']['security_failed'], 'danger'));
+					$session->message_alert($notification['logout']['security_failed'], 'danger');
 					break;
 				default:
 					// No $message has been sent, use the default logout message
-					$session->set('message', construct_message($notification['logout']['success'], 'success'));
+					$session->message_alert($notification['logout']['success'], 'success');
 			}
 			
 			// Redirect user
