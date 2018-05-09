@@ -59,9 +59,6 @@
 		include('class.' . $class_name . '.inc.php');
 	});
 	
-	// Session information and functions
-	require_once("session.inc.php");
-	
 	// Begin running the Session as items in constructor are required for the system to function correctly
 	$session = new Session();
 	
