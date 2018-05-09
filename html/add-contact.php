@@ -78,7 +78,7 @@
 			!empty($_POST['address_line_1']) 			? $fields['address_line_1'] =  $_POST['address_line_1'] 											: $fields['address_line_1'] = null;
 			!empty($_POST['address_line_2']) 			? $fields['address_line_2'] = $_POST['address_line_2'] 												: $fields['address_line_2'] = null;
 			!empty($_POST['address_town']) 				? $fields['address_town'] = $_POST['address_town']													: $fields['address_town'] = null;
-			!empty($_POST['address_county']) 			? $fields['address_county'] = $_POST['address_county'])												: $fields['address_county'] = null;
+			!empty($_POST['address_county']) 			? $fields['address_county'] = $_POST['address_county']												: $fields['address_county'] = null;
 			!empty($_POST['address_post_code']) 		? $fields['address_post_code'] = $_POST['address_post_code'] 										: $fields['address_post_code'] = null;
 			
 			// Create the new contact, inserting the fields from the $fields array
