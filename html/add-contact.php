@@ -2,8 +2,10 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
-	// Check that the user is logged in
-	require_once("../includes/authenticated.inc.php");
+	// Check if $user is authenticated
+	if(!$user->authenticated) {
+		$user->logout('security_failed');
+	}; // Close if(!$user->authenticated)
 	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_CONTACTS;
