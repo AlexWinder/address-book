@@ -62,6 +62,50 @@
 			}
 		}
 		
+		// Construct a Bootstrap alert using a message, and a message type to determine colour/type of message
+		public function message_alert($message_content = 'An alert has been called, but not specified!', $message_type = 'warning') {
+			// The type of message, determining the colour/type of the alert
+			switch($message_type){
+				case "success":
+					$message = "<div class=\"alert alert-success\" role=\"alert\">";
+					break;
+				case "info":
+					$message = "<div class=\"alert alert-info\" role=\"alert\">";
+					break;
+				case "warning":
+					$message = "<div class=\"alert alert-warning\" role=\"alert\">";
+					break;
+				case "danger":
+				default:
+					$message = "<div class=\"alert alert-danger\" role=\"alert\">";
+					break;
+			};
+			
+			// Add the content of the message
+			$message .= $message_content;
+			$message .= "</div>";
+			
+			// Set the message in the session
+			$this->set('message', $message);
+		}
+		
+		// Construct a Bootstrap alert using an array of errors to build a validation failure message
+		public function message_validation($errors = array()) {
+			// Cycle through an array of validation errors to display a validation failured message to the screen
+			$alert = "<div class=\"alert alert-danger\" role=\"alert\">";
+			$alert .= "<p>The form was unable to be submitted due to the following errors:<p>";
+			$alert .= "<ol>";
+			foreach($errors as $error) {
+				$alert .= "<li>" . $error . "</li>";
+			}
+			$alert .= "</ol>";
+			$alert .= "<p>Please correct these errors and then try again.</p>";
+			$alert .= "</div>";
+			
+			// Set the validation errors in the session
+			$this->set('message', $alert);
+		}
+		
 		// Used to store particular details about the user in the session
 		private function obtain_user_details() {
 			// Check if the users IP address has been logged
