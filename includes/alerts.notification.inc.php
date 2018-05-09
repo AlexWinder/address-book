@@ -11,7 +11,7 @@
 		
 		"logout" => array (
 			"success" => "You have been logged out successfully.",
-			"security_failed" => "You do not have access to that page. Please authenticate and try again."
+			"security_failed" => "You have been automatically logged out due to a failed security check. Please authenticate and try again."
 		),
 		
 		// Notifications relating to users which have access to the system
