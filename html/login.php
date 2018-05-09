@@ -13,7 +13,7 @@
 		// User is already logged in, so will be redirected
 		log_action("login_redirect", "User: " . $user->name . " [" . $user->details['username'] . "]");
 		Redirect::to(PAGELINK_INDEX);
-	}
+	}; // Close if($user->authenticated)
 	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {

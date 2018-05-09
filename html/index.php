@@ -5,7 +5,7 @@
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
-	};
+	}; // Close if(!$user->authenticated)
 	
 	// setting $datatables_required to 1 will ensure it is included in the <head> in layout.head.inc.php and so the <script> is called in the layout.footer.inc.php
 	$datatables_required = 1;
