@@ -79,18 +79,4 @@
 
 	);
 	
-	// Create a bootstrap error message if an array of errors is sent to the function
-	function validation_failure_message($messages_array) {
-		$alert = "<div class=\"alert alert-danger\" role=\"alert\">";
-		$alert .= "<p>The form was unable to be submitted due to the following errors:<p>";
-		$alert .= "<ol>";
-		foreach($messages_array as $message) {
-			$alert .= "<li>" . $message . "</li>";
-		}
-		$alert .= "</ol>";
-		$alert .= "<p>Please correct these errors and then try again.</p>";
-		$alert .= "</div>";
-		
-		return $alert;
-	};
 ?>
