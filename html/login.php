@@ -33,27 +33,20 @@
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
 			// Give each value in the form it's own variable if it is submitted
-			// Variable used to submit to the database
-			!empty($_POST["username"]) 		? $form_username = mysql_prep($_POST["username"]) 			: $form_username = null;
-			!empty($_POST["password"])		? $form_processed_password = $_POST["password"]				: $form_processed_password = null;
-			
-			$found_user = attempt_login($form_username, $form_processed_password);
+			// Attempt a login with the submitted username/password
+			$found_user = $user->attempt_login($_POST['username'], $_POST['password']);
 			
 			// If user is found in the database and password is found to be correct
 			if($found_user) {
 				// Correct username and password has been supplied
+				
+				// Set the user as logged in
+				$user->set_logged_in($found_user);
+				
 				// Set success message
 				$_SESSION["message"] = construct_message($notification["login"]["success"], "success");
 				
-				// Set various $_SESSION values which will be tested when a user visits a page to check they are logged in
-				// Information relating to the user logged in
-				$_SESSION["user_user_id"] = 	$found_user["user_id"];
-				$_SESSION["user_full_name"] = 	$found_user["full_name"];
-				$_SESSION["user_username"] = 	$found_user["username"];
-				// Information relating to the users location and device that is logged in
-				$_SESSION["remote_addr"] = 		$_SERVER["REMOTE_ADDR"];
-				$_SESSION["http_user_agent"] = 	$_SERVER["HTTP_USER_AGENT"];
-				
+				// Log action
 				log_action("login_success", "Successful login for " . $found_user["full_name"] . " [" . $found_user["username"] . "]");
 				
 				// Redirect the user to the index.php page
@@ -82,7 +75,8 @@
 	
 	// Require head content in the page
 	require_once("../includes/layout.head.inc.php");
-?>
+
+	?>
 
 	<body>
 		<div class="container">
