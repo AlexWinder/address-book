@@ -18,32 +18,28 @@
 	
 	// If the value of i in GET exists
 	if($_GET["i"]) {
-		// Sanitise the GET value
-		$id = mysql_prep(urldecode($_GET["i"]));
-		
 		// Find user in database
-		$user = find_user_by_id($id);
+		$found_user = $user->find_id($_GET['i']);
 		
 		// Create a variable to store the user full name and username
-		$user_full_name_with_username = htmlentities($user["full_name"] . " [" . $user["username"] . "]");
+		$user_full_name_with_username = htmlentities($found_user["full_name"] . " [" . $found_user["username"] . "]");
 		
 		// Set page name as user could be found
 		$subpage_name = $user_full_name_with_username . " - Delete User";
 		
 		// If a user is found in the database
-		if($user) {
+		if($found_user) {
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 				// Ensure that the user actually wants to delete the user
 				if(isset($_POST["confirm_delete"])) {
 					// The user is not allowed to delete their own user
-					if($user["user_id"] != $_SESSION["user_user_id"]) {
-						// Construct and run the query on the database
-						$sql = "DELETE FROM users WHERE user_id = '{$id}' LIMIT 1";
-						$result = mysqli_query($db, $sql);
+					if($found_user["user_id"] != $_SESSION["authenticated_user_id"]) {
+						// Delete the user
+						$result = $user->delete($found_user['user_id']);
 						
 						// Confirm that the result was successful, and that only 1 item was deleted
-						if($result && mysqli_affected_rows($db) == 1) {
+						if($result) {
 							// User successfully deleted
 							// Set session message
 							$session->message_alert($notification["user"]["delete"]["success"], "success");
@@ -74,12 +70,10 @@
 					log_action("delete_failed", "User did not confirm that they wanted to delete the user.");
 					redirect_to("users.php");
 				};
-				
 			}; // User has not submitted the form - do nothing
 			
 			// User has accessed the page and not sumitted the form
 			log_action("view");
-			
 		} else {
 			// Contact could not be found in the database
 			// Send session message and redirect
@@ -90,7 +84,6 @@
 			log_action("not_found", $logging["page"]["not_exist"]);
 			redirect_to("users.php");
 		};
-		
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
 		// Send session message
