@@ -27,39 +27,59 @@
 		// Set page name as user could be found
 		$subpage_name = $user_full_name_with_username . " - Delete User";
 		
+		// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+		$csrf_token = CSRF::get_token();
+		
 		// If a user is found in the database
 		if($found_user) {
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 				// Ensure that the user actually wants to delete the user
 				if(isset($_POST["confirm_delete"])) {
-					// The user is not allowed to delete their own user
-					if($found_user["user_id"] != $_SESSION["authenticated_user_id"]) {
-						// Delete the user
-						$result = $user->delete($found_user['user_id']);
-						
-						// Confirm that the result was successful, and that only 1 item was deleted
-						if($result) {
-							// User successfully deleted
-							// Set session message
-							$session->message_alert($notification["user"]["delete"]["success"], "success");
-							// Log action of add entry success, with user deleted
-							log_action("delete_success", "User " . $user_full_name_with_username . " was deleted.");
-							redirect_to("users.php");
+					// Validate all fields and ensure that required fields are submitted
+				
+					// Initialise the $errors are where errors will be sent and then retrieved from
+					$errors = array();
+					
+					// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+					if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+					
+					// If no errors have been found during the field validations
+					if(empty($errors)) {
+					
+						// The user is not allowed to delete their own user
+						if($found_user["user_id"] != $_SESSION["authenticated_user_id"]) {
+							// Delete the user
+							$result = $user->delete($found_user['user_id']);
+							
+							// Confirm that the result was successful, and that only 1 item was deleted
+							if($result) {
+								// User successfully deleted
+								// Set session message
+								$session->message_alert($notification["user"]["delete"]["success"], "success");
+								// Log action of add entry success, with user deleted
+								log_action("delete_success", "User " . $user_full_name_with_username . " was deleted.");
+								redirect_to("users.php");
+							} else {
+								// User failed to be deleted
+								// Set session message
+								$session->message_alert($notification["user"]["delete"]["failure"], "danger");
+								// Log action of database entry failing
+								log_action("delete_failed", $logging["database"]["failure"]);
+							};
 						} else {
-							// User failed to be deleted
+							// User has attempted to delete their own account from the system
 							// Set session message
-							$session->message_alert($notification["user"]["delete"]["failure"], "danger");
+							$session->message_alert($notification["user"]["delete"]["self"], "danger");
 							// Log action of database entry failing
-							log_action("delete_failed", $logging["database"]["failure"]);
+							log_action("delete_failed", "User attempted to delete their own user account.");
+							redirect_to("users.php");
 						};
+					
 					} else {
-						// User has attempted to delete their own account from the system
-						// Set session message
-						$session->message_alert($notification["user"]["delete"]["self"], "danger");
-						// Log action of database entry failing
-						log_action("delete_failed", "User attempted to delete their own user account.");
-						redirect_to("users.php");
+						// Form field validation has failed - $errors array is not empty
+						// If there are any error messages in the $errors array then display them to the screen
+						$session->message_validation($errors);
 					};
 					
 				} else {
@@ -115,6 +135,8 @@
 						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> <?php echo $user_full_name_with_username; ?>
 					</label>
 				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
 				<hr>
 				
