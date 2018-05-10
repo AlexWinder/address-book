@@ -285,5 +285,36 @@
 			return $this->all = $this->db->query('SELECT * FROM users', PDO::FETCH_ASSOC);
 		}
 		
+		// Method to delete a particular user
+		public function delete($id = null) {
+			// If the $id has been sent
+			if(!empty($id)) {	
+				// Begin prepared statement to delete a single ID from the database
+				$sql = '
+					DELETE FROM users 
+					WHERE user_id = :user_id 
+					LIMIT 1
+				';
+				$stmt = $this->db->prepare($sql);
+
+				// Pass in the $id into the prepared statement and execute
+				$stmt->bindParam(':user_id', $id);
+
+				// Execute the prepared statement
+				$result = $stmt->execute();
+
+				if($result) {
+					// Delete was successful
+					return true;
+				} else {
+					// Delete failed
+					return false;
+				}
+			} else {
+				// $id hasn't been sent
+				return false;
+			}
+		}
+		
 	} // Close class User
 // EOF
