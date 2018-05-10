@@ -15,7 +15,7 @@
 	$datatables_option = null;
 	
 	// Obtain all users from the database, which will be used to populate the table
-	$users = find_all_users();
+	$users = $user->find_all();
 	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_USERS;
