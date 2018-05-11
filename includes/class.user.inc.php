@@ -316,5 +316,146 @@
 			}
 		}
 		
+		// Method to create a new user
+		public function create($values = array()) {
+			// This method works by accepting a $values array which contains the details of the fields which are to be inserted
+			// Check that the array isn't empty
+			if(!empty($values)) {
+				// Obtain a DB instance
+				$db = DB::get_instance();
+				
+				// Array has values, begin building the SQL query to be used to create user
+				$sql = "INSERT INTO users (";
+				
+				// Add in the user_id as won't be submitted as part of the $values array
+				$sql .= "user_id, ";
+				
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= $key . " ";
+					}
+				}
+				
+				$sql .= ") VALUES (";
+				
+				// Add in the user_id as won't be submitted as part of the $values array
+				$sql .= ":user_id, ";
+				
+				// Reset counters
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array, this time specifying the keys to insert as part of the prepared statement
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= ":" . $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= ":" . $key . " ";
+					}
+				}
+				// End the $sql
+				$sql .= ")";
+				
+				// Begin a prepared statement using the previous $sql
+				$stmt = $db->prepare($sql);
+				
+				// Generate an ID with a length of 12
+				$id = $this->generate_id(12);
+				$stmt->bindParam(':user_id', $id);
+				
+				// Pass in values from the $values array to complete the prepared statement
+				foreach($values as $key => &$value) {
+					$stmt->bindParam(':' . $key, $value);
+				}
+				
+				// Execute the prepared statement
+				$result = $stmt->execute();
+				
+				// Check if successful
+				if($result) {
+					// Insert successful
+					return true;
+				} else {
+					// Insert failed
+					return false;
+				}
+			} else {
+				// Array was empty
+				return false;
+			}
+		}
+		
+		// Generate an ID to be used as the unique key associated with a new contact which is being created
+		private function generate_id($token_length) {
+			// Used to generate a token
+			// Initialise a variable used to store the token
+			$token = null;
+			// Create a salt of accepted characters
+			$salt = "abcdefghjkmnpqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789";
+			
+			srand((double)microtime()*1000000);
+			$i = 0;
+			while ($i < $token_length) {
+				$num = rand() % strlen($salt);
+				$tmp = substr($salt, $num, 1);
+				$token = $token . $tmp;
+				$i++;
+			}
+			// Return the token
+			return $token;
+		}
+		
+		// Static method to allow for passwords to be encrypted and salted using the Blowfish method
+		// Requires a $password to be passed in
+		public function password_encrypt($password = null) {
+			// Tell PHP to use the Blowfish password format ($2y) with a "cost" of 10 ($10$)
+			$hash_format = "$2y$10$";
+			// Specify a salt length - Blowfish salts should be 22 characters in length
+			// http://php.net/manual/en/function.crypt.php
+			$salt_length = 22;
+			// Generate the salt passing in the length from the $salt_length
+			$salt = $this->generate_salt($salt_length);
+			// Concatenate the $hash_format with the $salt
+			$format_and_salt = $hash_format . $salt;
+			
+			// Check that a password has been sent
+			if(!empty($password)) {
+				// Encrypt the $password with the $format_and_salt to return an encrypted password
+				return $encrypted_password = crypt($password, $format_and_salt);
+			} else {
+				// Password wasn't sent
+				return false;
+			};
+		}
+		
+		// Generate a salt for used in password encryption
+		private function generate_salt($length) {
+			// Below is not 100% unique or 100% random - however is perfectly fine for a salt
+			
+			// Return 32 characters using MD5
+			$unique_random_string = md5(uniqid(mt_rand(), true));
+			
+			// Specify the valid characters for the salt - [a-zA-Z0-9./]
+			$base64_string = base64_encode($unique_random_string);
+			
+			// Using base64_encode will also include '+' characters - these must be removed
+			$modified_base64_string = str_replace('+', '.', $base64_string);
+			
+			// Truncate string to the correct length and return
+			return $salt = substr($modified_base64_string, 0, $length);
+		}
+		
 	} // Close class User
 // EOF
