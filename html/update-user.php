@@ -56,7 +56,7 @@
 				// Check whether the new username is different from the current username
 				if($_POST["username"] != $found_user["username"]) {
 					// If it is then check if the new username already exists in the database
-					if(find_user_by_username($_POST["username"])) {
+					if($user->find_username($_POST["username"])) {
 						// Username already exists in the database
 						$errors[] = $notification["user"]["update"]["name"]["duplicate"];
 					};
@@ -225,6 +225,8 @@
 						<input type="text" class="form-control" name="username" placeholder="Username" maxlength="100" <?php if(!empty($form_username)) { echo "value=\"" . $form_username . "\""; }; ?> required>
 					</div>
 				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
