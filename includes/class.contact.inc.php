@@ -181,7 +181,7 @@
 				// Obtain a DB instance
 				$db = DB::get_instance();
 				
-				// Array has values, begin building the SQL query to be used to update contact
+				// Array has values, begin building the SQL query to be used to create contact
 				$sql = "INSERT INTO contacts (";
 				
 				// Add in the contact_id as won't be submitted as part of the $values array
@@ -229,7 +229,7 @@
 				$stmt = $db->prepare($sql);
 				
 				// Generate an ID with a length of 12
-				$id = self::generate_id(12);
+				$id = $this->generate_id(12);
 				$stmt->bindParam(':contact_id', $id);
 				
 				// Pass in values from the $values array to complete the prepared statement
@@ -255,7 +255,7 @@
 		}
 		
 		// Generate an ID to be used as the unique key associated with a new contact which is being created
-		private static function generate_id($token_length) {
+		private function generate_id($token_length) {
 			// Used to generate a token
 			// Initialise a variable used to store the token
 			$token = null;
