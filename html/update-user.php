@@ -7,36 +7,29 @@
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
 	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_USERS;
-	// If user name could be set - correct GET request, or valid GET i value
-	if(isset($user_full_name)) {
-		$subpage_name = $user_full_name . " - Update User";
-	} else {
-		$subpage_name = "User Not Found - Update User";
-	};
-	
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
-		// Sanitise the GET value
-		$id = mysql_prep(urldecode($_GET["i"]));
-		
 		// Find user in database
-		$user = find_user_by_id($id);
-		
-		// Create a variable to store the user full name - used in the page name
-		$user_full_name = htmlentities($user["full_name"] . " [" . $user["username"] . "]");
-		
-		// Set page name as user could be found
-		$subpage_name = $user_full_name . " - Update User";
+		$found_user = $user->find_id($_GET['i']);
 		
 		// If a user is found in the database
-		if($user) {
+		if($found_user) {
+			// Set $page_name so that the title of each page is correct
+			$page_name = PAGENAME_USERS;
+			
+			// Create a variable to store the user full name - used in the page name
+			$user_full_name = htmlentities($found_user["full_name"] . " [" . $found_user["username"] . "]");
+			
+			// Set page name as user could be found
+			$subpage_name = $user_full_name . " - Update User";
+		
+			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+			$csrf_token = CSRF::get_token();
 			
 			// Assign all the various database values to their own variables
 			// First check if value has been sent in $_POST, if not then check if it exists in the database, if not then assign as null
-			if(!empty($_POST["username"]) && isset($_POST["username"])) 		{ $form_username = htmlentities($_POST["username"]); } 			elseif(!empty($user["username"]) && isset($user["username"])) 			{ $form_username = htmlentities($user["username"]); } 			else { $form_username = null; };
-			if(!empty($_POST["full_name"]) && isset($_POST["full_name"])) 		{ $form_full_name = htmlentities($_POST["full_name"]); } 		elseif(!empty($user["full_name"]) && isset($user["full_name"])) 		{ $form_full_name = htmlentities($user["full_name"]); } 		else { $form_full_name = null; };
+			if(!empty($_POST["username"]) && isset($_POST["username"])) 		{ $form_username = htmlentities($_POST["username"]); } 			elseif(!empty($found_user["username"]) && isset($found_user["username"])) 			{ $form_username = htmlentities($found_user["username"]); } 			else { $form_username = null; };
+			if(!empty($_POST["full_name"]) && isset($_POST["full_name"])) 		{ $form_full_name = htmlentities($_POST["full_name"]); } 		elseif(!empty($found_user["full_name"]) && isset($found_user["full_name"])) 		{ $form_full_name = htmlentities($found_user["full_name"]); } 		else { $form_full_name = null; };
 			
 			// If submit button for updating name/username has been pressed then process the form
 			if(isset($_POST["submit_name"]) && $_POST["submit_name"] == "submit_name") {
@@ -49,6 +42,9 @@
 				if(!isset($_POST["username"]) 			|| empty($_POST["username"])) 			{ $errors[] = $validation["field_required"]["user"]["username"]; };
 				if(!isset($_POST["full_name"]) 			|| empty($_POST["full_name"])) 			{ $errors[] = $validation["field_required"]["user"]["full_name"]; };
 				
+				// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+				if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+				
 				// Length of fields
 				$length_username 			= 		strlen($_POST["username"]);
 				$length_full_name 			= 		strlen($_POST["full_name"]);
@@ -58,7 +54,7 @@
 				if($length_username > 100) 		{ $errors[] = $validation["too_long"]["user"]["full_name"]; };
 				
 				// Check whether the new username is different from the current username
-				if($_POST["username"] != $user["username"]) {
+				if($_POST["username"] != $found_user["username"]) {
 					// If it is then check if the new username already exists in the database
 					if(find_user_by_username($_POST["username"])) {
 						// Username already exists in the database
@@ -87,7 +83,7 @@
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["name"]["success"], "success");
 						// Log action of add entry success, with user updated 
-						log_action("update_success", "User Updated: Full name/username updated from " . $user["full_name"] . " [" . $user["username"] . "] to " . $form_full_name . " [" . $form_username . "]");
+						log_action("update_success", "User Updated: Full name/username updated from " . $found_user["full_name"] . " [" . $found_user["username"] . "] to " . $form_full_name . " [" . $form_username . "]");
 						redirect_to("users.php");
 					} else {
 						// Set session message
@@ -268,6 +264,7 @@
 					</div>
 				</div>
 				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
