@@ -11,6 +11,9 @@
 	$page_name = PAGENAME_USERS;
 	$subpage_name = "Add User";
 	
+	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+	$csrf_token = CSRF::get_token();
+	
 	// If submit button has been pressed then process the form
 	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 		
@@ -24,6 +27,9 @@
 		if(!isset($_POST["full_name"]) 			|| empty($_POST["full_name"])) 			{ $errors[] = $validation["field_required"]["user"]["full_name"]; };
 		if(!isset($_POST["password"]) 			|| empty($_POST["password"])) 			{ $errors[] = $validation["field_required"]["user"]["password"]; };
 		if(!isset($_POST["confirm_password"]) 	|| empty($_POST["confirm_password"])) 	{ $errors[] = $validation["field_required"]["user"]["confirm_password"]; };
+		
+		// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+		if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
 		
 		// Length of fields
 		$length_username 			= 		strlen($_POST["username"]);
@@ -161,6 +167,7 @@
 					</div>
 				</div>
 				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
