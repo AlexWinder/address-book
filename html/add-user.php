@@ -51,33 +51,27 @@
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
 			
-			// Give each value in the form it's own variable if it is submitted
-			// Variable used to submit to the database
-			!empty($_POST["username"]) 		? $form_username = mysql_prep($_POST["username"]) 					: $form_username = null;
-			!empty($_POST["full_name"]) 	? $form_full_name = mysql_prep($_POST["full_name"]) 				: $form_full_name = null;
-			!empty($_POST["password"])		? $form_processed_password = password_encrypt($_POST["password"])	: $form_processed_password = null;
-			$id = generate_key(11);
-			
 			// Check if user submitted username already exists in the database
-			$username_exists = find_user_by_username($form_username);
+			$username_exists = $user->find_username($_POST['username']);
 			
 			if(!$username_exists) {
 				
-				// Create SQL query to input into the database
-				$sql = "INSERT INTO users (";
-				$sql .= "user_id, username, hashed_password, full_name";
-				$sql .= ") VALUES (";
-				$sql .= "'{$id}', '{$form_username}', '{$form_processed_password}', '{$form_full_name}'";
-				$sql .= ")";
+				// Prepare an array to be used to insert into the database
+				$fields = array();
 				
-				// Run the database query
-				$result = mysqli_query($db, $sql);
+				// Populate the $fields array with values where applicable
+				!empty($_POST['username']) 					? $fields['username'] = $_POST['username']									: $fields['username'] = null;
+				!empty($_POST['full_name']) 				? $fields['full_name'] = $_POST['full_name'] 								: $fields['full_name'] = null;
+				!empty($_POST['password']) 					? $fields['hashed_password'] = $user->password_encrypt($_POST['password']) 	: $fields['hashed_password'] = null;
+				
+				// Create the new contact, inserting the fields from the $fields array
+				$result = $user->create($fields);
 				
 				// Test whether the query was successful
 				if($result){
 					// User successfully added to the database
 					// Log action of add entry success, with contact added 
-					log_action("add_success", "User added: " . $form_full_name . " [" . $form_username . "]");
+					log_action("add_success", "User added: " . $form_full_name . " [" . htmlentities($_POST['username']) . "]");
 					// Set session message
 					$session->message_alert($notification["user"]["add"]["success"], "success");
 					redirect_to("users.php");
@@ -95,7 +89,7 @@
 				
 				// Log action of failing form process
 				$log_errors = log_validation_failures($errors);
-				log_action("add_failed", "Username of " .  $form_username . " already exists.");
+				log_action("add_failed", "Username of " . htmlentities($_POST['username']) . " already exists.");
 			};
 			
 		} else {
