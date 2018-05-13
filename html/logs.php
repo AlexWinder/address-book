@@ -14,8 +14,11 @@
 	// Set the datatable option to order the first column in a descending order
 	$datatables_option = '"order": [[ 0, "desc" ]]';
 	
+	// Create new Log instance
+	$log = new Log();
+	
 	// Obtain all logs, using only the required fields, which will be used to populate the table
-	$logs = find_columns_from_logs();
+	$logs = $log->find_all();
 	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_LOGS;
