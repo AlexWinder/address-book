@@ -12,7 +12,7 @@
 	// Table ID to relate to the datatable, as identified in the <table> and in the <script>, needed to identify which tables to make into datatables
 	$datatables_table_id = "logs";
 	// Set the datatable option to order the first column in a descending order
-	$datatables_option = "\"order\": [[ 0, \"desc\" ]]";
+	$datatables_option = '"order": [[ 0, "desc" ]]';
 	
 	// Obtain all logs, using only the required fields, which will be used to populate the table
 	$logs = find_columns_from_logs();
