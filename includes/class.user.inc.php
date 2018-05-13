@@ -316,6 +316,60 @@
 			}
 		}
 		
+		// Method to update a particular user
+		public function update($values = array(), $id = null) {
+			// This method works by accepting a $values array which contains the details of the fields which are to be updated
+			// Check that the $values array and $id isn't empty
+			if(!empty($values) && !empty($id)) {
+				// Array has values, begin building the SQL query to be used to update user
+				$sql = "UPDATE users SET ";
+				
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= $key . " = :" . $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= $key . " = :" . $key . " ";
+					}
+				}
+				
+				// Specify which user to update and limit to update only 1 record as a fail-safe
+				$sql .= "WHERE user_id = :user_id ";
+				$sql .= "LIMIT 1";
+				
+				// Begin a prepared statement using the previous $sql
+				$stmt = $this->db->prepare($sql);
+				
+				// Pass in values from the $values array to complete the prepared statement
+				foreach($values as $key => &$value) {
+					$stmt->bindParam(':' . $key, $value);
+				}
+				// Bind the user ID to the prepared statement
+				$stmt->bindParam(':user_id', $id);
+				
+				// Execute the prepared statement
+				$result = $stmt->execute();
+				
+				// Check if successful
+				if($result) {
+					// Update successful
+					return true;
+				} else {
+					// Update failed
+					return false;
+				}
+			} else {
+				// $values array or $id was empty was empty
+				return false;
+			}
+		}
+		
 		// Method to create a new user
 		public function create($values = array()) {
 			// This method works by accepting a $values array which contains the details of the fields which are to be inserted
