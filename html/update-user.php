@@ -64,20 +64,17 @@
 				
 				// If no errors have been found during the field validations
 				if(empty($errors)) {
-					// Give each value in the form it's own variable if it is submitted
-					// Variable used to submit to the database
-					!empty($_POST["username"]) 		? $form_username = mysql_prep($_POST["username"]) 		: $form_username = null;
-					!empty($_POST["full_name"]) 	? $form_full_name = mysql_prep($_POST["full_name"]) 	: $form_full_name = null;
+					// Begin an array to store values to update the database
+					$update_values = array();
 					
-					// Create SQL query to input into the database
-					$sql = "UPDATE users SET ";
-					$sql .= "username = '{$form_username}', ";
-					$sql .= "full_name = '{$form_full_name}' ";
-					$sql .= "WHERE user_id = '{$id}' ";
-					$sql .= "LIMIT 1";
+					// Assign values to an array which will be used as part of the update
+					if(isset($_POST['username']) && !empty($_POST["username"])) 						{ $update_values['username'] = $_POST['username']; } else { $update_values['username'] = null; };
+					if(isset($_POST['full_name']) && !empty($_POST["full_name"])) 						{ $update_values['full_name'] = $_POST['full_name']; } else { $update_values['full_name'] = null; };
 					
-					$result = mysqli_query($db, $sql);
+					// Execute the update
+					$result = $user->update($update_values, $found_user['user_id']);
 					
+					// Check if the update was successful
 					if($result){
 						// User full name/username successfully updated on the database
 						// Set session message
@@ -132,18 +129,16 @@
 				
 				// If no errors have been found during the field validations
 				if(empty($errors)) {
-					// Give each value in the form it's own variable if it is submitted
-					// Variable used to submit to the database
-					!empty($_POST["password"])		? $form_processed_password = password_encrypt($_POST["password"])	: $form_processed_password = null;
+					// Begin an array to store values to update the database
+					$update_values = array();
 					
-					// Create SQL query to input into the database
-					$sql = "UPDATE users SET ";
-					$sql .= "hashed_password = '{$form_processed_password}' ";
-					$sql .= "WHERE user_id = '{$id}' ";
-					$sql .= "LIMIT 1";
+					// Assign values to an array which will be used as part of the update
+					if(isset($_POST['password']) && !empty($_POST["password"])) 						{ $update_values['hashed_password'] = $user->password_encrypt($_POST['password']); } else { $update_values['hashed_password'] = null; };
 					
-					$result = mysqli_query($db, $sql);
+					// Execute the update
+					$result = $user->update($update_values, $found_user['user_id']);
 					
+					// Check if the update was successful
 					if($result){
 						// User password successfully updated on the database
 						// Set session message
