@@ -90,6 +90,7 @@
 					// Begin an array to store values to update the database
 					$update_values = array();
 					
+					// Assign values to an array which will be used as part of the update
 					if(isset($_POST['first_name']) && !empty($_POST["first_name"])) 						{ $update_values['first_name'] = $_POST['first_name']; } else { $update_values['middle_name'] = null; };
 					if(isset($_POST['middle_name']) && !empty($_POST["middle_name"])) 						{ $update_values['middle_name'] = $_POST['middle_name']; } else { $update_values['middle_name'] = null; };
 					if(isset($_POST['last_name']) && !empty($_POST["last_name"])) 							{ $update_values['last_name'] = $_POST['last_name']; } else { $update_values['last_name'] = null; };
@@ -103,7 +104,7 @@
 					if(isset($_POST['address_county']) && !empty($_POST["address_county"])) 				{ $update_values['address_county'] = $_POST['address_county']; };
 					if(isset($_POST['address_post_code']) && !empty($_POST["address_post_code"])) 			{ $update_values['address_post_code'] = $_POST['address_post_code']; };
 					
-					// Assign values to an array which will be used as part of the update
+					// Execute the update
 					$result = $contact->update($update_values);
 					
 					// Check if the update was successful
