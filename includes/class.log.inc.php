@@ -111,6 +111,20 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'user_update_failed' :
+					$action = 'User Update Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'user_update_success' :
+					$action = 'User Update Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				case 'contact_delete_failed' :
 					$action = 'Contact Delete Failed';
 					if($additional_message == 'database') {
@@ -121,6 +135,20 @@
 					break;
 				case 'contact_delete_success' :
 					$action = 'Contact Delete Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
+				case 'contact_update_failed' :
+					$action = 'Contact Update Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'contact_update_success' :
+					$action = 'Contact Update Success';
 					if($additional_message) {
 						$action .= ': ' . $additional_message;
 					};
