@@ -12,7 +12,7 @@
 			// If action was sent then process a new action to be added to the database
 			if($action) {
 				// $action has been sent, add to the database
-				$this->action($action, $additional_message = null);
+				$this->action($action, $additional_message);
 			}
 		}
 		
@@ -81,6 +81,12 @@
 					break;
 				case 'not_found' : // For accessing pages which couldn't be found, such as invalid $_GET values or values which couldn't be found in the database
 					$action = "Page Doesn't Exist: (" . page_name() . ')';
+					break;
+				case 'login_failed' :
+					$action = 'Login Failed';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
 					break;
 				default :
 					$action = 'Action Unspecified!';
