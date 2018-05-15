@@ -174,6 +174,10 @@
 				// Set details gathered about the user
 				$session->set('authenticated_user_id', $user['user_id']);
 				$session->set('authenticated_user_username', $user['username']);
+				
+				// Set user name and username
+				$this->name = $user['full_name'];
+				$this->username = $user['username'];
 			}
 		}
 		
