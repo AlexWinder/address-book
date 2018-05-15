@@ -12,6 +12,7 @@
 	if($user->authenticated) {
 		// User is already logged in, so will be redirected
 		log_action("login_redirect", "User: " . $user->name . " [" . $user->details['username'] . "]");
+		// Redirect the user
 		Redirect::to(PAGELINK_INDEX);
 	}; // Close if($user->authenticated)
 	
