@@ -11,7 +11,8 @@
 	// If user is already authenticated - redirect to index.php
 	if($user->authenticated) {
 		// User is already logged in, so will be redirected
-		log_action("login_redirect", "User: " . $user->name . " [" . $user->details['username'] . "]");
+		// Create new Log instance, and log the action to the database
+		$log = new Log('login_redirect');
 		// Redirect the user
 		Redirect::to(PAGELINK_INDEX);
 	}; // Close if($user->authenticated)
@@ -47,7 +48,8 @@
 				$session->message_alert($notification["login"]["success"], "success");
 				
 				// Log action
-				log_action("login_success", "Successful login for " . $found_user["full_name"] . " [" . $found_user["username"] . "]");
+				// Create new Log instance, and log the action to the database
+				$log = new Log('login_success');
 				
 				// Redirect the user
 				Redirect::to(PAGELINK_INDEX);
@@ -55,17 +57,15 @@
 			} else {
 				// Username/password not successfully authenticated
 				$session->message_alert($notification["login"]["failure"], "danger");
-				log_action("login_failed", "Attempted login with incorrect username/password. Username attempted: " . $_POST["username"]);
+				// Create new Log instance, and log the action to the database
+				$log = new Log('login_failed', 'Failed authentication for username: ' . $_POST['username']);
 			};
-			
 		} else {
 			// Form field validation has failed - $errors array is not empty
 			// If there are any error messages in the $errors array then display them to the screen
 			$session->message_validation($errors);
-			
-			// Log action of failing form process
-			$log_errors = log_validation_failures($errors);
-			log_action("login_failed", $log_errors);
+			// Create new Log instance, and log the action to the database
+			$log = new Log('login_failed', 'Failed login due to form validation errors.');
 		};
 	};
 	
