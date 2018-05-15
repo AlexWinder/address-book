@@ -7,8 +7,8 @@
 		$user->logout('security_failed');
 	};
 
-	// Log user logging out
-	log_action("logout", "User: " . $user->name . " [" . $user->details['username'] . "]");
+	// Create new Log instance, and log the action to the database
+	$log = new Log('logout_success');
 	
 	// Log the user out
 	$user->logout();
