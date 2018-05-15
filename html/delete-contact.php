@@ -47,29 +47,33 @@
 							// Contact successfully deleted
 							$session->message_alert($notification["contact"]["delete"]["success"], "success");
 							// Log action of database entry success
-							log_action("delete_success", "Contact of " . $contact->full_name . " from " . $contact->single["address_town"] . " was deleted.");
+							$log = new Log('contact_delete_success', 'Contact of ' . $contact->full_name . ' from ' . $contact->single['address_town'] . ' was deleted.');
+							// Redirect the user
 							redirect_to("index.php");
 						} else {
 							// Contact failed to be deleted
 							$session->message_alert($notification["contact"]["delete"]["failure"], "danger");
 							// Log action of database entry failing
-							log_action("delete_failed", $logging["database"]["failure"]);
+							// Create new Log instance, and log the action to the database
+							$log = new Log('contact_delete_failed', 'database');
 						};
 					} else {
 						// Form field validation has failed - $errors array is not empty
 						// If there are any error messages in the $errors array then display them to the screen
 						$session->message_validation($errors);
 						// Log action of failing form process
-						$log_errors = log_validation_failures($errors);
-						log_action("update_failed", $log_errors);
+						// Create new Log instance, and log the action to the database
+						$log = new Log('contact_delete_failed', 'Failed contact delete due to form validation errors.');
 					};
 
 				} else {
-					// User did not confirm that they would like to delete the user
+					// User did not confirm that they would like to delete the contact
 					// Set a failure session message and redirect them to view the contact
 					$session->message_alert($validation["field_required"]["contact"]["confirm_delete"], "danger");
 					// Log action of failing to confirm delete
-					log_action("delete_failed", "User did not confirm that they wanted to delete the contact.");
+					// Create new Log instance, and log the action to the database
+					$log = new Log('contact_delete_failed', 'User did not confirm that they wanted to delete the contact.');
+					// Redirect the user
 					redirect_to("view-contact.php?i=" . urlencode($contact->single['contact_id']));
 				};
 
