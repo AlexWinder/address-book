@@ -111,7 +111,8 @@
 	} else {
 		// Form has not been submitted
 		// Log action of accessing the page
-		log_action("view");
+		// Create new Log instance, and log the page view to the database
+		$log = new Log('view');
 	};
 	
 	// Require head content in the page

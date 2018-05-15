@@ -16,12 +16,12 @@
 	
 	// Obtain all contacts from the database, which will be used to populate the table
 	$contacts = new Contact();
-
+	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_INDEX;
 	
-	// Log action of accessing the page
-	log_action("view");
+	// Create new Log instance, and log the page view to the database
+	$log = new Log('view');
 	
 	// Require head content in the page
 	require_once("../includes/layout.head.inc.php");

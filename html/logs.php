@@ -14,17 +14,14 @@
 	// Set the datatable option to order the first column in a descending order
 	$datatables_option = '"order": [[ 0, "desc" ]]';
 	
-	// Create new Log instance
-	$log = new Log();
-	
-	// Obtain all logs, using only the required fields, which will be used to populate the table
-	$logs = $log->find_all();
-	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_LOGS;
 	
-	// Log action of accessing the page
-	log_action("view");
+	// Create new Log instance, and log the page view to the database
+	$log = new Log('view');
+	
+	// Obtain all logs, using only the required fields, which will be used to populate the table
+	$logs = $log->find_all();
 	
 	// Require head content in the page
 	require_once("../includes/layout.head.inc.php");

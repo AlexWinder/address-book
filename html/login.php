@@ -69,8 +69,8 @@
 		
 	};
 	
-	// Log action of accessing the page
-	log_action("view");
+		// Create new Log instance, and log the page view to the database
+	$log = new Log('view');
 	
 	// Require head content in the page
 	require_once("../includes/layout.head.inc.php");

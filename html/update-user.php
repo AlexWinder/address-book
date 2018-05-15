@@ -164,7 +164,9 @@
 			};// No submit button to change the password of the user
 			
 			// User has accessed the page and not sumitted the form
-			log_action("view");
+			// Create new Log instance, and log the page view to the database
+			$log = new Log('view');
+		
 		} else {
 			// User could not be found in the database
 			// Set $page_name so that the title of each page is correct - user couldn't be found

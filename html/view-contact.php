@@ -20,8 +20,8 @@
 			// Set $subpage_name as this page isn't the main section
 			$subpage_name = $contact->full_name . " - View Details";
 			
-			// Log action of accessing the page
-			log_action("view");
+			// Create new Log instance, and log the page view to the database
+			$log = new Log('view');
 			
 		} else {
 			// Contact could not be found in the database

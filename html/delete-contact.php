@@ -75,7 +75,8 @@
 			}; // User has not submitted the form - do nothing
 
 			// User has accessed the page and not sumitted the form
-			log_action("view");
+			// Create new Log instance, and log the page view to the database
+			$log = new Log('view');
 
 		} else {
 			// Contact could not be found in the database
