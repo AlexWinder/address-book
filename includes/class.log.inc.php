@@ -88,6 +88,9 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'login_success' :
+					$action = 'Login Success';
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
