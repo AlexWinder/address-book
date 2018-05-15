@@ -23,8 +23,69 @@
 		}
 		
 		// Method to add a new entry to the logs table in the database
-		public function action() {
+		public function action($action = null) {
+			global $user;
 			
+			// Define the SQL to be used to make changes to the database
+			$sql = '
+				INSERT INTO logs ( 
+					datetime, 
+					action, 
+					url, 
+					user, 
+					ip, 
+					user_agent 
+				) VALUES ( 
+					:datetime, 
+					:action, 
+					:url, 
+					:user, 
+					:ip, 
+					:user_agent 
+				)
+			';
+			
+			// Begin a prepared statement using the previous $sql
+			$stmt = $this->db->prepare($sql);
+			
+			// Bind values to the prepared statement
+			$datetime = $this->current_mysql_datetime();
+			$stmt->bindParam(':datetime', $datetime);
+			$action = $this->get_action($action);
+			$stmt->bindParam(':action', $action);
+			$stmt->bindParam(':url', $_SERVER['REQUEST_URI']);
+			$name = $user->username ? $user->name . '[' . $user->username . ']' : 'Unknown';
+			$stmt->bindParam(':user', $name);
+			$stmt->bindParam(':ip', $_SERVER['REMOTE_ADDR']);
+			$stmt->bindParam(':user_agent', $_SERVER['HTTP_USER_AGENT']);
+			
+			// Execute the prepared statement
+			$result = $stmt->execute();
+			
+			// Check if successful
+			if($result) {
+				// Insert successful
+				return true;
+			} else {
+				// Insert failed
+				return false;
+			}
+		}
+		
+		// Returns a string of an action, based on an input
+		private function get_action($action = null) {
+			// Run through a switch statement to specify an action and return
+			switch($action) {
+				case 'view' : // For page views
+					$action = 'Page Viewed: (' . page_name() . ')'; // Use the page_name function to specify which page a user has visited
+					break;
+				default :
+					$action = 'Action Unspecified!';
+					break;
+			}
+			
+			// Return the $action
+			return $action;
 		}
 		
 		// Method to obtain the current datetime in MySQL format
