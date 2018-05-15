@@ -79,6 +79,9 @@
 				case 'view' : // For page views
 					$action = 'Page Viewed: (' . page_name() . ')'; // Use the page_name function to specify which page a user has visited
 					break;
+				case 'not_found' : // For accessing pages which couldn't be found, such as invalid $_GET values or values which couldn't be found in the database
+					$action = "Page Doesn't Exist: (" . page_name() . ')';
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
