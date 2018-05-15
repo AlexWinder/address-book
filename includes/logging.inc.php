@@ -68,38 +68,8 @@
 		$date_time = current_mysql_datetime();
 		
 		switch($log_action) {
-			case "login_success":
-				$action = "Successful Login";
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "login_failed":
-				$action = "Failed Login";
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "login_redirect":
-				$action = "Login Redirect - User is already logged in so has been redirected.";
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "logout":
-				$action = "Logout";
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
 			case "auto_logout":
 				$action = "Automatic Logout";
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "view":
-				$action = "Page Viewed - " . $page_name;
 				if(!empty($additional_message) && !is_null($additional_message)) {
 					$action .= " - " . mysql_prep($additional_message);
 				};
@@ -130,18 +100,6 @@
 				break;
 			case "update_failed":
 				$action = "Update Failed - " . $page_name;
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "delete_success":
-				$action = "Entry Deleted - " . $page_name;
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "delete_failed":
-				$action = "Delete Failed - " . $page_name;
 				if(!empty($additional_message) && !is_null($additional_message)) {
 					$action .= " - " . mysql_prep($additional_message);
 				};
