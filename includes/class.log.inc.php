@@ -54,7 +54,7 @@
 			$action = $this->get_action($action);
 			$stmt->bindParam(':action', $action);
 			$stmt->bindParam(':url', $_SERVER['REQUEST_URI']);
-			$name = $user->username ? $user->name . '[' . $user->username . ']' : 'Unknown';
+			$name = $user->username ? $user->name . ' [' . $user->username . ']' : 'Unknown';
 			$stmt->bindParam(':user', $name);
 			$stmt->bindParam(':ip', $_SERVER['REMOTE_ADDR']);
 			$stmt->bindParam(':user_agent', $_SERVER['HTTP_USER_AGENT']);
