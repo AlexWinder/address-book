@@ -9,12 +9,6 @@
 	
 	// Set $page_name so that the title of each page is correct
 	$page_name = PAGENAME_USERS;
-	// If user name could be set - correct GET request, or valid GET i value
-	if(isset($user_full_name)) {
-		$subpage_name = $user_full_name . " - Delete User";
-	} else {
-		$subpage_name = "User Not Found - Delete User";
-	};
 	
 	// If the value of i in GET exists
 	if($_GET["i"]) {
@@ -100,20 +94,24 @@
 			// Contact could not be found in the database
 			// Send session message and redirect
 			$session->message_alert($notification["user"]["delete"]["not_found"], "danger");
-			// Set $page_name so that the title of each page is correct - user couldn't be found
-			$page_name = "Delete User - User Not Found";
+			// Set $subpage_name so that the title of each page is correct - user couldn't be found
+			$subpage_name = 'User Not Found - Delete User';
 			// Log user accessing incorrect GET value
-			log_action("not_found", $logging["page"]["not_exist"]);
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
+			// Redirect the user
 			redirect_to("users.php");
 		};
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
 		// Send session message
 		$session->message_alert($notification["user"]["delete"]["not_found"], "danger");
-		// Set $page_name so that the title of each page is correct - user couldn't be found
-		$page_name = "User Not Found - Delete User";
+		// Set $subpage_name so that the title of each page is correct - GET value not correct
+		$subpage_name = 'Invalid GET Value - Delete User';
 		// Log user accessing incorrect GET key
-		log_action("not_found", $logging["page"]["not_exist"]);
+		// Create new Log instance, and log the action to the database
+		$log = new Log('not_found');
+		// Redirect the user
 		redirect_to("users.php");
 	};
 	

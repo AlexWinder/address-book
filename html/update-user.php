@@ -169,22 +169,24 @@
 		
 		} else {
 			// User could not be found in the database
-			// Set $page_name so that the title of each page is correct - user couldn't be found
-			$page_name = "Update User - User Not Found";
+			// Set $subpage_name so that the title of each page is correct - user couldn't be found
+			$subpage_name = 'User Not Found - Update User';
 			// Send session message and redirect
 			$session->message_alert($notification["user"]["update"]["not_found"], "danger");
-			// Log user accessing incorrect GET value
-			log_action("not_found", $logging["page"]["not_exist"]);
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
+			// Redirect the user
 			redirect_to("users.php");
 		};
 	} else {
 		// Value of i in GET doesn't exist
-		// Set $page_name so that the title of each page is correct - user couldn't be found
-		$page_name = "Update User - User Not Found";
+		// Set $subpage_name so that the title of each page is correct - GET value not correct
+		$subpage_name = 'Invalid GET Value - Update User';
 		// Send session message and redirect
 		$session->message_alert($notification["user"]["update"]["not_found"], "danger");
-		// Log user accessing incorrect GET key
-		log_action("not_found", $logging["page"]["not_exist"]);
+		// Create new Log instance, and log the action to the database
+		$log = new Log('not_found');
+		// Redirect the user
 		redirect_to("users.php");
 	};
 	

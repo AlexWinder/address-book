@@ -6,7 +6,10 @@
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-
+		
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;
+		
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
 
@@ -16,8 +19,6 @@
 		// If a contact is found in the database
 		if($contact->found) {
 			
-			// Set $page_name so that the title of each page is correct
-			$page_name = PAGENAME_CONTACTS;
 			// Set page name as contact could be found
 			$subpage_name = $contact->full_name . " - Delete Contact";
 			
@@ -82,19 +83,22 @@
 			// Contact could not be found in the database
 			// Send session message and redirect
 			$session->message_alert($notification["contact"]["delete"]["not_found"], "danger");
-			$page_name = "Contact Not Found - Delete Contact";
-			// Log user accessing incorrect GET value
-			log_action("not_found", $logging["page"]["not_exist"]);
+			// Set $subpage_name so that the title of each page is correct - contact couldn't be found
+			$subpage_name = 'Contact Not Found - Delete Contact';
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
+			// Redirect the user
 			redirect_to("index.php");
 		};
 
 	} else {
 		// Value of i in GET doesn't exist, send session message and redirect
 		$session->message_alert($notification["contact"]["delete"]["not_found"], "danger");
-		// Set $page_name so that the title of each page is correct - contact couldn't be found
-		$page_name = "Contact Not Found - Delete Contact";
-		// Log user accessing incorrect GET key
-		log_action("not_found", $logging["page"]["not_exist"]);
+		// Set $page_name so that the title of each page is correct - GET value not correct
+		$subpage_name = 'Invalid GET Value - Delete Contact';
+		// Create new Log instance, and log the action to the database
+		$log = new Log('not_found');
+		// Redirect the user
 		redirect_to("index.php");
 	};
 

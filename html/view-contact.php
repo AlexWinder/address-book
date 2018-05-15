@@ -7,6 +7,9 @@
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;
+
 	// If the value of i in GET exists
 	if($_GET["i"]) {
 		
@@ -15,8 +18,6 @@
 		
 		// If a contact could be found
 		if($contact->found) {
-			// Set $page_name so that the title of each page is correct
-			$page_name = PAGENAME_CONTACTS;
 			// Set $subpage_name as this page isn't the main section
 			$subpage_name = $contact->full_name . " - View Details";
 			
@@ -25,22 +26,26 @@
 			
 		} else {
 			// Contact could not be found in the database
-			// Set $page_name so that the title of each page is correct - contact not found
-			$page_name = "View Contact - Contact Not Found";
-			// Log user accessing incorrect GET value
-			log_action("not_found", $logging["page"]["not_exist"]);
+			// Set $subpage_name so that the title of each page is correct - contact not found
+			$subpage_name = 'Contact Not Found - View Contact';
+			// Log user accessing contact which doesn't exist
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
 			// Send session message and redirect
 			$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
+			// Redirect the user
 			redirect_to("index.php");
 		}
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
-		// Set $page_name so that the title of each page is correct - GET value not correct
-		$page_name = "View Contact - Contact Not Found";
+		// Set $subpage_name so that the title of each page is correct - GET value not correct
+		$subpage_name = 'Invalid GET Value - View Contact';
 		// Log user accessing incorrect GET key
-		log_action("not_found", $logging["page"]["not_exist"]);
+		// Create new Log instance, and log the action to the database
+		$log = new Log('not_found');
 		// Set session message
 		$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
+		// Redirect the user
 		redirect_to("index.php");
 	};
 	

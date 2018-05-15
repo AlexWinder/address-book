@@ -6,7 +6,10 @@
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-	
+
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;		
+
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
 		
@@ -15,9 +18,6 @@
 		
 		// If a contact is found in the database
 		if($contact->found) {
-				
-			// Set $page_name so that the title of each page is correct
-			$page_name = PAGENAME_CONTACTS;
 			
 			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 			$csrf_token = CSRF::get_token();
@@ -138,23 +138,25 @@
 			$log = new Log('view');
 		} else {
 			// Contact could not be found in the database
-			// Set $page_name so that the title of each page is correct - contact couldn't be found
-			$page_name = "Update Contact - Contact Not Found";
-			
+			// Set $subpage_name so that the title of each page is correct - contact couldn't be found
+			$subpage_name = 'Contact Not Found - Update Contact';
 			// Send message and redirect
 			$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 			// Log user accessing incorrect GET value
-			log_action("not_found", $logging["page"]["not_exist"]);
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
+			// Redirect the user
 			redirect_to("index.php");
 		};
-		
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
-		// Set $page_name so that the title of each page is correct - contact couldn't be found
-		$page_name = "Update Contact - Contact Not Found";
+		// Set $subpage_name so that the title of each page is correct - GET value not correct
+		$subpage_name = 'Invalid GET Value - Update Contact';
 		$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 		// Log user accessing incorrect GET key
-		log_action("not_found", $logging["page"]["not_exist"]);
+		// Create new Log instance, and log the action to the database
+		$log = new Log('not_found');
+		// Redirect the user
 		redirect_to("index.php");
 	};
 	
