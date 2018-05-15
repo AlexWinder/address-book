@@ -6,8 +6,9 @@
 		
 		public 	$authenticated = false, // Used to know if the user is authenticated or not
 				$details = false, // Used to store all details about the user in an array
-				$name = false; // The users name as retrieved from the database
-		
+				$name = false, // The users name as retrieved from the database
+				$username = false; // The users username as retrieved from teh database
+				
 		// Constructor
 		public function __construct() {
 			// Obtain an instance of the database
@@ -40,6 +41,9 @@
 						
 						// Build the users full name for ease in future
 						$this->name = $result['full_name'];
+						
+						// Set the instance with the users username
+						$this->username = $result['username'];
 					} else {
 						// User does not exist in the database - remove all authentication as a fail-safe
 						$this->remove_authenticated();
