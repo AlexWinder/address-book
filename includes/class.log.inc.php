@@ -97,6 +97,20 @@
 				case 'logout_success' :
 					$action = 'Logout Success';
 					break;
+				case 'user_delete_failed' :
+					$action = 'User Delete Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'user_delete_success' :
+					$action = 'User Delete Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
