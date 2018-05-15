@@ -5,14 +5,14 @@
 		private $db = null; // Used to store an instance of the database
 		
 		// Constructor
-		public function __construct($action = null) {
+		public function __construct($action = null, $additional_message = null) {
 			// Obtain an instance of the database
 			$this->db = DB::get_instance();
 			
 			// If action was sent then process a new action to be added to the database
 			if($action) {
 				// $action has been sent, add to the database
-				$this->action($action);
+				$this->action($action, $additional_message = null);
 			}
 		}
 		
@@ -23,7 +23,7 @@
 		}
 		
 		// Method to add a new entry to the logs table in the database
-		public function action($action = null) {
+		public function action($action = null, $additional_message = null) {
 			global $user;
 			
 			// Define the SQL to be used to make changes to the database
@@ -51,7 +51,7 @@
 			// Bind values to the prepared statement
 			$datetime = $this->current_mysql_datetime();
 			$stmt->bindParam(':datetime', $datetime);
-			$action = $this->get_action($action);
+			$action = $this->get_action($action, $additional_message);
 			$stmt->bindParam(':action', $action);
 			$stmt->bindParam(':url', $_SERVER['REQUEST_URI']);
 			$name = $user->username ? $user->name . ' [' . $user->username . ']' : 'Unknown';
@@ -73,7 +73,7 @@
 		}
 		
 		// Returns a string of an action, based on an input
-		private function get_action($action = null) {
+		private function get_action($action = null, $additional_message = null) {
 			// Run through a switch statement to specify an action and return
 			switch($action) {
 				case 'view' : // For page views
