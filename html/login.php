@@ -66,10 +66,9 @@
 			$log_errors = log_validation_failures($errors);
 			log_action("login_failed", $log_errors);
 		};
-		
 	};
 	
-		// Create new Log instance, and log the page view to the database
+	// Create new Log instance, and log the page view to the database
 	$log = new Log('view');
 	
 	// Require head content in the page
