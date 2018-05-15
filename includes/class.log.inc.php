@@ -94,6 +94,9 @@
 				case 'login_redirect' :
 					$action = 'User redirected from login page due to already being logged in';
 					break;
+				case 'logout_success' :
+					$action = 'Logout Success';
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
