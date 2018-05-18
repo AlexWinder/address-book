@@ -1,10 +1,4 @@
 <?php
-
-	function redirect_to($new_location) {
-		// Redirect user to a specified location
-		header("Location: " . $new_location);
-		exit;
-	};
 	
 	function full_name($first_name, $middle_name = null, $last_name){
 		// If the person has a middle name

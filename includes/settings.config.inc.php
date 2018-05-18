@@ -56,7 +56,8 @@
 	defined("PAGELINK_LOGOUT")						?	null	:	define("PAGELINK_LOGOUT", "logout.php");
 	defined("PAGELINK_USERS")						?	null	:	define("PAGELINK_USERS", "users.php");
 	defined("PAGELINK_LOGS")						?	null	:	define("PAGELINK_LOGS", "logs.php");
-
+	defined("PAGELINK_CONTACTSVIEW")				?	null	:	define("PAGELINK_CONTACTSVIEW", "view-contact.php");
+	
 	// Server time zone
 	date_default_timezone_set("Europe/London");
 	

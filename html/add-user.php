@@ -82,7 +82,7 @@
 					// Set session message
 					$session->message_alert($notification["user"]["add"]["success"], "success");
 					// Redirect the user
-					redirect_to("users.php");
+					Redirect::to(PAGELINK_INDEX);
 				} else {
 					// Set session message
 					$session->message_alert($notification["user"]["add"]["failure"], "danger");

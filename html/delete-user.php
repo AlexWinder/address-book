@@ -55,7 +55,7 @@
 								// Create new Log instance, and log the action to the database
 								$log = new Log('user_delete_success', 'User - ' . $user_full_name_with_username);
 								// Redirect the user
-								redirect_to("users.php");
+								Redirect::to(PAGELINK_USERS);
 							} else {
 								// User failed to be deleted
 								// Set session message
@@ -72,7 +72,7 @@
 							// Create new Log instance, and log the action to the database
 							$log = new Log('user_delete_failed', 'User attempted to delete their own user account.');
 							// Redirect the user
-							redirect_to("users.php");
+							Redirect::to(PAGELINK_USERS);
 						};
 					
 					} else {
@@ -89,7 +89,7 @@
 					// Create new Log instance, and log the action to the database
 					$log = new Log('user_delete_failed', 'User did not confirm that they wanted to delete the user.');
 					// Redirect the user
-					redirect_to("users.php");
+					Redirect::to(PAGELINK_USERS);
 				};
 			}; // User has not submitted the form - do nothing
 			
@@ -107,7 +107,7 @@
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
 			// Redirect the user
-			redirect_to("users.php");
+			Redirect::to(PAGELINK_USERS);
 		};
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
@@ -119,7 +119,7 @@
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user
-		redirect_to("users.php");
+		Redirect::to(PAGELINK_USERS);
 	};
 	
 	// Require head content in the page

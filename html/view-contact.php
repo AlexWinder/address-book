@@ -34,7 +34,7 @@
 			// Send session message and redirect
 			$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
 			// Redirect the user
-			redirect_to("index.php");
+			Redirect::to(PAGELINK_INDEX);
 		}
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
@@ -46,7 +46,7 @@
 		// Set session message
 		$session->message_alert($notification["contact"]["view"]["not_found"], "danger");
 		// Redirect the user
-		redirect_to("index.php");
+		Redirect::to(PAGELINK_INDEX);
 	};
 	
 	// Require head content in the page

@@ -49,7 +49,7 @@
 							// Log action of database entry success
 							$log = new Log('contact_delete_success', 'Contact of ' . $contact->full_name . ' from ' . $contact->single['address_town'] . ' was deleted.');
 							// Redirect the user
-							redirect_to("index.php");
+							Redirect::to(PAGELINK_INDEX);
 						} else {
 							// Contact failed to be deleted
 							$session->message_alert($notification["contact"]["delete"]["failure"], "danger");
@@ -74,7 +74,7 @@
 					// Create new Log instance, and log the action to the database
 					$log = new Log('contact_delete_failed', 'User did not confirm that they wanted to delete the contact.');
 					// Redirect the user
-					redirect_to("view-contact.php?i=" . urlencode($contact->single['contact_id']));
+					Redirect::to(PAGELINK_CONTACTSVIEW . '?i=' . urlencode($contact->single['contact_id']));
 				};
 
 			}; // User has not submitted the form - do nothing
@@ -92,7 +92,7 @@
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
 			// Redirect the user
-			redirect_to("index.php");
+			Redirect::to(PAGELINK_INDEX);
 		};
 
 	} else {
@@ -103,7 +103,7 @@
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user
-		redirect_to("index.php");
+		Redirect::to(PAGELINK_INDEX);
 	};
 
 	// Require head content in the page

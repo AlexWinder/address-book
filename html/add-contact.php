@@ -94,7 +94,7 @@
 				// Add session message
 				$session->message_alert($notification["contact"]["add"]["success"], "success");
 				// Redirect the user
-				redirect_to("index.php");
+				Redirect::to(PAGELINK_INDEX);
 			} else {
 				// Add session message
 				$session->message_alert($notification["contact"]["add"]["failure"], "danger");

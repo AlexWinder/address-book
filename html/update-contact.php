@@ -116,7 +116,7 @@
 						// Create new Log instance, and log the action to the database
 						$log = new Log('contact_update_success',  $contact->full_name . " from " . $contact->single['address_town'] . " (" . $_GET['i'] . ")");
 						// Redirect the user
-						redirect_to("index.php");
+						Redirect::to(PAGELINK_INDEX);
 					} else {
 						// Set session message
 						$session->message_alert($notification["contact"]["update"]["failure"], "danger");
@@ -149,7 +149,7 @@
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
 			// Redirect the user
-			redirect_to("index.php");
+			Redirect::to(PAGELINK_INDEX);
 		};
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
@@ -160,7 +160,7 @@
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user
-		redirect_to("index.php");
+		Redirect::to(PAGELINK_INDEX);
 	};
 	
 	// Require head content in the page

@@ -84,7 +84,7 @@
 						// Create new Log instance, and log the action to the database
 						$log = new Log('user_update_success', 'Details updated from ' . $found_user['full_name'] . ' [' . $found_user['username'] . '] to ' . $update_values['full_name'] . ' [' . $update_values['username'] . '] (' . $found_user['user_id'] . ')');
 						// Redirect the user
-						redirect_to("users.php");
+						Redirect::to(PAGELINK_USERS);
 					} else {
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["name"]["failure"], "danger");
@@ -151,7 +151,7 @@
 						// Create new Log instance, and log the action to the database
 						$log = new Log('user_update_success', 'Password updated for ' . $found_user['full_name'] . ' [' . $found_user['username'] . '] (' . $found_user['user_id'] . ')');
 						// Redirect the user
-						redirect_to("users.php");
+						Redirect::to(PAGELINK_USERS);
 					} else {
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["password"]["failure"], "danger");
@@ -182,7 +182,7 @@
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
 			// Redirect the user
-			redirect_to("users.php");
+			Redirect::to(PAGELINK_USERS);
 		};
 	} else {
 		// Value of i in GET doesn't exist
@@ -193,7 +193,7 @@
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user
-		redirect_to("users.php");
+		Redirect::to(PAGELINK_USERS);
 	};
 	
 	// Require head content in the page
