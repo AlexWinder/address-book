@@ -7,7 +7,7 @@
 	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
-		$user->logout('security_failed');
+		$user->logout('not_authenticated');
 	}; // Close if(!$user->authenticated)
 	
 	// If the value of i in GET exists

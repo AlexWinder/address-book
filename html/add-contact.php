@@ -9,7 +9,7 @@
 	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
-		$user->logout('security_failed');
+		$user->logout('not_authenticated');
 	}; // Close if(!$user->authenticated)
 	
 	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
