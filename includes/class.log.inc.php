@@ -141,6 +141,20 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'contact_add_failed' :
+					$action = 'Contact Add Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'contact_add_success' :
+					$action = 'Contact Add Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				case 'contact_delete_failed' :
 					$action = 'Contact Delete Failed';
 					if($additional_message == 'database') {
