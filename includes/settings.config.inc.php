@@ -40,8 +40,15 @@
 	defined("PAGENAME_LOGIN")						?	null	:	define("PAGENAME_LOGIN", "Log In");
 	defined("PAGENAME_LOGOUT")						?	null	:	define("PAGENAME_LOGOUT", "Log Out");
 	defined("PAGENAME_USERS")						?	null	:	define("PAGENAME_USERS", "Users");
+	defined("PAGENAME_USERSADD")					?	null	:	define("PAGENAME_USERSADD", "Add User");
+	defined("PAGENAME_USERSDELETE")					?	null	:	define("PAGENAME_USERSDELETE", "Delete User");
+	defined("PAGENAME_USERSUPDATE")					?	null	:	define("PAGENAME_USERSUPDATE", "Update User");
 	defined("PAGENAME_LOGS")						?	null	:	define("PAGENAME_LOGS", "Logs");
 	defined("PAGENAME_CONTACTS")					?	null	:	define("PAGENAME_CONTACTS", "Contacts");
+	defined("PAGENAME_CONTACTSADD")					?	null	:	define("PAGENAME_CONTACTSADD", "Add Contact");
+	defined("PAGENAME_CONTACTSDELETE")				?	null	:	define("PAGENAME_CONTACTSDELETE", "Delete Contact");
+	defined("PAGENAME_CONTACTSUPDATE")				?	null	:	define("PAGENAME_CONTACTSUPDATE", "Update Contact");
+	defined("PAGENAME_CONTACTSVIEW")				?	null	:	define("PAGENAME_CONTACTSVIEW", "View Contact");
 	
 	// Set page links
 	defined("PAGELINK_INDEX")						?	null	:	define("PAGELINK_INDEX", "index.php");
