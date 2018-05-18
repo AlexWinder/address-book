@@ -129,8 +129,8 @@
 			
 			<hr>
 			
-			<a href="update-contact.php?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-info">Update Contact</a>
-			<a href="delete-contact.php?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-danger">Delete Contact</a>
+			<a href="<?php echo PAGELINK_CONTACTSUPDATE; ?>?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-info">Update Contact</a>
+			<a href="<?php echo PAGELINK_CONTACTSDELETE; ?>?i=<?php echo urlencode($contact->single["contact_id"]); ?>" type="button" role="button" class="btn btn-danger">Delete Contact</a>
 			<!-- /CONTENT -->
 
 <?php

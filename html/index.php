@@ -58,7 +58,7 @@
 					?>
 				</tbody>
 			</table>
-			<a href="add-contact.php" type="button" class="btn btn-info">Add Contact</a>
+			<a href="<?php echo PAGELINK_CONTACTSADD; ?>" type="button" class="btn btn-info">Add Contact</a>
 			<!-- /CONTENT -->
 
 <?php

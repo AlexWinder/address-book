@@ -48,7 +48,7 @@
 					<tr>
 						<td><?php echo htmlentities($user["full_name"]); ?></td>
 						<td><?php echo htmlentities($user["username"]); ?></td>
-						<td><a href="update-user.php?i=<?php echo urlencode($user["user_id"]); ?>">Update</a> &bull; <a href="delete-user.php?i=<?php echo urlencode($user["user_id"]); ?>">Delete</a></td>
+						<td><a href="<?php echo PAGELINK_USERSUPDATE; ?>?i=<?php echo urlencode($user["user_id"]); ?>">Update</a> &bull; <a href="<?php echo PAGELINK_USERSDELETE; ?>?i=<?php echo urlencode($user["user_id"]); ?>">Delete</a></td>
 					</tr>
 <?php
 				// Closing the foreach loop once final item in $contacts has been displayed
