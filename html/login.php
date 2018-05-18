@@ -13,6 +13,8 @@
 		// User is already logged in, so will be redirected
 		// Create new Log instance, and log the action to the database
 		$log = new Log('login_redirect');
+		// Set session message
+		$session->message_alert($notification["login"]["redirect"], "info");
 		// Redirect the user
 		Redirect::to(PAGELINK_INDEX);
 	}; // Close if($user->authenticated)
