@@ -2,13 +2,13 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-		
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_CONTACTS;
 		
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
@@ -20,7 +20,7 @@
 		if($contact->found) {
 			
 			// Set page name as contact could be found
-			$subpage_name = $contact->full_name . " - Delete Contact";
+			$subpage_name = $contact->full_name . ' - ' . PAGENAME_CONTACTSDELETE;
 			
 			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 			$csrf_token = CSRF::get_token();
@@ -88,7 +88,7 @@
 			// Send session message and redirect
 			$session->message_alert($notification["contact"]["delete"]["not_found"], "danger");
 			// Set $subpage_name so that the title of each page is correct - contact couldn't be found
-			$subpage_name = 'Contact Not Found - Delete Contact';
+			$subpage_name = 'Contact Not Found - ' . PAGENAME_CONTACTSDELETE;
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
 			// Redirect the user
@@ -99,7 +99,7 @@
 		// Value of i in GET doesn't exist, send session message and redirect
 		$session->message_alert($notification["contact"]["delete"]["not_found"], "danger");
 		// Set $page_name so that the title of each page is correct - GET value not correct
-		$subpage_name = 'Invalid GET Value - Delete Contact';
+		$subpage_name = 'Invalid GET Value - ' . PAGENAME_CONTACTSDELETE;
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user

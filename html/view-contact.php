@@ -2,14 +2,14 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
 	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_CONTACTS;
-
 	// If the value of i in GET exists
 	if($_GET["i"]) {
 		
@@ -19,7 +19,7 @@
 		// If a contact could be found
 		if($contact->found) {
 			// Set $subpage_name as this page isn't the main section
-			$subpage_name = $contact->full_name . " - View Details";
+			$subpage_name = $contact->full_name . ' - ' . PAGENAME_CONTACTSVIEW;
 			
 			// Create new Log instance, and log the page view to the database
 			$log = new Log('view');
@@ -27,7 +27,7 @@
 		} else {
 			// Contact could not be found in the database
 			// Set $subpage_name so that the title of each page is correct - contact not found
-			$subpage_name = 'Contact Not Found - View Contact';
+			$subpage_name = 'Contact Not Found - ' . PAGENAME_CONTACTSVIEW;
 			// Log user accessing contact which doesn't exist
 			// Create new Log instance, and log the action to the database
 			$log = new Log('not_found');
@@ -39,7 +39,7 @@
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
 		// Set $subpage_name so that the title of each page is correct - GET value not correct
-		$subpage_name = 'Invalid GET Value - View Contact';
+		$subpage_name = 'Invalid GET Value - ' . PAGENAME_CONTACTSVIEW;
 		// Log user accessing incorrect GET key
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');

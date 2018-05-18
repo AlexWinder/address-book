@@ -2,6 +2,9 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_LOGS;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
@@ -13,9 +16,6 @@
 	$datatables_table_id = "logs";
 	// Set the datatable option to order the first column in a descending order
 	$datatables_option = '"order": [[ 0, "desc" ]]';
-	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_LOGS;
 	
 	// Create new Log instance, and log the page view to the database
 	$log = new Log('view');

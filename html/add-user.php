@@ -2,14 +2,14 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+	$subpage_name = PAGENAME_USERSADD;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_USERS;
-	$subpage_name = "Add User";
 	
 	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 	$csrf_token = CSRF::get_token();

@@ -2,6 +2,9 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
@@ -16,9 +19,6 @@
 	
 	// Obtain all users from the database, which will be used to populate the table
 	$users = $user->find_all();
-	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_USERS;
 	
 	// Create new Log instance, and log the page view to the database
 	$log = new Log('view');

@@ -2,13 +2,13 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-	
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_USERS;
 
 	// If the value of i in GET exists
 	if(isset($_GET['i'])) {
@@ -22,7 +22,7 @@
 			$user_full_name = htmlentities($found_user["full_name"] . " [" . $found_user["username"] . "]");
 			
 			// Set page name as user could be found
-			$subpage_name = $user_full_name . " - Update User";
+			$subpage_name = $user_full_name . ' - ' . PAGENAME_USERSUPDATE;
 		
 			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 			$csrf_token = CSRF::get_token();
@@ -176,7 +176,7 @@
 		} else {
 			// User could not be found in the database
 			// Set $subpage_name so that the title of each page is correct - user couldn't be found
-			$subpage_name = 'User Not Found - Update User';
+			$subpage_name = 'User Not Found - ' . PAGENAME_USERSUPDATE;
 			// Send session message and redirect
 			$session->message_alert($notification["user"]["update"]["not_found"], "danger");
 			// Create new Log instance, and log the action to the database
@@ -187,7 +187,7 @@
 	} else {
 		// Value of i in GET doesn't exist
 		// Set $subpage_name so that the title of each page is correct - GET value not correct
-		$subpage_name = 'Invalid GET Value - Update User';
+		$subpage_name = 'Invalid GET Value - ' . PAGENAME_USERSUPDATE;
 		// Send session message and redirect
 		$session->message_alert($notification["user"]["update"]["not_found"], "danger");
 		// Create new Log instance, and log the action to the database

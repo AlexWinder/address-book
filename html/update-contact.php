@@ -2,13 +2,13 @@
 	// Require relevent information for settings.config.inc.php, including functions and database access
 	require_once("../includes/settings.config.inc.php");
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_CONTACTS;	
+	
 	// Check if $user is authenticated
 	if(!$user->authenticated) {
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
-
-	// Set $page_name so that the title of each page is correct
-	$page_name = PAGENAME_CONTACTS;		
 
 	// If the value of i in GET exists
 	if(isset($_GET['i'])) {
@@ -23,7 +23,7 @@
 			$csrf_token = CSRF::get_token();
 			
 			// Set page name as contact could be found
-			$subpage_name = $contact->full_name . ' - Update Contact';
+			$subpage_name = $contact->full_name . ' - ' . PAGENAME_CONTACTSUPDATE;
 		
 			// Assign all the various database values to their own variables
 			// First check if value has been sent in $_POST, if not then check if it exists in the database, if not then assign as null
@@ -142,7 +142,7 @@
 		} else {
 			// Contact could not be found in the database
 			// Set $subpage_name so that the title of each page is correct - contact couldn't be found
-			$subpage_name = 'Contact Not Found - Update Contact';
+			$subpage_name = 'Contact Not Found - ' . PAGENAME_CONTACTSUPDATE;
 			// Send message and redirect
 			$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 			// Log user accessing incorrect GET value
@@ -154,7 +154,7 @@
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
 		// Set $subpage_name so that the title of each page is correct - GET value not correct
-		$subpage_name = 'Invalid GET Value - Update Contact';
+		$subpage_name = 'Invalid GET Value - ' PAGENAME_CONTACTSUPDATE;
 		$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 		// Log user accessing incorrect GET key
 		// Create new Log instance, and log the action to the database
