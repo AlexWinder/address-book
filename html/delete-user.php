@@ -129,7 +129,7 @@
 
 ?>
 			<!-- CONTENT -->
-			<?php $session->output_message(); ?>
+			<?php $session->output_message(); $session->debug(); ?>
 			
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once a user has been deleted the only way to restore them to the user list is by manually re-adding.</strong></p>
