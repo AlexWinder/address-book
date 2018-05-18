@@ -11,7 +11,7 @@
 	$page_name = PAGENAME_USERS;
 
 	// If the value of i in GET exists
-	if(isset($_GET["i"])) {
+	if(isset($_GET['i'])) {
 		// Find user in database
 		$found_user = $user->find_id($_GET['i']);
 		
@@ -81,13 +81,16 @@
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["name"]["success"], "success");
 						// Log action of add entry success, with user updated 
-						log_action("update_success", "User Updated: Full name/username updated from " . $found_user["full_name"] . " [" . $found_user["username"] . "] to " . $form_full_name . " [" . $form_username . "]");
+						// Create new Log instance, and log the action to the database
+						$log = new Log('user_update_success', 'Details updated from ' . $found_user['full_name'] . ' [' . $found_user['username'] . '] to ' . $update_values['full_name'] . ' [' . $update_values['username'] . '] (' . $found_user['user_id'] . ')');
+						// Redirect the user
 						redirect_to("users.php");
 					} else {
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["name"]["failure"], "danger");
 						// Log action of database entry failing
-						log_action("update_failed", $logging["database"]["failure"]);
+						// Create new Log instance, and log the action to the database
+						$log = new Log('user_update_failed', 'database_details');
 					};
 					
 				} else {
@@ -95,8 +98,8 @@
 					// If there are any error messages in the $errors array then display them to the screen
 					$session->message_validation($errors);
 					// Log action of failing form process
-					$log_errors = log_validation_failures($errors);
-					log_action("update_failed", $log_errors);
+					// Create new Log instance, and log the action to the database
+					$log = new Log('user_update_failed', 'Failed user update due to form validation errors when updating details.');
 				};
 			}; // No submit button to change the full name/username of the user
 			
@@ -134,7 +137,7 @@
 					$update_values = array();
 					
 					// Assign values to an array which will be used as part of the update
-					if(isset($_POST['password']) && !empty($_POST["password"])) 						{ $update_values['hashed_password'] = $user->password_encrypt($_POST['password']); } else { $update_values['hashed_password'] = null; };
+					if(isset($_POST['password']) && !empty($_POST['password'])) 						{ $update_values['hashed_password'] = $user->password_encrypt($_POST['password']); } else { $update_values['hashed_password'] = null; };
 					
 					// Execute the update
 					$result = $user->update($update_values, $found_user['user_id']);
@@ -145,22 +148,24 @@
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["password"]["success"], "success");
 						// Log action of add entry success, with user updated 
-						log_action("update_success", "User updated: Password updated for " . $user_full_name);
+						// Create new Log instance, and log the action to the database
+						$log = new Log('user_update_success', 'Password updated for ' . $found_user['full_name'] . ' [' . $found_user['username'] . '] (' . $found_user['user_id'] . ')');
+						// Redirect the user
 						redirect_to("users.php");
 					} else {
 						// Set session message
 						$session->message_alert($notification["user"]["update"]["password"]["failure"], "danger");
 						// Log action of database entry failing
-						log_action("update_failed", $logging["database"]["failure"]);
+						// Create new Log instance, and log the action to the database
+						$log = new Log('user_update_failed', 'database_password');
 					};
 					
 				} else {
 					// Form field validation has failed - $errors array is not empty
 					// If there are any error messages in the $errors array then display them to the screen
 					$session->message_validation($errors);
-					// Log action of failing form process
-					$log_errors = log_validation_failures($errors);
-					log_action("update_failed", $log_errors);
+					// Create new Log instance, and log the action to the database
+					$log = new Log('user_update_failed', 'Failed user update due to form validation errors when updating password.');
 				};
 			};// No submit button to change the password of the user
 			
