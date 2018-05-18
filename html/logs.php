@@ -43,7 +43,7 @@
 				</thead>
 				<tbody>
 <?php
-				// Cycle through each item obtained from find_columns_from_logs() and display them in the DataTable
+				// Cycle through each item obtained from $log->find_all() and display them in the DataTable
 				foreach($logs as $log){
 				?>
 					<tr>
