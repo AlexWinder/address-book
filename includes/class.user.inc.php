@@ -275,10 +275,21 @@
 			
 			// Use switch statement to determine if user has been automatically logged out due to failing a security check
 			switch($message) {
-				case 'security_failed':
+				case 'not_authenticated' :
+					// Log that the user isn't authenticate to view a particular page
+					// Create new Log instance, and log the action to the database
+					$log = new Log('not_authenticated');
+					// Set session message
+					$session->message_alert($notification['authenticate']['not_authenticated'], 'danger');
+					break;
+				case 'security_failed' :
+					// Log that the user has been automatically logged out due to a security failure
+					// Create new Log instance, and log the action to the database
+					$log = new Log('logout_security');
+					// Set session message
 					$session->message_alert($notification['logout']['security_failed'], 'danger');
 					break;
-				default:
+				default :
 					// No $message has been sent, use the default logout message
 					$session->message_alert($notification['logout']['success'], 'success');
 			}
