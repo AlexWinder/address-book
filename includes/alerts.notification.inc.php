@@ -80,6 +80,8 @@
 		
 		// Items relating to the user currently logged in via authenticated.inc.php
 		"authenticate" => array (
+			// Not authenticated is used when a person tries accessing a page when they haven't been authenticated
+			"not_authenticated" => "You must be authenticated to view that page. Please log in.",
 			"not_found" => "Your user account doesn't appear to exist in the database anymore.",
 			"details_changed" => "Your user account information has changed. Please log in to reverify yourself.",
 			"agent_changed" => "Your device appears to have changed. Please log in to reverify yourself.",
