@@ -42,7 +42,7 @@
 					if(empty($errors)) {
 					
 						// The user is not allowed to delete their own user
-						if($found_user["user_id"] != $_SESSION["authenticated_user_id"]) {
+						if($found_user['user_id'] != $session->get('authenticated_user_id')) {
 							// Delete the user
 							$result = $user->delete($found_user['user_id']);
 							
