@@ -17,6 +17,8 @@ A simple PHP-based contact list manager with authentication and logging features
 - Create a PHP file called "settings.local.inc.php" inside the includes/ directory. Begin the file with some opening PHP tags on the first line (<?php). Upon loading the system in a web browser for the first time you will be presented with a number of errors that DB_* values aren't set. Each DB_* value should be set with your own system settings and on it's own line, and each line must be closed with a semi-colon (;). There is an example file of the "settings.local.inc.php" file in the includes/ directory called ["EXAMPLE.settings.local.inc.php"](includes/EXAMPLE.settings.local.inc.php).
 - Once database constants have been set you should now be able to log into the system. The default username is "admin" with a password of "LetMeIn123".
 
+The system is separated out into two main directory: html and includes. It is recommended that you configure your web server to only allow public access to the html directory but your web server user locally, such as www-data, should be able to view the files in the includes directory. This will provide adequate security and prevent users for accessing anything in the includes directory.
+
 # License
 
 This project is licensed under the [MIT License](LICENSE.md).
