@@ -286,7 +286,7 @@
 			return preg_replace('/\s+/', '', $string);
 		}
 		
-		private function full_name($first_name, $middle_name = null, $last_name){
+		public function full_name($first_name, $middle_name = null, $last_name){
 			// If the person has a middle name
 			if($middle_name != null ) {
 				// Create their name with a middle name
