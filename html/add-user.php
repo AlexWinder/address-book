@@ -76,36 +76,35 @@
 				// Test whether the query was successful
 				if($result){
 					// User successfully added to the database
-					// Log action of add entry success, with contact added 
-					log_action("add_success", "User added: " . $form_full_name . " [" . htmlentities($_POST['username']) . "]");
+					// Create new Log instance, and log the action to the database
+					$log = new Log('user_add_success', 'User of ' . $fields['full_name'] . ' [' . $fields['username'] . '] successfully created.');
 					// Set session message
 					$session->message_alert($notification["user"]["add"]["success"], "success");
+					// Redirect the user
 					redirect_to("users.php");
 				} else {
 					// Set session message
 					$session->message_alert($notification["user"]["add"]["failure"], "danger");
 					// Log action of database entry failing
-					log_action("add_failed", $logging["database"]["failure"]);
+					// Create new Log instance, and log the action to the database
+					$log = new Log('user_add_failed', 'database');
 				};
 				
 			} else {
 				// Username already exists in the database
 				// Set session message
 				$session->message_alert($notification["user"]["add"]["duplicate"], "danger");
-				
 				// Log action of failing form process
-				$log_errors = log_validation_failures($errors);
-				log_action("add_failed", "Username of " . htmlentities($_POST['username']) . " already exists.");
+				// Create new Log instance, and log the action to the database
+				$log = new Log('user_add_failed', 'Failed user add due to username [' . $_POST['username'] . '] already exists.');
 			};
 			
 		} else {
 			// Form field validation has failed - $errors array is not empty
 			// If there are any error messages in the $errors array then display them to the screen
 			$session->message_validation($errors);
-			
-			// Log action of failing form process
-			$log_errors = log_validation_failures($errors);
-			log_action("add_failed", $log_errors);
+			// Create new Log instance, and log the action to the database
+			$log = new Log('user_add_failed', 'Failed user add due to form validation errors.');
 		};
 		
 	} else {
