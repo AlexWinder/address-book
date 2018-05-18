@@ -97,6 +97,12 @@
 				case 'logout_success' :
 					$action = 'Logout Success';
 					break;
+				case 'logout_security' :
+					$action = 'Automatic logout due to a failed security check';
+					break;
+				case 'not_authenticated' :
+					$action = 'Unauthenticated User Attempted Accessing Page: (' . page_name() . ')';
+					break;
 				case 'user_add_failed' :
 					$action = 'User Add Failed';
 					if($additional_message == 'database') {
