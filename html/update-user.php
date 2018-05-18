@@ -7,6 +7,9 @@
 		$user->logout('security_failed');
 	}; // Close if(!$user->authenticated)
 	
+	// Set $page_name so that the title of each page is correct
+	$page_name = PAGENAME_USERS;
+
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
 		// Find user in database
@@ -14,8 +17,6 @@
 		
 		// If a user is found in the database
 		if($found_user) {
-			// Set $page_name so that the title of each page is correct
-			$page_name = PAGENAME_USERS;
 			
 			// Create a variable to store the user full name - used in the page name
 			$user_full_name = htmlentities($found_user["full_name"] . " [" . $found_user["username"] . "]");
