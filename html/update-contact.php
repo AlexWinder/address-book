@@ -154,7 +154,7 @@
 	} else {
 		// Value of i in GET doesn't exist, send message and redirect
 		// Set $subpage_name so that the title of each page is correct - GET value not correct
-		$subpage_name = 'Invalid GET Value - ' PAGENAME_CONTACTSUPDATE;
+		$subpage_name = 'Invalid GET Value - ' . PAGENAME_CONTACTSUPDATE;
 		$session->message_alert($notification["contact"]["update"]["not_found"], "danger");
 		// Log user accessing incorrect GET key
 		// Create new Log instance, and log the action to the database
