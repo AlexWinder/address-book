@@ -6,7 +6,8 @@
 		// Notifications which display when a user logs in
 		"login" => array (
 			"success" => "You have been logged in successfully.",
-			"failure" => "Username/password combination not found."
+			"failure" => "Username/password combination not found.",
+			"redirect" => "You are already authenticated, so you have been redirected away from the login page to the home page."
 		),
 		
 		"logout" => array (
