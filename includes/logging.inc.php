@@ -92,18 +92,6 @@
 					$action .= " - " . mysql_prep($additional_message);
 				};
 				break;
-			case "update_success":
-				$action = "Entry Updated - " . $page_name;
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
-			case "update_failed":
-				$action = "Update Failed - " . $page_name;
-				if(!empty($additional_message) && !is_null($additional_message)) {
-					$action .= " - " . mysql_prep($additional_message);
-				};
-				break;
 		};
 		
 		// Obtain the URL of the page that the user is accessing
