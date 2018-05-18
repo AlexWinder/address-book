@@ -8,7 +8,7 @@
 	// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 	$csrf_token = CSRF::get_token();
 	
-	// If user is already authenticated - redirect to index.php
+	// If user is already authenticated - redirect to index
 	if($user->authenticated) {
 		// User is already logged in, so will be redirected
 		// Create new Log instance, and log the action to the database
