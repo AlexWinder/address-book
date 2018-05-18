@@ -1,16 +1,5 @@
 <?php
 	
-	function full_name($first_name, $middle_name = null, $last_name){
-		// If the person has a middle name
-		if($middle_name != null ) {
-			// Create their name with a middle name
-			return $first_name . " " . $middle_name . " " . $last_name;
-		} else {
-			// Don't include the middle name
-			return $first_name . " " . $last_name;
-		};
-	};
-	
 	function page_name() {
 		// Bring in $page_name and $subpage_name if set
 		global $page_name;
