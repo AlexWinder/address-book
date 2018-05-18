@@ -11,7 +11,7 @@
 	$page_name = PAGENAME_CONTACTS;		
 
 	// If the value of i in GET exists
-	if(isset($_GET["i"])) {
+	if(isset($_GET['i'])) {
 		
 		// Find contact in database
 		$contact = new Contact($_GET['i']);
@@ -23,7 +23,7 @@
 			$csrf_token = CSRF::get_token();
 			
 			// Set page name as contact could be found
-			$subpage_name = $contact->full_name . " - Update Contact";
+			$subpage_name = $contact->full_name . ' - Update Contact';
 		
 			// Assign all the various database values to their own variables
 			// First check if value has been sent in $_POST, if not then check if it exists in the database, if not then assign as null
@@ -112,14 +112,17 @@
 						// Contact successfully updated on the database
 						// Set session message
 						$session->message_alert($notification["contact"]["update"]["success"], "success");
-						// Log action of add entry success, with contact updated 
-						log_action("update_success", "Contact Updated: " . $contact->full_name . " from " . $contact->single['address_town'] . " (" . $_GET['i'] . ")");
+						// Log action of add entry success, with contact updated
+						// Create new Log instance, and log the action to the database
+						$log = new Log('contact_update_success',  $contact->full_name . " from " . $contact->single['address_town'] . " (" . $_GET['i'] . ")");
+						// Redirect the user
 						redirect_to("index.php");
 					} else {
 						// Set session message
 						$session->message_alert($notification["contact"]["update"]["failure"], "danger");
 						// Log action of database entry failing
-						log_action("update_failed", $logging["database"]["failure"]);
+						// Create new Log instance, and log the action to the database
+						$log = new Log('contact_update_failed', 'database');
 					};
 					
 				} else {
@@ -127,8 +130,8 @@
 					// If there are any error messages in the $errors array then display them to the screen
 					$session->message_validation($errors);
 					// Log action of failing form process
-					$log_errors = log_validation_failures($errors);
-					log_action("update_failed", $log_errors);
+					// Create new Log instance, and log the action to the database
+					$log = new Log('contact_update_failed', 'Failed contact update due to form validation errors.');
 				};
 				
 			}; // User has not submitted the form - do nothing
