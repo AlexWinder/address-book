@@ -55,7 +55,12 @@
 	defined("PAGELINK_LOGIN")						?	null	:	define("PAGELINK_LOGIN", "login.php");
 	defined("PAGELINK_LOGOUT")						?	null	:	define("PAGELINK_LOGOUT", "logout.php");
 	defined("PAGELINK_USERS")						?	null	:	define("PAGELINK_USERS", "users.php");
+	defined("PAGELINK_USERSDELETE")					?	null	:	define("PAGELINK_USERSDELETE", "delete-user.php");
+	defined("PAGELINK_USERSUPDATE")					?	null	:	define("PAGELINK_USERSUPDATE", "update-user.php");
 	defined("PAGELINK_LOGS")						?	null	:	define("PAGELINK_LOGS", "logs.php");
+	defined("PAGELINK_CONTACTSADD")					?	null	:	define("PAGELINK_CONTACTSADD", "add-contact.php");
+	defined("PAGELINK_CONTACTSDELETE")				?	null	:	define("PAGELINK_CONTACTSDELETE", "delete-contact.php");
+	defined("PAGELINK_CONTACTSUPDATE")				?	null	:	define("PAGELINK_CONTACTSUPDATE", "update-contact.php");
 	defined("PAGELINK_CONTACTSVIEW")				?	null	:	define("PAGELINK_CONTACTSVIEW", "view-contact.php");
 	
 	// Server time zone
