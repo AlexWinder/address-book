@@ -113,8 +113,10 @@
 					break;
 				case 'user_update_failed' :
 					$action = 'User Update Failed';
-					if($additional_message == 'database') {
-						$action .= ': There was an error making changes to the database.';
+					if($additional_message == 'database_password') {
+						$action .= ': There was an error making changes to the database to update password.';
+					} elseif($additional_message == 'database_details') {
+						$action .= ': There was an error making changes to the database to update details.';
 					} elseif($additional_message) {
 						$action .= ': ' . $additional_message;
 					}
