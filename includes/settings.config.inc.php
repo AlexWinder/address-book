@@ -72,6 +72,9 @@
 	// Begin a new User instance as will automatically check details of the user if they are logged in etc
 	$user = new User();
 	
+	// Database connection
+	require_once("database.inc.php");
+	
 	// Site functions
 	require_once("functions.inc.php");
 	
@@ -80,5 +83,8 @@
 	
 	// Validation messages for form fields, such as string lengths too long, or required fields missing
 	require_once("alerts.validation.inc.php");
+	
+	// Logging user activity - functions and log text
+	require_once("logging.inc.php");
 
 ?>
