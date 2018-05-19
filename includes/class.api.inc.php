@@ -148,5 +148,11 @@
 			}
 		}
 		
+		// Method to find all api tokens in the database
+		public function find_all() {
+			// Return all 
+			return $this->all = $this->db->query('SELECT * FROM api', PDO::FETCH_ASSOC);
+		}
+		
 	} // Close class API
 // EOF
