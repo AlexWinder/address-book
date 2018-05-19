@@ -39,6 +39,7 @@
 						<th>Town</th>
 						<th>Mobile Number</th>
 						<th>Email Address</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -47,10 +48,11 @@
 				foreach($contacts->all as $contact){
 				?>
 					<tr>
-						<td><a href="<?php echo PAGELINK_CONTACTSVIEW; ?>?i=<?php echo urlencode($contact["contact_id"]); ?>"><?php echo htmlentities($contacts->full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"])); ?></a></td>
+						<td><?php echo htmlentities($contacts->full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"])); ?></td>
 						<td><?php echo htmlentities($contact["address_town"]); ?></td>
 						<td><?php if(!empty($contact["contact_number_mobile"])) { echo htmlentities($contacts->format_phone_number($contact["contact_number_mobile"])); } else { echo "NOT SPECIFIED"; }; ?></td>
 						<td><?php if(!empty($contact["contact_email"])) { echo "<a href=\"mailto:" . htmlentities($contact["contact_email"]) . "\">" .  htmlentities($contact["contact_email"]) . "</a>"; } else { echo "NOT SPECIFIED"; }; ?></td>
+						<td><a href="<?php echo PAGELINK_CONTACTSVIEW; ?>?i=<?php echo urlencode($contact["contact_id"]); ?>">View</a></td>
 					</tr>
 <?php
 				// Closing the foreach loop once final item in $contacts has been displayed
