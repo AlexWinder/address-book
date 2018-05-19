@@ -8,7 +8,7 @@
 	// Check if user is making an API call - check if GET value has been sent
 	if(isset($_GET['t']) && !empty($_GET['t'])) {
 		// User is making an API call
-		$api = new API($_GET['t'], $_GET['a'], $_GET['q']);
+		$api = new API($_GET['t'], $_GET['m'], $_GET['q']);
 		
 		// Output the array_result in JSON format
 		echo json_encode($api->array_result);
@@ -31,7 +31,7 @@
 
 	// Create a new API instance, mainly for obtaining all tokens from the database
 	$api = new API();
-	$api = $api->find_all();
+	$tokens = $api->find_all();
 	
 	// Create new Log instance, and log the page view to the database
 	$log = new Log('view');
@@ -45,6 +45,27 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
+			<p>API calls are made using a HTTP GET request to this page. For example, https://yourdomain.com/<?php echo PAGELINK_API; ?>?t=<strong>APITOKEN</strong>&m=<strong>APIMETHOD</strong>&q=<strong>APIQUERY</strong></p>
+			<p>Results are returned in a JSON array.</p>
+			<ul>
+				<li>The index of 'success' will indicate a '0' if a result couldn't be found, or a '1' if it could.</li>
+				<li>The result of the API call is returned under the 'result' index.</li>
+				<li>For troubleshooting 'result_message' will display any errors should they occur.</li>
+			</ul>
+			<p>If an API token has no authorised IP address associated with it, then this means that the token can be used from any IP address. If this is not intended then specify an IP address when creating the API token.</p>
+			
+			<hr />
+			
+			<p>The following API methods are available:</p>
+			
+			<ul>
+			<?php foreach($api->available_methods as $method => $description) { ?>
+			<li><strong><?php echo htmlentities($method); ?></strong> - <?php echo htmlentities($description); ?></li>
+			<?php }; // Close ?>
+			</ul>
+			
+			<hr />
+			
 			<table id="<?php echo $datatables_table_id; ?>">
 				<thead>
 					<tr>
@@ -57,7 +78,7 @@
 				<tbody>
 <?php
 				// Cycle through each item in $contacts and display them in the DataTable
-				foreach($api as $token){
+				foreach($tokens as $token){
 				?>
 					<tr>
 						<td><?php echo htmlentities($token['api_id']); ?></td>
