@@ -189,6 +189,18 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'api_call_success' :
+					$action = 'API Call Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
+				case 'api_call_failed' :
+					$action = 'API Call Failed';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
