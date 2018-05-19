@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
+SQLyog Ultimate v13.0.0 (64 bit)
 MySQL - 10.1.25-MariaDB : Database - address_book
 *********************************************************************
 */
@@ -15,6 +15,19 @@ MySQL - 10.1.25-MariaDB : Database - address_book
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`address_book` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `address_book`;
+
+/*Table structure for table `api` */
+
+DROP TABLE IF EXISTS `api`;
+
+CREATE TABLE `api` (
+  `api_id` varchar(12) NOT NULL COMMENT 'Token used for API call',
+  `ip` varchar(200) DEFAULT NULL COMMENT 'IP address from which API call is authorised',
+  `cosmetic_name` text COMMENT 'Cosmetic description of the API token',
+  PRIMARY KEY (`api_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `api` */
 
 /*Table structure for table `contacts` */
 
