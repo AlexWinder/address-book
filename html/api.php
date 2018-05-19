@@ -45,7 +45,15 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
-			<p>API calls are made using a HTTP GET request to this page. For example, https://yourdomain.com/<?php echo PAGELINK_API; ?>?t=<strong>APITOKEN</strong>&m=<strong>APIMETHOD</strong>&q=<strong>APIQUERY</strong></p>
+			<p>API calls are made using a HTTP GET request to this page, using the values:
+			<ul>
+				<li><strong>t</strong> for the API token</li>
+				<li><strong>m</strong> for the API method</li>
+				<li><strong>q</strong> for the API query string</li>
+			</ul>
+			
+			<p>For example, https://yourdomain.com/<?php echo PAGELINK_API; ?>?t=<strong>APITOKEN</strong>&m=<strong>APIMETHOD</strong>&q=<strong>APIQUERY</strong></p>
+			
 			<p>Results are returned in a JSON array.</p>
 			<ul>
 				<li>The index of 'success' will indicate a '0' if a result couldn't be found, or a '1' if it could.</li>
