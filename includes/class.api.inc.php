@@ -26,10 +26,8 @@
 		private function call($token, $method, $query){
 			// Check if token, method and query have been submitted
 			if($token && $method && $query) {
-				// Lookup the token
-				$call = $this->check_token($token);
 				// Check if $token is valid
-				if($call) {
+				if($this->check_token($token)) {
 					
 				} else {
 					// $token is not valid
