@@ -13,7 +13,7 @@
 	// setting $datatables_required to 1 will ensure it is included in the <head> in layout.head.inc.php and so the <script> is called in the layout.footer.inc.php
 	$datatables_required = 1;
 	// Table ID to relate to the datatable, as identified in the <table> and in the <script>, needed to identify which tables to make into datatables
-	$datatables_table_id = "contacts";
+	$datatables_table_id = 'contacts';
 	// No datatable option required for this page
 	$datatables_option = null;
 	
