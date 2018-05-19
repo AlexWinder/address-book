@@ -82,6 +82,41 @@
 			}
 		}
 		
+		// Method to find a single contact based on a searched number, listed by alphabetical last name first, then alphabetical first name - used mainly for API call
+		public function find_number($number) {
+			// Check if $number has been sent
+			if($number) {
+				// Begin prepared statement to find single ID in database
+				$sql = '
+					SELECT first_name, last_name FROM contacts 
+					WHERE contact_number_home = :contact_number_home 
+					OR contact_number_mobile = :contact_number_mobile
+					ORDER BY last_name ASC, first_name ASC
+				';
+				$stmt = $this->db->prepare($sql);
+				
+				// Pass in the $number into the prepared statement and execute
+				$stmt->bindParam(':contact_number_home', $number);
+				$stmt->bindParam(':contact_number_mobile', $number);
+				$stmt->execute();
+				
+				// Fetch the results from the prepared statement
+				$result = $stmt->fetch();
+				
+				// Check if a contact could be found
+				if($result) {
+					// Return only the first and last name of the contact
+					return $result['first_name'] . ' ' . $result['last_name'];
+				} else {
+					// Contact not found, return false
+					return false;
+				}
+			} else {
+				// $id not sent, return false
+				return false;
+			}
+		}
+		
 		// Method to update a particular contact
 		public function update($values = array()) {
 			// This method will only be called if used from a search of a particular ID during instantiation, such as $contact = new Contact(3298)
