@@ -48,25 +48,40 @@
 							$this->success = 1;
 							$this->result = $result;
 							$this->result_message = $this->result_messages['success'];
+							
+							// Create new Log instance, and log the action to the database
+							$log = new Log('api_call_success', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ')');
 						} else {
 							// No result could be found
 							$this->result = 'no_result';
 							$this->result_message = $this->result_messages[$this->result];
+							
+							// Create new Log instance, and log the action to the database
+							$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - No Result');
 						}
 					} else {
 						// $method is not valid
 						$this->result = $this->result = 'invalid_method';
 						$this->result_message = $this->result_messages[$this->result];
+						
+						// Create new Log instance, and log the action to the database
+						$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - Invalid Method');
 					}
 				} else {
 					// $token is not valid
 					$this->result = $this->result = 'invalid_token';
 					$this->result_message = $this->result_messages[$this->result];
+					
+					// Create new Log instance, and log the action to the database
+					$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - Invalid Token');
 				}
 			} else {
 				// Not set, return incomplete API call
 				$this->result = $this->result = 'incomplete';
 				$this->result_message = $this->result_messages[$this->result];
+				
+				// Create new Log instance, and log the action to the database
+				$log = new Log('api_call_failed', 'Invalid Query - Token and/or Method and/or Query not sent');
 			}
 			
 			// Build an array which will be used to output the main details of the API call
