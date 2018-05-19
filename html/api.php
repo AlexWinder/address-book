@@ -8,6 +8,10 @@
 	// Check if user is making an API call - check if GET value has been sent
 	if(isset($_GET['t']) && !empty($_GET['t'])) {
 		// User is making an API call
+		$api = new API($_GET['t'], $_GET['a'], $_GET['q']);
+		
+		// Output the array_result in JSON format
+		echo json_encode($api->array_result);
 		
 		// Stop the page loading any further
 		die();
