@@ -205,7 +205,6 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
-			
 			<form class="form-horizontal" action="" method="post">
 				<div class="col-sm-offset-1">
 					<h4>Update Name/Username</h4>
