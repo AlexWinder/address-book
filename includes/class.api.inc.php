@@ -5,14 +5,22 @@
 		private $db = null, // Used to store an instance of the database
 				$result_messages = array( // All result messages from the different types of API call
 					'incomplete' => 'An incomplete API call was made. Please follow the documentation to ensure that you are sending all the required settings.',
-					'invalid_token' => 'An invalid token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address.',
+					'invalid_token' => 'An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address.',
+					'invalid_method' => 'An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper/lower case characters.',
+					'no_result' => 'A result could not be found.',
+					'success' => 'API call successful.'
 				);
+				
 				
 		public	$success = 0, // When an API call is valid this will be 1
 				$method = null, // The method used as part of the API call
 				$query = null, // The query of the API call which relates to the $method
 				$result = null, // The result of the API call, if any
-				$result_message = null; // The result of the API call, if any
+				$result_message = null, // The result of the API call, if any
+				$available_methods = array( // The different types of methods available, with their descriptions
+					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order.'
+				),
+				$array_result = null; // Used to build a JSON format to return a result
 				
 		// Constructor
 		public function __construct($token = null, $method = null, $query = null) {
@@ -28,7 +36,28 @@
 			if($token && $method && $query) {
 				// Check if $token is valid
 				if($this->check_token($token)) {
-					
+					// Check if the $method is valid
+					if($this->is_method($method)) {
+						// Set properties
+						$this->method = $method;
+						$this->query = $query;
+
+						// Execute the $method with the query
+						if($result = $this->execute_method($method, $query)) {
+							// Successful API call
+							$this->success = 1;
+							$this->result = $result;
+							$this->result_message = $this->result_messages['success'];
+						} else {
+							// No result could be found
+							$this->result = 'no_result';
+							$this->result_message = $this->result_messages[$this->result];
+						}
+					} else {
+						// $method is not valid
+						$this->result = $this->result = 'invalid_method';
+						$this->result_message = $this->result_messages[$this->result];
+					}
 				} else {
 					// $token is not valid
 					$this->result = $this->result = 'invalid_token';
@@ -39,6 +68,15 @@
 				$this->result = $this->result = 'incomplete';
 				$this->result_message = $this->result_messages[$this->result];
 			}
+			
+			// Build an array which will be used to output the main details of the API call
+			$this->array_result = array(
+				'success' => $this->success,
+				'method' => $this->method,
+				'query' => $this->query,
+				'result' => $this->result,
+				'result_message' => $this->result_message
+			);
 		}
 		
 		// Method to check if a token is valid or not
@@ -76,6 +114,36 @@
 				}
 			} else {
 				// Token not sent
+				return false;
+			}
+		}
+		
+		// Method to check if a method submitted as part of an API call is valid
+		private function is_method($method) {
+			// Check if $method has been sent
+			if($method) {
+				// Check if $method is valid
+				return array_key_exists($method, $this->available_methods);
+			} else {
+				// Method hasn't been sent
+				return false;
+			}
+		}
+		
+		// Method to execute a method as part of an API call
+		private function execute_method($method = null, $query = null) {
+			// Check if $method and $query have both been sent
+			if($method && $query) {
+				// Use switch to run different methods based on the $method
+				switch($method) {
+					case 'findNumber' :
+						// Method to find a single contact based on a number
+						$contact = new Contact();
+						return $contact->find_number($query);
+						break;
+				}
+			} else {
+				// $method and $query not sent
 				return false;
 			}
 		}
