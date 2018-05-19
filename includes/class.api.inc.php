@@ -10,8 +10,8 @@
 					'no_result' => 'A result could not be found.',
 					'success' => 'API call successful.'
 				);
-				
-				
+		
+		// Properties relating to when an API call is made
 		public	$success = 0, // When an API call is valid this will be 1
 				$method = null, // The method used as part of the API call
 				$query = null, // The query of the API call which relates to the $method
@@ -21,7 +21,7 @@
 					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order.'
 				),
 				$array_result = null; // Used to build a JSON format to return a result
-				
+
 		// Constructor
 		public function __construct($token = null, $method = null, $query = null) {
 			// Obtain an instance of the database
