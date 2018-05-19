@@ -49,6 +49,7 @@
 	defined("PAGENAME_CONTACTSDELETE")				?	null	:	define("PAGENAME_CONTACTSDELETE", "Delete Contact");
 	defined("PAGENAME_CONTACTSUPDATE")				?	null	:	define("PAGENAME_CONTACTSUPDATE", "Update Contact");
 	defined("PAGENAME_CONTACTSVIEW")				?	null	:	define("PAGENAME_CONTACTSVIEW", "View Contact");
+	defined("PAGENAME_API")							?	null	:	define("PAGENAME_API", "API");
 	
 	// Set page links
 	defined("PAGELINK_INDEX")						?	null	:	define("PAGELINK_INDEX", "index.php");
@@ -62,6 +63,7 @@
 	defined("PAGELINK_CONTACTSDELETE")				?	null	:	define("PAGELINK_CONTACTSDELETE", "delete-contact.php");
 	defined("PAGELINK_CONTACTSUPDATE")				?	null	:	define("PAGELINK_CONTACTSUPDATE", "update-contact.php");
 	defined("PAGELINK_CONTACTSVIEW")				?	null	:	define("PAGELINK_CONTACTSVIEW", "view-contact.php");
+	defined("PAGELINK_API")							?	null	:	define("PAGELINK_API", "api.php");
 	
 	// Server time zone
 	date_default_timezone_set("Europe/London");

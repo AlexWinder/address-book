@@ -17,6 +17,7 @@
 						<li <?php if($page_name == PAGENAME_INDEX || $page_name == PAGENAME_CONTACTS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_INDEX; ?>"><i class="fa fa-address-book" aria-hidden="true"></i> <?php echo PAGENAME_INDEX; ?></a></li>
 						<li <?php if($page_name == PAGENAME_USERS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_USERS; ?>"><i class="fa fa-users" aria-hidden="true"></i> <?php echo PAGENAME_USERS; ?></a></li>
 						<li <?php if($page_name == PAGENAME_LOGS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_LOGS; ?>"><i class="fa fa-list" aria-hidden="true"></i> <?php echo PAGENAME_LOGS; ?></a></li>
+						<li <?php if($page_name == PAGENAME_API) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_API; ?>"><i class="fa fa-plug" aria-hidden="true"></i> <?php echo PAGENAME_API; ?></a></li>
 						<li <?php if($page_name == PAGENAME_LOGOUT) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_LOGOUT; ?>"><i class="fa fa-sign-out" aria-hidden="true"></i> <?php echo PAGENAME_LOGOUT; ?></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
