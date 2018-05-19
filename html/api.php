@@ -100,7 +100,7 @@
 					?>
 				</tbody>
 			</table>
-			<a href="<?php echo PAGELINK_APIADD; ?>" type="button" class="btn btn-info">New API Token</a>
+			<a href="<?php echo PAGELINK_APIADD; ?>" type="button" class="btn btn-info">Add API Token</a>
 			<!-- /CONTENT -->
 
 <?php
