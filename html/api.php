@@ -58,7 +58,7 @@
 			<ul>
 				<li>The index of 'success' will indicate a '0' if a result couldn't be found, or a '1' if it could.</li>
 				<li>The result of the API call is returned under the 'result' index.</li>
-				<li>For troubleshooting 'result_message' will display any errors should they occur.</li>
+				<li>For troubleshooting, 'result_message' will display any errors should they occur.</li>
 			</ul>
 			<p>If an API token has no authorised IP address associated with it, then this means that the token can be used from any IP address. If this is not intended then specify an IP address when creating the API token.</p>
 			
