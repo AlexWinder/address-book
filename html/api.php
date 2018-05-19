@@ -91,7 +91,7 @@
 					<tr>
 						<td><?php echo htmlentities($token['api_id']); ?></td>
 						<td><?php echo htmlentities($token['cosmetic_name']); ?></td>
-						<td><?php echo htmlentities($token['ip'] ? $token['ip'] : 'N/A'); ?></td>
+						<td><?php echo htmlentities($token['ip'] ? $token['ip'] : 'Accessible from any IP'); ?></td>
 						<td><a href="<?php echo PAGELINK_APIUPDATE; ?>?i=<?php echo urlencode($token['api_id']); ?>">Update</a> &bull; <a href="<?php echo PAGELINK_APIDELETE; ?>?i=<?php echo urlencode($token['api_id']); ?>">Delete</a></td>
 					</tr>
 <?php
