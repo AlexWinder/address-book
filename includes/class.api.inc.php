@@ -18,7 +18,7 @@
 				$result = null, // The result of the API call, if any
 				$result_message = null, // The result of the API call, if any
 				$available_methods = array( // The different types of methods available, with their descriptions
-					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order.'
+					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order. Example, ' . PAGELINK_API . '?t=APITOKEN&m=findNumber&q=0987654321 will return the result (if it exists) for the phone number 0987654321.'
 				),
 				$array_result = null; // Used to build a JSON format to return a result
 
