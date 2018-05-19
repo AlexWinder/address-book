@@ -1,6 +1,6 @@
 # Description
 
-A simple PHP-based contact list manager with authentication and logging features. Built using the [Bootstrap](https://getbootstrap.com/) framework and [DataTables](https://datatables.net/) to maintain a user-friendly functionality.
+A simple PHP-based contact list manager with authentication and logging features. Built using the [Bootstrap](https://getbootstrap.com/) framework, [DataTables](https://datatables.net/), [jQuery](https://jquery.com/) and [FontAwesome](https://fontawesome.com/) to maintain a user-friendly functionality.
 
 # Authors
 
