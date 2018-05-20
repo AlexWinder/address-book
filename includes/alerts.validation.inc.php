@@ -35,6 +35,9 @@
 			'security' => array(
 				'csrf_token' => 'Your form submission has been blocked due to an failing a CSRF security check. Please refresh the page and try again.',
 			),
+			'format' => array(
+				'ip_address' => 'You have submitted an IP address which is in the wrong format. Please check the IP address is in the correct IPv4 (example: 192.168.16.2) or IPv6 (example: fe80:1aaf:8000:2819:aaa1:738d:abcd:1234) format.',
+			),
 		),
 		
 		// Field lengths are too long
