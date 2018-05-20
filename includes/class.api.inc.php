@@ -26,8 +26,11 @@
 		public function __construct($token = null, $method = null, $query = null) {
 			// Obtain an instance of the database
 			$this->db = DB::get_instance();
-			// Process the submitted API call
-			$this->call($token, $method, $query);
+			// Check if $token sent
+			if($token) {
+				// Process the submitted API call
+				$this->call($token, $method, $query);
+			};
 		}
 		
 		// Method to call API
