@@ -201,6 +201,12 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'api_add_failed' :
+					$action = 'API Token Add Failed';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
