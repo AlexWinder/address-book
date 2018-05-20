@@ -34,6 +34,15 @@
 		// Initialise the $errors are where errors will be sent and then retrieved from
 		$errors = array();
 		
+		// If IP address submitted, check is in valid format
+		if(isset($_POST['ip_address']) && !empty($_POST['ip_address'])) {
+			// Check if IP address is in valid format
+			if(!$api->check_ip($_POST['ip_address'])) { $errors[] = $validation['invalid']['format']['ip_address']; };
+		}; // Close if(isset($_POST['ip_address']) {
+		
+		// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+		if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+		
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
 			
