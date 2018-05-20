@@ -197,5 +197,73 @@
 			return filter_var($ip, FILTER_VALIDATE_IP);
 		}
 		
+		// Method to create a new user
+		public function create($values = array()) {
+			// This method works by accepting a $values array which contains the details of the fields which are to be inserted
+			// Check that the array isn't empty
+			if(!empty($values)) {
+				// Array has values, begin building the SQL query to be used to create user
+				$sql = "INSERT INTO api (";
+				
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= $key . " ";
+					}
+				}
+				
+				$sql .= ") VALUES (";
+				
+				// Reset counters
+				// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+				$i = 0;
+				$c = count($values);
+				
+				// Cycle through each value in the array, this time specifying the keys to insert as part of the prepared statement
+				foreach($values as $key => $value) {
+					if($i++ < $c - 1) {
+						// Append to the $sql, and include a comma
+						$sql .= ":" . $key . ", ";
+					} else {
+						// Append to the $sql, but leave off the comma
+						$sql .= ":" . $key . " ";
+					}
+				}
+				// End the $sql
+				$sql .= ")";
+				
+				// Begin a prepared statement using the previous $sql
+				$stmt = $this->db->prepare($sql);
+				
+				// Pass in values from the $values array to complete the prepared statement
+				foreach($values as $key => &$value) {
+					$stmt->bindParam(':' . $key, $value);
+				}
+				
+				// Execute the prepared statement
+				$result = $stmt->execute();
+				
+				// Check if successful
+				if($result) {
+					// Insert successful
+					return true;
+				} else {
+					// Insert failed
+					return false;
+				}
+			} else {
+				// Array was empty
+				return false;
+			}
+		}
+		
 	} // Close class API
 // EOF
