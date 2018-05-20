@@ -26,6 +26,31 @@
 	} else {
 		$api_token = $session->get('api_token');
 	}; // Close if(!$session->get('api_token'))
+	
+	// If submit button has been pressed then process the form
+	if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
+		// Validate all fields and ensure that required fields are submitted
+		
+		// Initialise the $errors are where errors will be sent and then retrieved from
+		$errors = array();
+		
+		// If no errors have been found during the field validations
+		if(empty($errors)) {
+			
+		} else {
+			// Form field validation has failed - $errors array is not empty
+			// If there are any error messages in the $errors array then display them to the screen
+			$session->message_validation($errors);
+			// Log action of failing form process
+			// Create new Log instance, and log the action to the database
+			$log = new Log('api_add_failed', 'Failed API token add due to form validation errors.');
+		};
+	} else {
+		// Form has not been submitted
+		// Log action of accessing the page
+		// Create new Log instance, and log the page view to the database
+		$log = new Log('view');
+	};
 
 	// Require head content in the page
 	require_once("../includes/layout.head.inc.php");
