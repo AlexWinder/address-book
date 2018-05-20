@@ -45,6 +45,23 @@
 		
 		// If no errors have been found during the field validations
 		if(empty($errors)) {
+			// Prepare an array to be used to insert into the database
+			$fields = array();
+			
+			// Populate the $fields array with values where applicable
+			$fields['api_id'] = $api_token;
+			!empty($_POST['ip_address']) 		? $fields['ip'] = $_POST['ip_address']														: $fields['first_name'] = null;
+			!empty($_POST['cosmetic_name']) 	? $fields['cosmetic_name'] = $_POST['cosmetic_name'] 													: $fields['middle_name'] = null;
+			
+			// Create the new API token, inserting the fields from the $fields array
+			$result = $api->create($fields);
+			
+			// Check if the submission was successful
+			if($result){
+				
+			} else {
+				
+			}; // Close if($result)
 			
 		} else {
 			// Form field validation has failed - $errors array is not empty
