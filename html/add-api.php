@@ -50,17 +50,31 @@
 			
 			// Populate the $fields array with values where applicable
 			$fields['api_id'] = $api_token;
-			!empty($_POST['ip_address']) 		? $fields['ip'] = $_POST['ip_address']														: $fields['first_name'] = null;
-			!empty($_POST['cosmetic_name']) 	? $fields['cosmetic_name'] = $_POST['cosmetic_name'] 													: $fields['middle_name'] = null;
+			!empty($_POST['ip_address']) 		? $fields['ip'] = $_POST['ip_address']					: $fields['ip'] = null;
+			!empty($_POST['cosmetic_name']) 	? $fields['cosmetic_name'] = $_POST['cosmetic_name'] 	: $fields['cosmetic_name'] = null;
 			
 			// Create the new API token, inserting the fields from the $fields array
 			$result = $api->create($fields);
 			
 			// Check if the submission was successful
 			if($result){
+				// API token was successfully added to the database
+				// Log action of add entry success, with API token added 
+				// Create new Log instance, and log the action to the database
+				$log = new Log('api_add_success', 'Token (' . $api_token . ') created.');
+				// Delete the API token from session to avoid resubmission of the same API token
+				$session->remove('api_token');
+				// Add session message
+				$session->message_alert($notification["api"]["add"]["success"], "success");
+				// Redirect the user
+				Redirect::to(PAGELINK_API);
 				
 			} else {
-				
+				// Add session message
+				$session->message_alert($notification["api"]["add"]["failure"], "danger");
+				// Log action of database entry failing
+				// Create new Log instance, and log the action to the database
+				$log = new Log('api_add_failed', 'database');
 			}; // Close if($result)
 			
 		} else {
