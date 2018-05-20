@@ -203,6 +203,14 @@
 					break;
 				case 'api_add_failed' :
 					$action = 'API Token Add Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'api_add_success' :
+					$action = 'API Token Add Success';
 					if($additional_message) {
 						$action .= ': ' . $additional_message;
 					};
