@@ -15,6 +15,14 @@
 			"security_failed" => "You have been automatically logged out due to a failed security check. Please authenticate and try again."
 		),
 		
+		// Notifications relating to adding/deleting/updating API tokens
+		"api" => array(
+			"add" => array(
+				"success" => "A new API token has been successfully added.",
+				"failure" => "There was an error adding an API token. Please check all fields and try again.",
+			),
+		),
+		
 		// Notifications relating to users which have access to the system
 		"user" => array (
 			"add" => array (
