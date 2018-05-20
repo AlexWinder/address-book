@@ -192,5 +192,10 @@
 			return $token;
 		}
 		
+		// Method to check if submitted IP address is in IP address format
+		public function check_ip($ip) {
+			return filter_var($ip, FILTER_VALIDATE_IP);
+		}
+		
 	} // Close class API
 // EOF
