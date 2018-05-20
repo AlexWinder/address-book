@@ -169,5 +169,25 @@
 			return $this->all = $this->db->query('SELECT * FROM api', PDO::FETCH_ASSOC);
 		}
 		
+		// Method to generate a new API token
+		public function generate_token($token_length) {
+			// Used to generate a token
+			// Initialise a variable used to store the token
+			$token = null;
+			// Create a salt of accepted characters
+			$salt = "abcdefghjkmnpqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789";
+			
+			srand((double)microtime()*1000000);
+			$i = 0;
+			while ($i < $token_length) {
+				$num = rand() % strlen($salt);
+				$tmp = substr($salt, $num, 1);
+				$token = $token . $tmp;
+				$i++;
+			}
+			// Return the token
+			return $token;
+		}
+		
 	} // Close class API
 // EOF
