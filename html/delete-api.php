@@ -24,6 +24,15 @@
 			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 			$csrf_token = CSRF::get_token();
 
+			// Check that the user has submitted the form
+			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
+			
+			}; // User has not submitted the form - do nothing
+
+			// User has accessed the page and not sumitted the form
+			// Create new Log instance, and log the page view to the database
+			$log = new Log('view');
+
 		} else {
 			// API token could not be found in the database
 			// Send session message and redirect
