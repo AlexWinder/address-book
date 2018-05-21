@@ -34,6 +34,13 @@ Results of an API call are returned in a JSON array with the following indexes:
 - result : The result of the API call, if any.
 - result_message : Used primarily for troubleshooting, such as if a token or method is valid.
 
+``` 
+{"success":0,"method":null,"query":null,"result":"invalid_token","result_message":"An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address."}
+{"success":0,"method":null,"query":null,"result":"invalid_method","result_message":"An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper\/lower case characters."}
+{"success":0,"method":"findNumber","query":"0800001066","result":"no_result","result_message":"A result could not be found."} 
+{"success":1,"method":"findNumber","query":"156421616","result":"William Shakespeare","result_message":"API call successful."}
+```
+
 ## API Notes
 
 If an API token has no authorised IP address associated with it, then this means that the token can be used from any IP address. If this is not intended then specify an IP address when creating the API token.
