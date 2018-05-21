@@ -66,8 +66,8 @@
 						$log = new Log('api_delete_failed', 'Failed contact delete due to form validation errors.');
 					};
 				} else {
-					// User did not confirm that they would like to delete the contact
-					// Set a failure session message and redirect them to view the contact
+					// User did not confirm that they would like to delete the API token
+					// Set a failure session message and redirect them to view the API token
 					$session->message_alert($validation["field_required"]["api"]["confirm_delete"], "danger");
 					// Log action of failing to confirm delete
 					// Create new Log instance, and log the action to the database
