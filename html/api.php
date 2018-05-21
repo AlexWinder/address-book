@@ -52,7 +52,7 @@
 				<li><strong>q</strong> for the API query string</li>
 			</ul>
 			
-			<p>For example, https://yourdomain.com/<?php echo PAGELINK_API; ?>?t=<strong>APITOKEN</strong>&m=<strong>APIMETHOD</strong>&q=<strong>APIQUERY</strong></p>
+			<p>For example, <?php echo htmlentities(site_url()); ?>/<?php echo PAGELINK_API; ?>?t=<strong>APITOKEN</strong>&m=<strong>APIMETHOD</strong>&q=<strong>APIQUERY</strong></p>
 			
 			<p>Results are returned in a JSON array.</p>
 			<ul>
