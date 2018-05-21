@@ -29,7 +29,7 @@ The API built in the system is accessed using a HTTP GET request to the api.php 
 - **t** for the API token.
 - **m** for the API method.
 - **q** for the API query string - note that the query must contain no whitespace (including encoded whitespace characters).
-For example, https://yourdomain.com/api.php?t=APITOKEN&m=APIMETHOD&q=APIQUERY
+For example, https://yourdomain.local/api.php?t=APITOKEN&m=APIMETHOD&q=APIQUERY
 
 Results of an API call are returned in a JSON array with the following indexes:
 - success : This is set to 0 by default, unless the API call is successful in which case it will be set to 1.
