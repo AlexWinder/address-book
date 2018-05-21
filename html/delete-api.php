@@ -28,7 +28,25 @@
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
 				// Ensure that the user actually wants to delete the API token
 				if(isset($_POST["confirm_delete"])) {
-
+					// Validate all fields and ensure that required fields are submitted
+				
+					// Initialise the $errors are where errors will be sent and then retrieved from
+					$errors = array();
+					
+					// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+					if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+					
+					// If no errors have been found during the field validations
+					if(empty($errors)) {
+					
+					} else {
+						// Form field validation has failed - $errors array is not empty
+						// If there are any error messages in the $errors array then display them to the screen
+						$session->message_validation($errors);
+						// Log action of failing form process
+						// Create new Log instance, and log the action to the database
+						$log = new Log('api_delete_failed', 'Failed contact delete due to form validation errors.');
+					};
 				} else {
 					// User did not confirm that they would like to delete the contact
 					// Set a failure session message and redirect them to view the contact
