@@ -28,6 +28,11 @@
 				// Delete a user
 				"confirm_delete" => "You did not confirm that you would like to delete this user.",
 			),
+
+			"api" => array (
+				// Delete an API token
+				"confirm_delete" => "You did not confirm that you would like to delete this API token.",
+			),
 		),
 		
 		// Field are of an invalid format or match
