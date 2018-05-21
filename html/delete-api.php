@@ -26,7 +26,20 @@
 
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
-			
+				// Ensure that the user actually wants to delete the API token
+				if(isset($_POST["confirm_delete"])) {
+
+				} else {
+					// User did not confirm that they would like to delete the contact
+					// Set a failure session message and redirect them to view the contact
+					$session->message_alert($validation["field_required"]["api"]["confirm_delete"], "danger");
+					// Log action of failing to confirm delete
+					// Create new Log instance, and log the action to the database
+					$log = new Log('api_delete_failed', 'User did not confirm that they wanted to delete the API token.');
+					// Redirect the user
+					Redirect::to(PAGELINK_APIDELETE . '?i=' . urlencode($api['api_id']));
+				};
+
 			}; // User has not submitted the form - do nothing
 
 			// User has accessed the page and not sumitted the form
