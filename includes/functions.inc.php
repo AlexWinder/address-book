@@ -17,8 +17,8 @@
 
 	// Function to check if SITE_URL has a forward slash at the end to ensure that correct URL format is used
 	function site_url() {
-		// Trim any forward slashes at the end - then add one
-		return rtrim(SITE_URL, '/') . '/';
+		// Trim any forward slashes at the end
+		return rtrim(SITE_URL, '/');
 	}
 
 // EOF
