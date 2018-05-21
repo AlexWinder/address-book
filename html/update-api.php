@@ -15,7 +15,28 @@
 		// Find API token in database
 		$api = new API();
 		$api->find_id($_GET['i']);
-	
+		
+		// If an API token is found in the database
+		if($api->found) {
+			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
+			$csrf_token = CSRF::get_token();
+			
+			// Set page name as contact could be found
+			$subpage_name = $api->token . ' - ' . PAGENAME_APIUPDATE;
+
+		} else {
+			// API token could not be found in the database
+			// Set $subpage_name so that the title of each page is correct - API token couldn't be found
+			$subpage_name = 'API Token Not Found - ' . PAGENAME_APIUPDATE;
+			// Send message and redirect
+			$session->message_alert($notification["api"]["update"]["not_found"], "danger");
+			// Log user accessing incorrect GET value
+			// Create new Log instance, and log the action to the database
+			$log = new Log('not_found');
+			// Redirect the user
+			Redirect::to(PAGELINK_API);
+		};
+
 	} else {
 		// Value of i in GET doesn't exist, send session message and redirect
 		$session->message_alert($notification["api"]["update"]["not_found"], "danger");
@@ -36,6 +57,23 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
+			<form class="form-horizontal" action="" method="post">
+
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> API token <?php echo $api->token; ?>
+					</label>
+				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
+
+				<hr>
+
+				<div >
+					<button type="submit" name="submit" value="submit" class="btn btn-danger">Delete API Token</button>
+				</div>
+			</form>
+
 			<!-- /CONTENT -->
 
 <?php
