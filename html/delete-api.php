@@ -14,12 +14,12 @@
 	if(isset($_GET["i"])) {
 		// Find API token in database
 		$api = new API();
-		$api = $api->find_id($_GET['i']);
+		$api->find_id($_GET['i']);
 
 		// If a API token is found in the database
-		if($api) {
+		if($api->found) {
 			// Set page name as API token could be found
-			$subpage_name = $api['api_id'] . ' - ' . PAGENAME_APIDELETE;
+			$subpage_name = $api->token . ' - ' . PAGENAME_APIDELETE;
 			
 			// Obtain a CSRF token to be used to prevent CSRF - this is stored in the $_SESSION
 			$csrf_token = CSRF::get_token();
@@ -38,7 +38,9 @@
 					
 					// If no errors have been found during the field validations
 					if(empty($errors)) {
-					
+						// Delete the contact
+						$result = $contact->delete();
+
 					} else {
 						// Form field validation has failed - $errors array is not empty
 						// If there are any error messages in the $errors array then display them to the screen
@@ -55,7 +57,7 @@
 					// Create new Log instance, and log the action to the database
 					$log = new Log('api_delete_failed', 'User did not confirm that they wanted to delete the API token.');
 					// Redirect the user
-					Redirect::to(PAGELINK_APIDELETE . '?i=' . urlencode($api['api_id']));
+					Redirect::to(PAGELINK_APIDELETE . '?i=' . urlencode($api->token));
 				};
 
 			}; // User has not submitted the form - do nothing
@@ -98,13 +100,13 @@
 			
 			<h3>WARNING</h3>
 			<p><strong>This process is <u>IRREVERSIBLE</u>. Once an API token has been deleted there is no way to restore.</strong></p>
-			<p>Please confirm that you would like to <strong>permanently delete</strong> API token <?php echo $api['api_id']; ?> from the system.</p>
+			<p>Please confirm that you would like to <strong>permanently delete</strong> API token <?php echo $api->token; ?> from the system.</p>
 
 			<form class="form-horizontal" action="" method="post">
 
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> API token <?php echo $api['api_id']; ?>
+						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> API token <?php echo $api->token; ?>
 					</label>
 				</div>
 				
