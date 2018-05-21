@@ -53,7 +53,8 @@
 			$stmt->bindParam(':datetime', $datetime);
 			$action = $this->get_action($action, $additional_message);
 			$stmt->bindParam(':action', $action);
-			$stmt->bindParam(':url', $_SERVER['REQUEST_URI']);
+			$url = site_url() . $_SERVER['REQUEST_URI'];
+			$stmt->bindParam(':url', $url);
 			$name = $user->username ? $user->name . ' [' . $user->username . ']' : 'Unknown';
 			$stmt->bindParam(':user', $name);
 			$stmt->bindParam(':ip', $_SERVER['REMOTE_ADDR']);
