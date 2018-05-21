@@ -171,6 +171,37 @@
 			// Return all 
 			return $this->all = $this->db->query('SELECT * FROM api', PDO::FETCH_ASSOC);
 		}
+
+		// Method to find specific API token in the database
+		public function find_id($id = null) {
+			// Check if $id has been sent
+			if($id) {
+				// Begin prepared statement to find single ID in database
+				$sql = '
+					SELECT * FROM api 
+					WHERE api_id = :api_id
+				';
+				$stmt = $this->db->prepare($sql);
+				
+				// Pass in the $id into the prepared statement and execute
+				$stmt->bindParam(':api_id', $id);
+				$stmt->execute();
+				
+				// Fetch the results from the prepared statement
+				$result = $stmt->fetch();
+				
+				// Check if a contact could be found
+				if($result) {
+					return $result;
+				} else {
+					// Contact not found, return false
+					return false;
+				}
+			} else {
+				// $id not sent, return false
+				return false;
+			}
+		}
 		
 		// Method to generate a new API token
 		public function generate_token($token_length) {
