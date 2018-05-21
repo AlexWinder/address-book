@@ -24,6 +24,14 @@
 			// Set page name as contact could be found
 			$subpage_name = $api->token . ' - ' . PAGENAME_APIUPDATE;
 
+			// Check that the user has submitted the form
+			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
+				
+			}; // User has not submitted the form - do nothing
+			
+			// User has accessed the page and not sumitted the form
+			// Create new Log instance, and log the page view to the database
+			$log = new Log('view');
 		} else {
 			// API token could not be found in the database
 			// Set $subpage_name so that the title of each page is correct - API token couldn't be found
