@@ -8,4 +8,4 @@
 
 # API
 
-![Successful API call](screenshots/img.jpg?raw=true "JSON results of successful API call")
+![Successful API call](screenshots/api-call-success.png?raw=true "JSON results of successful API call")
