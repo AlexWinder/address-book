@@ -189,7 +189,7 @@
 				';
 				$stmt = $this->db->prepare($sql);
 
-				// Pass in the $id into the prepared statement and execute
+				// Pass in the contact_id from the database into the prepared statement and execute
 				$stmt->bindParam(':contact_id', $this->single['contact_id']);
 
 				// Execute the prepared statement
