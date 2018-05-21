@@ -26,6 +26,11 @@
 				"failure" => "There was an error deleting an API token. Please check all fields and try again.",
 				"not_found" => "The API token you have tried to delete could not be found in the database.",
 			),
+			"update" => array(
+				"success" => "API token has been successfully updated.",
+				"failure" => "There was an error updating an API token. Please check all fields and try again.",
+				"not_found" => "The API token you have tried to update could not be found in the database.",
+			),
 		),
 		
 		// Notifications relating to users which have access to the system
