@@ -244,6 +244,66 @@
 				return false;
 			}
 		}
+
+		// Method to update a particular contact
+		public function update($values = array()) {
+			// This method will only be called if used from a search of a particular ID during instantiation, such as such as $api->find_id('ABCDEFGHIJKL');
+			if($this->found) {
+				// This method works by accepting a $values array which contains the details of the fields which are to be updated
+				// Check that the array isn't empty
+				if(!empty($values)) {
+					// Array has values, begin building the SQL query to be used to update API token
+					$sql = "UPDATE api SET ";
+					
+					// Count the number of values in the array so that a comma (,) is added after each section of the loop apart from the last one
+					$i = 0;
+					$c = count($values);
+					
+					// Cycle through each value in the array
+					foreach($values as $key => $value) {
+						if($i++ < $c - 1) {
+							// Append to the $sql, and include a comma
+							$sql .= $key . " = :" . $key . ", ";
+						} else {
+							// Append to the $sql, but leave off the comma
+							$sql .= $key . " = :" . $key . " ";
+						}
+					}
+					
+					// Specify which API token to update and limit to update only 1 record as a fail-safe
+					$sql .= "WHERE api_id = :api_id ";
+					$sql .= "LIMIT 1";
+					
+					// Begin a prepared statement using the previous $sql
+					$stmt = $this->db->prepare($sql);
+					
+					// Pass in values from the $values array to complete the prepared statement
+					foreach($values as $key => &$value) {
+						$stmt->bindParam(':' . $key, $value);
+					}
+					// Bind the API token ID to the prepared statement
+					$stmt->bindParam(':api_id', $this->token);
+					
+					// Execute the prepared statement
+					$result = $stmt->execute();
+					
+					// Check if successful
+					if($result) {
+						// Update successful
+						return true;
+					} else {
+						// Update failed
+						return false;
+					}
+				} else {
+					// Array was empty
+					return false;
+				}
+			} else {
+				// User wasn't found
+				return false;
+			}
+		}
 		
 		// Method to generate a new API token
 		public function generate_token($token_length) {
