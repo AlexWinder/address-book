@@ -213,6 +213,37 @@
 				return false;
 			}
 		}
+
+		// Method to delete a particular API token
+		public function delete() {
+			// This method will only be called if a find_id of an API has been searched first - such as $api->find_id('ABCDEFGHIJKL');
+			if($this->found) {
+				// Begin prepared statement to delete a single ID from the database
+				$sql = '
+					DELETE FROM api 
+					WHERE api_id = :api_id 
+					LIMIT 1
+				';
+				$stmt = $this->db->prepare($sql);
+
+				// Pass in the $token into the prepared statement and execute
+				$stmt->bindParam(':api_id', $this->token);
+
+				// Execute the prepared statement
+				$result = $stmt->execute();
+
+				if($result) {
+					// Delete was successful
+					return true;
+				} else {
+					// Delete failed
+					return false;
+				}
+			} else {
+				// Being called as not part of an ID instance
+				return false;
+			}
+		}
 		
 		// Method to generate a new API token
 		public function generate_token($token_length) {
