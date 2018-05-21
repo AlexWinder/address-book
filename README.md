@@ -19,6 +19,10 @@ A simple PHP-based contact list manager with authentication and logging features
 
 The system is separated out into two main directory: html and includes. It is recommended that you configure your web server to only allow public access to the html directory but your web server user locally, such as www-data, should be able to view the files in the includes directory. This will provide adequate security and prevent users for accessing anything in the includes directory.
 
+# Screenshots
+
+Screenshots of the system can be found in the screenshots/ directory, or by viewing the [SCREENSHOTS.md](SCREENSHOTS.md) file.
+
 # API
 
 The API built in the system is accessed using a HTTP GET request to the api.php page. The request requires 3 values:
