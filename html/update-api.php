@@ -37,8 +37,33 @@
 				// If no errors have been found during the field validations
 				if(empty($errors)) {
 				
-				
+					// Begin an array to store values to update the database
+					$update_values = array();
 
+					// Assign values to an array which will be used as part of the update
+					if(isset($_POST['cosmetic_name']) && !empty($_POST["cosmetic_name"])) 						{ $update_values['cosmetic_name'] = $_POST['cosmetic_name']; } else { $update_values['cosmetic_name'] = null; };
+					
+					// Execute the update
+					$result = $api->update($update_values);
+
+					// Check if the update was successful
+					if($result){
+						// API token successfully updated on the database
+						// Set session message
+						$session->message_alert($notification["api"]["update"]["success"], "success");
+						// Log action of add entry success, with API token updated
+						// Create new Log instance, and log the action to the database
+						$log = new Log('api_update_success',  'API token (' . $api->token . ') successfully updated.');
+						// Redirect the user
+						Redirect::to(PAGELINK_API);
+					} else {
+						// Set session message
+						$session->message_alert($notification["api"]["update"]["failure"], "danger");
+						// Log action of database entry failing
+						// Create new Log instance, and log the action to the database
+						$log = new Log('api_update_failed', 'database');
+					};
+					
 				} else {
 					// Form field validation has failed - $errors array is not empty
 					// If there are any error messages in the $errors array then display them to the screen
