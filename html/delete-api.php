@@ -38,8 +38,24 @@
 					
 					// If no errors have been found during the field validations
 					if(empty($errors)) {
-						// Delete the contact
-						$result = $contact->delete();
+						// Delete the API token
+						$result = $api->delete();
+
+						// Check if API token delete was successful
+						if($result) {
+							// API token successfully deleted
+							$session->message_alert($notification["api"]["delete"]["success"], "success");
+							// Log action of database entry success
+							$log = new Log('api_delete_success', 'API token (' . $api->token . ') was deleted.');
+							// Redirect the user
+							Redirect::to(PAGELINK_API);
+						} else {
+							// API token failed to be deleted
+							$session->message_alert($notification["contact"]["delete"]["failure"], "danger");
+							// Log action of database entry failing
+							// Create new Log instance, and log the action to the database
+							$log = new Log('api_delete_failed', 'database');
+						}
 
 					} else {
 						// Form field validation has failed - $errors array is not empty
@@ -99,7 +115,7 @@
 			<?php $session->output_message(); ?>
 			
 			<h3>WARNING</h3>
-			<p><strong>This process is <u>IRREVERSIBLE</u>. Once an API token has been deleted there is no way to restore.</strong></p>
+			<p><strong>This process is <u>IRREVERSIBLE</u>. Once an API token has been deleted there is no way to restore - you will need to create a new API token.</strong></p>
 			<p>Please confirm that you would like to <strong>permanently delete</strong> API token <?php echo $api->token; ?> from the system.</p>
 
 			<form class="form-horizontal" action="" method="post">
