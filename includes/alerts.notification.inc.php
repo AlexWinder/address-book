@@ -22,6 +22,8 @@
 				"failure" => "There was an error adding an API token. Please check all fields and try again.",
 			),
 			"delete" => array(
+				"success" => "API token has been successfully deleted.",
+				"failure" => "There was an error deleting an API token. Please check all fields and try again.",
 				"not_found" => "The API token you have tried to delete could not be found in the database.",
 			),
 		),
