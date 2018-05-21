@@ -121,13 +121,14 @@
 					<label class="col-sm-2 control-label">IP Address**</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="ip_address" placeholder="Restrict the API token to a single IP address (Optional)" <?php if(isset($_POST["ip_address"])){ echo "value=\"" . htmlentities($_POST["ip_address"]) . "\""; }; ?>>
+						<small>You are accessing this page from IP address - <?php echo htmlentities($_SERVER['REMOTE_ADDR']); ?></small>
 					</div>
 				</div>
 				
 				<hr />
 				
 				<p>* = Optional field</p>
-				<p>** = If no IP address is specified, then the API token will be able to be used from any IP address. If this is not intended then specify the single IP address from which the API token will be used.</p>
+				<p>** = If no IP address is specified, then the API token will be able to be used from any IP address. If this is not intended then specify the single IP address from which the API token will be used. Also note that you are unable to change the IP address once set. For security purposes you will need to create a new API token if you wish to use a different IP address.</p>
 				
 				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
 				
