@@ -26,7 +26,27 @@
 
 			// Check that the user has submitted the form
 			if(isset($_POST["submit"]) && $_POST["submit"] == "submit") {
+				// Validate all fields and ensure that required fields are submitted
 				
+				// Initialise the $errors are where errors will be sent and then retrieved from
+				$errors = array();
+
+				// Check that the submitted CSRF token is the same as the one in the $_SESSION to prevent cross site request forgery
+				if(!CSRF::check_token($_POST['csrf_token']))									{ $errors[] = $validation['invalid']['security']['csrf_token']; };
+				
+				// If no errors have been found during the field validations
+				if(empty($errors)) {
+				
+				
+
+				} else {
+					// Form field validation has failed - $errors array is not empty
+					// If there are any error messages in the $errors array then display them to the screen
+					$session->message_validation($errors);
+					// Log action of failing form process
+					// Create new Log instance, and log the action to the database
+					$log = new Log('api_update_failed', 'Failed API token update due to form validation errors.');
+				};
 			}; // User has not submitted the form - do nothing
 			
 			// User has accessed the page and not sumitted the form
