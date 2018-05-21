@@ -7,5 +7,5 @@
 	defined("DB_PASS")			?	null	:	define("DB_PASS", "");
 	// The database name (if you imported the sql.sql file and didn't change any settings then this will be address_book)
 	defined("DB_NAME")			?	null	:	define("DB_NAME", "address_book");
-	// The site URL
+	// The site URL - the address you need to visit to access the system
 	defined("SITE_URL")			?	null	:	define("SITE_URL", "http://localhost/");
