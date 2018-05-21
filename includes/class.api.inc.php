@@ -21,6 +21,12 @@
 					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order. Example, ' . PAGELINK_API . '?t=APITOKEN&m=findNumber&q=0987654321 will return the result (if it exists) for the phone number 0987654321.'
 				),
 				$array_result = null; // Used to build a JSON format to return a result
+		
+		// Properties relating to when an API token is looked up
+		public	$found = false, // When an API token is found
+				$token = null, // The API tokens ID
+				$name = null, // The API token cosmetic name - if any
+				$ip = null; // The IP address the API token is restricted to - if any
 
 		// Constructor
 		public function __construct($token = null, $method = null, $query = null) {
@@ -190,9 +196,14 @@
 				// Fetch the results from the prepared statement
 				$result = $stmt->fetch();
 				
-				// Check if a contact could be found
+				// Check if a API token could be found
 				if($result) {
-					return $result;
+					// API token found
+					$this->found = true;
+					// Set properties relating to the API token
+					$this->token = $result['api_id'];
+					$this->name = $result['cosmetic_name'];
+					$this->ip = $result['ip'];
 				} else {
 					// Contact not found, return false
 					return false;
