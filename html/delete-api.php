@@ -12,7 +12,7 @@
 
 	// If the value of i in GET exists
 	if(isset($_GET["i"])) {
-	
+		
 	} else {
 		// Value of i in GET doesn't exist, send session message and redirect
 		$session->message_alert($notification["api"]["delete"]["not_found"], "danger");
@@ -21,7 +21,7 @@
 		// Create new Log instance, and log the action to the database
 		$log = new Log('not_found');
 		// Redirect the user
-		Redirect::to(PAGELINK_INDEX);
+		Redirect::to(PAGELINK_API);
 	};
 
 	// Require head content in the page
