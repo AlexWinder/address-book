@@ -24,7 +24,7 @@ The system is separated out into two main directory: html and includes. It is re
 The API built in the system is accessed using a HTTP GET request to the api.php page. The request requires 3 values:
 - **t** for the API token
 - **m** for the API method
-- **q** for the API query string
+- **q** for the API query string - note that the query must contain no whitespace (including encoded whitespace characters)
 For example, https://yourdomain.com/api.php?t=**APITOKEN**&m=**APIMETHOD**&q=**APIQUERY**
 
 Results of an API call are returned in a JSON array with the following indexes:
@@ -37,7 +37,7 @@ Results of an API call are returned in a JSON array with the following indexes:
 ``` 
 {"success":0,"method":null,"query":null,"result":"invalid_token","result_message":"An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address."}
 {"success":0,"method":null,"query":null,"result":"invalid_method","result_message":"An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper\/lower case characters."}
-{"success":0,"method":"findNumber","query":"0800001066","result":"no_result","result_message":"A result could not be found."} 
+{"success":0,"method":"findNumber","query":"01189998819991197253","result":"no_result","result_message":"A result could not be found."} 
 {"success":1,"method":"findNumber","query":"156421616","result":"William Shakespeare","result_message":"API call successful."}
 ```
 
