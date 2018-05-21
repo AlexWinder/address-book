@@ -56,6 +56,26 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
+			<h3>WARNING</h3>
+			<p><strong>This process is <u>IRREVERSIBLE</u>. Once an API token has been deleted there is no way to restore.</strong></p>
+			<p>Please confirm that you would like to <strong>permanently delete</strong> API token <?php echo $api['api_id']; ?> from the system.</p>
+
+			<form class="form-horizontal" action="" method="post">
+
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="confirm_delete"> Yes, I am sure that I want to <strong>permanently delete</strong> API token <?php echo $api['api_id']; ?>
+					</label>
+				</div>
+				
+				<input type="hidden" name="csrf_token" value="<?php echo htmlentities($csrf_token); ?>"/>
+
+				<hr>
+
+				<div >
+					<button type="submit" name="submit" value="submit" class="btn btn-danger">Delete API Token</button>
+				</div>
+			</form>
 			<!-- /CONTENT -->
 
 <?php
