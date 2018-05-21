@@ -215,6 +215,20 @@
 						$action .= ': ' . $additional_message;
 					};
 					break;
+				case 'api_delete_failed' :
+					$action = 'API Token Delete Failed';
+					if($additional_message == 'database') {
+						$action .= ': There was an error making changes to the database.';
+					} elseif($additional_message) {
+						$action .= ': ' . $additional_message;
+					}
+					break;
+				case 'api_delete_success' :
+					$action = 'API Token Delete Success';
+					if($additional_message) {
+						$action .= ': ' . $additional_message;
+					};
+					break;
 				default :
 					$action = 'Action Unspecified!';
 					break;
