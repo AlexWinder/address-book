@@ -49,7 +49,7 @@ If an API token has no authorised IP address associated with it, then this means
 
 API methods are used in the **m** value in the HTTP GET request. The following methods are valid.
 
-- **findNumber** : Obtain the first contact found based on a queried phone nummber (mobile and home). Note that if more than one contact exists with the same phone number then this will only return the first result, based on the last name of the contacts in alphabetical order.
+- **findNumber** : Obtain the first contact found based on a queried phone number (mobile and home). Note that if more than one contact exists with the same phone number then this will only return the first result, based on the last name of the contacts in alphabetical order.
   - Example: a query of api.php?t=**APITOKEN**&m=**findNumber**&q=**0987654321** will return the result (if it exists) for the phone number 0987654321.
 
 # License
