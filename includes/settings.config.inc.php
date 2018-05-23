@@ -3,7 +3,9 @@
 	// Check if a custom settings file has been created with all the relevant constants
 	if(!file_exists("../includes/settings.local.inc.php")) {
 		// Output to screen that the file is missing and go no further
-		echo 'A config file could not be found. Please create a file inside the includes/ directory called settings.local.inc.php';
+		echo 'A config file could not be found. Please create a file inside the includes/ directory called "settings.local.inc.php".';
+		echo '<br>';
+		echo 'For an example file simply create a copy of the "EXAMPLE.settings.local.inc.php" and rename it to "settings.local.inc.php", you can then input the details relating to your set up.';
 		die();
 	};
 	
