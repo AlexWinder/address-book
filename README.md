@@ -13,7 +13,8 @@ A simple PHP-based contact list manager with authentication and logging features
 
 # Usage
 
-- Under sql/sql.sql execute the SQL file to import the relevant information to your database.
+- Under sql/sql.sql execute the SQL file to import the relevant information to your database. The default database is set to "address_book". To import the SQL file:
+> mysql -u <username> (-p if your user account has a password) address_book < /location/to/sql/sql.sql
 - Create a PHP file called "settings.local.inc.php" inside the includes/ directory. Begin the file with some opening PHP tags on the first line (<?php). Upon loading the system in a web browser for the first time you will be presented with a number of errors that DB_* values aren't set. Each DB_* value should be set with your own system settings and on it's own line, and each line must be closed with a semi-colon (;). There is an example file of the "settings.local.inc.php" file in the includes/ directory called ["EXAMPLE.settings.local.inc.php"](includes/EXAMPLE.settings.local.inc.php).
 - Once database constants have been set you should now be able to log into the system. The default username is "admin" with a password of "LetMeIn123".
 
