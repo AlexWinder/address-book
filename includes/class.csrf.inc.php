@@ -18,15 +18,22 @@
 		
 		// Used to check a submitted token with a token stored in the session
 		public static function check_token($submitted_token) {
-			// Bring in the session variable
-			global $session;
-			
-			// Check if the submitted token matches the one in the database
-			if($submitted_token == $session->get('csrf_token')) {
-				// Token is the same
-				return true;
+			// Check if a token was submitted
+			if($submitted_token) {
+				// Token was submitted
+				// Bring in the session variable
+				global $session;
+				
+				// Check if the submitted token matches the one in the database
+				if($submitted_token == $session->get('csrf_token')) {
+					// Token is the same
+					return true;
+				} else {
+					// Token is not the same
+					return false;
+				}
 			} else {
-				// Token is not the same
+				// Token wasn't submitted
 				return false;
 			}
 		}
