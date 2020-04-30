@@ -4,7 +4,7 @@
 		<title><?php echo page_name(); ?></title>
 		
 		<!-- jQuery -->
-		<script src="assets/jQuery/3.2.1/jquery.min.js"></script>
+		<script src="assets/jQuery/3.5.0/jquery.min.js"></script>
 <?php
 		if(isset($datatables_required) && $datatables_required == 1) {
 			$datatables_source = <<<FILEDOC
