@@ -16,7 +16,7 @@
 	 * The password (if any) associated with the DB_USER account.
 	 * If you are using Docker then a password will likely be set during setup. 
 	 * You should consult the logs for the 'mysql' container which will list the password generated.
-	 * mysql_1    | 2022-07-16 22:04:23+00:00 [Note] [Entrypoint]: GENERATED ROOT PASSWORD: hCr+raCHBx8AxqZjLLxo6u+smUN65n41
+	 * mysql_1    | 2022-07-16 22:04:23+00:00 [Note] [Entrypoint]: GENERATED ROOT PASSWORD: CT5qDK3cyvh38v8Z+oqIG07YuBQhvkOO
 	 */
 	defined('DB_PASS')			?	null	:	define('DB_PASS', '');
 
