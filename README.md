@@ -69,7 +69,7 @@ You should create a database called `address_book` along with a user which has p
 You should then import the [sql/sql.sql](sql/sql.sql) file into your database to set the system up to a baseline. For example:
 
 ```bash
-> mysql -u <username> (-p if your user account has a password) address_book < /location/to/sql/sql.sql
+mysql -u <username> (-p if your user account has a password) address_book < /location/to/sql/sql.sql
 ```
 
 #### Settings Configuration
