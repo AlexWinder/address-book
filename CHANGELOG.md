@@ -1,5 +1,12 @@
 # Address Book Changelog
 
+## 1.0.4 (2022-08-03)
+
+- Updated README to include support for `docker compose` on top of `docker-compose`.
+- Fixed README with a typo on the `DB_PASS` value.
+- API calls returned with the correct header of `Content-Type: application/json`.
+- API calls returned with the correct HTTP status code rather than all being returned as HTTP 200 OK.
+
 ## 1.0.3 (2022-07-17)
 
 - Added Docker build environment.
