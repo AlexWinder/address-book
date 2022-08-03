@@ -9,8 +9,10 @@
 	if(isset($_GET['t']) && !empty($_GET['t'])) {
 		// User is making an API call
 		$api = new API($_GET['t'], $_GET['m'], $_GET['q']);
-		
+
 		// Output the array_result in JSON format
+		header("Content-Type: application/json");
+		http_response_code($api->http_response);
 		echo json_encode($api->array_result);
 		
 		// Stop the page loading any further
