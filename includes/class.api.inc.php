@@ -4,7 +4,7 @@
 		
 		private $db = null, // Used to store an instance of the database
 				$result_messages = array( // All result messages from the different types of API call
-					'incomplete' => 'An incomplete API call was made. Please follow the documentation to ensure that you are sending all the required settings.',
+					'incomplete' => 'An incomplete API call was made. Please follow the documentation to ensure that you are sending all of the required parameters.',
 					'invalid_token' => 'An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address.',
 					'invalid_method' => 'An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper/lower case characters.',
 					'no_result' => 'A result could not be found.',
@@ -20,7 +20,8 @@
 				$available_methods = array( // The different types of methods available, with their descriptions
 					'findNumber' => 'Obtain the first contact found based on a queried phone number. Note that if more than one contact has the same phone number this will only return the first, based on last name in alphabetical order. Example, ' . PAGELINK_API . '?t=APITOKEN&m=findNumber&q=0987654321 will return the result (if it exists) for the phone number 0987654321.'
 				),
-				$array_result = null; // Used to build a JSON format to return a result
+				$array_result = null, // Used to build a JSON format to return a result
+				$http_response = 200; // The HTTP status code returned to the client
 		
 		// Properties relating to when an API token is looked up
 		public	$found = false, // When an API token is found
@@ -57,6 +58,7 @@
 							$this->success = 1;
 							$this->result = $result;
 							$this->result_message = $this->result_messages['success'];
+							$this->http_response = 200;
 							
 							// Create new Log instance, and log the action to the database
 							$log = new Log('api_call_success', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ')');
@@ -64,6 +66,7 @@
 							// No result could be found
 							$this->result = 'no_result';
 							$this->result_message = $this->result_messages[$this->result];
+							$this->http_response = 404;
 							
 							// Create new Log instance, and log the action to the database
 							$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - No Result');
@@ -72,6 +75,7 @@
 						// $method is not valid
 						$this->result = $this->result = 'invalid_method';
 						$this->result_message = $this->result_messages[$this->result];
+						$this->http_response = 400;
 						
 						// Create new Log instance, and log the action to the database
 						$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - Invalid Method');
@@ -80,6 +84,7 @@
 					// $token is not valid
 					$this->result = $this->result = 'invalid_token';
 					$this->result_message = $this->result_messages[$this->result];
+					$this->http_response = 401;
 					
 					// Create new Log instance, and log the action to the database
 					$log = new Log('api_call_failed', 'Token (' . $token . ') called Method (' . $method . ') with Query (' . $query . ') - Invalid Token');
@@ -88,6 +93,7 @@
 				// Not set, return incomplete API call
 				$this->result = $this->result = 'incomplete';
 				$this->result_message = $this->result_messages[$this->result];
+				$this->http_response = 400;
 				
 				// Create new Log instance, and log the action to the database
 				$log = new Log('api_call_failed', 'Invalid Query - Token and/or Method and/or Query not sent');
