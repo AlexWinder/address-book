@@ -20,17 +20,21 @@ cp includes/EXAMPLE.settings.local.inc.php includes/settings.local.inc.php
 
 ### 1. Docker (Recommended)
 
-Docker is the recommended method to set up this system due to it's ease of getting things configured quickly and also it is far less likely to be a victim of issues which may occur due to OS or versions of software. The below assumes that you have `docker` and `docker-compose` installed on your system.
+Docker is the recommended method to set up this system due to it's ease of getting things configured quickly and also it is far less likely to be a victim of issues which may occur due to OS or versions of software. The below assumes that you have `docker` and `docker compose` (or the `docker-compose` command if you are using older versions of Docker) installed on your system.
 
-1. First you should build the environment with `docker-compose`. This will download any images and set up the custom images which are required to run in the next step.
+1. First you should build the environment. This will download any images and set up the custom images which are required to run in the next step.
 
 ```bash
+docker compose build
+# or
 docker-compose build
 ```
 
-2. Once the `build` has completed successfully you can then start the environment with the `up` command for `docker-compose`.
+2. Once the `build` has completed successfully you can then start the environment with the `up` command.
 
 ```bash
+docker compose up
+# or
 docker-compose up
 ```
 
