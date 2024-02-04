@@ -4,7 +4,7 @@ Address Book is a simple PHP-based contact list manager with authentication, log
 
 ## Authors
 
-* [Alex Winder](https://www.alexwinder.uk) 
+* [Alex Winder](https://alexwinder.com) 
 
 ## Installation
 
