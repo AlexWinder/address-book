@@ -313,8 +313,7 @@
 			// Remove all white space from the phone number
 			$phone_number = $this->remove_white_space($phone_number);
 			// Insert a space at position 5 in a phone number, formatting as 01234 567890
-			$result = sprintf("%s-%s-%s", substr($phone_number, 0, 3), substr($phone_number, 3, 3), substr($phone_number, 6, 4));
-			return $result;
+			return substr_replace($phone_number, " ", 5, 0);
 		}
 		
 		public function remove_white_space($string) {
