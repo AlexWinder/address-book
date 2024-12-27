@@ -55,6 +55,7 @@ You should take this generated password and populate it in the `DB_PASS` of your
 - `DB_PASS` should be set the password as detailed above.
 - `DB_NAME` should be set to `address_book`.
 - `SITE_URL` should be set to the address from which the system will be accessible from. Typically http://localhost/ is acceptable.
+- `TZ` should be the timezone. Default is 'UTC'. (https://www.php.net/manual/en/timezones.php)
 
 ### 2. Manual Installation
 
@@ -85,6 +86,7 @@ You should then set your `settings.local.inc.php` values to match your environme
 - `DB_PASS` should be set the password for the user which you created.
 - `DB_NAME` should be set to `address_book`, if you used the default set up.
 - `SITE_URL` should be the FQDN of the address of the server.
+- `TZ` should be the timezone. Default is 'UTC'. (https://www.php.net/manual/en/timezones.php)
 
 #### Web Server Configuration
 

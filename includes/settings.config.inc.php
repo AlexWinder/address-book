@@ -75,7 +75,7 @@
 	defined("PAGELINK_APIUPDATE")					?	null	:	define("PAGELINK_APIUPDATE", "update-api.php");
 	
 	// Server time zone
-	date_default_timezone_set("America/Chicago");
+	date_default_timezone_set(getEnv("TZ"));
 	
 	// Autoload classes so that they are called as and when they are required
 	spl_autoload_register(function($class_name) { 
