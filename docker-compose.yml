@@ -15,6 +15,18 @@ services:
         build:
             context: docker
             dockerfile: PHP-FPM.Dockerfile
+        environment:
+            - TZ=America/Chicago
+            - TABLE_CONTACT_NAME=Name
+            - TABLE_CONTACT_ADDRESS_1=Address
+            - TABLE_CONTACT_ADDRESS_2=Address Line 2
+            - TABLE_CONTACT_TOWN=City
+            - TABLE_CONTACT_POSTAL_CODE=Zip Code
+            - TABLE_CONTACT_COUNTY=State
+            - TABLE_CONTACT_MOBILE_NUMBER=Mobile Number
+            - TABLE_CONTACT_HOME_NUMBER=Home Number
+            - TABLE_CONTACT_EMAIL=Email
+            - TABLE_CONTACT_DATE_OF_BIRTH=Date of Birth
         volumes: 
             - ./:/var/www/html
     mysql:
