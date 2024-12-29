@@ -28,14 +28,15 @@ FILEDOC;
 		<!-- Twitter Bootstrap -->
 		<!-- Minified CSS -->
 		<link rel="stylesheet" href="assets/bootstrap/3.4.1/css/bootstrap.min.css">
+
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="assets/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 		<!-- Minified JavaScript for Bootstrap -->
 		<script src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		
-		<!-- Font Awesome -->
-		<link href="assets/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-		
+
+		<!-- Material Icons -->
+		<script src="//code.iconify.design/1/1.0.6/iconify.min.js"></script>
+
 		<!-- Main CSS -->
 		<link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
 

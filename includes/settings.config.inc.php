@@ -79,7 +79,50 @@
 		putenv('TZ=' . "Europe/London");
 	}
  	date_default_timezone_set(getenv('TZ'));
-	
+
+	// // // // // // // // // //
+	// Set table header names  //
+	// // // // // // // // // //
+	if (!isset($_SERVER['TABLE_CONTACT_NAME'])){
+		putenv('TABLE_CONTACT_NAME=' . "Name");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_ADDRESS_1'])){
+		putenv('TABLE_CONTACT_ADDRESS_1=' . "Address Line 1");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_ADDRESS_2'])){
+		putenv('TABLE_CONTACT_ADDRESS_2=' . "Address Line 2");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_TOWN'])){
+		putenv('TABLE_CONTACT_TOWN=' . "Town");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_POSTAL_CODE'])){
+		putenv('TABLE_CONTACT_POSTAL_CODE=' . "Postal Code");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_COUNTY'])){
+		putenv('TABLE_CONTACT_COUNTY=' . "County");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_MOBILE_NUMBER'])){
+		putenv('TABLE_CONTACT_MOBILE_NUMBER=' . "Mobile Number");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_HOME_NUMBER'])){
+		putenv('TABLE_CONTACT_HOME_NUMBER=' . "Home Number");
+	}
+
+	if (!isset($_SERVER['TABLE_CONTACT_EMAIL'])){
+		putenv('TABLE_CONTACT_EMAIL=' . "Email");
+	}	
+
+	if (!isset($_SERVER['TABLE_CONTACT_DATE_OF_BIRTH'])){
+		putenv('TABLE_CONTACT_DATE_OF_BIRTH=' . "Date of Birth");
+	}	
+
 	// Autoload classes so that they are called as and when they are required
 	spl_autoload_register(function($class_name) { 
 		$class_name = strtolower($class_name);
