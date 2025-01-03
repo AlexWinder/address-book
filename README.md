@@ -55,13 +55,9 @@ You should take this generated password and populate it in the `DB_PASS` of your
 - `DB_PASS` should be set the password as detailed above.
 - `DB_NAME` should be set to `address_book`.
 - `SITE_URL` should be set to the address from which the system will be accessible from. Typically http://localhost/ is acceptable.
+- `TIMEZONE` should be set to the timezone you require. See the [PHP Manual](https://www.php.net/manual/en/timezones.php) for options. 
 
-5. (OPTIONAL) To define a timezone orther than the default 'Europe/London', in your `docker-compose.yml` add the following under the 'php-fpm' service:
 
-```yml
-environment:
-  - TZ=America/New_York
-```
 ### 2. Manual Installation
 
 If you wish to set up the system manually then this too can be done.
@@ -91,33 +87,11 @@ You should then set your `settings.local.inc.php` values to match your environme
 - `DB_PASS` should be set the password for the user which you created.
 - `DB_NAME` should be set to `address_book`, if you used the default set up.
 - `SITE_URL` should be the FQDN of the address of the server.
+- `TIMEZONE` should be set to the timezone you require. See the [PHP Manual](https://www.php.net/manual/en/timezones.php) for options. 
 
 #### Web Server Configuration
 
 You should configure your web server so that the document root is set as the [html](html) directory. However, the web server user for your configuration should have access to both the [html](html/) and [includes](includes/) directories.
-
-#### Optional Configuration
-To define a timezone other than the default 'Europe/London', it varies by web server. 
-
-##### Apache
-
-In your VirtualHost definition, add the following
-```bash
-<VirtualHost localhost:80>
-   ...
-   SetEnv TZ America/New_York
-</VirtualHost>
-```
-
-##### Nginx (Untested)
-
-In your php-fpm definition, add the following
-```bash
-location / {
-    ...
-    fastcgi_param TZ America/New_York;
-}
-```
 
 ### Testing
 

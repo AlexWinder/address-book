@@ -22,6 +22,7 @@
 	if(!defined('DB_PASS')) 	{ $errors[] = "DB_PASS is not defined. Please add the following as a new line to your includes/settings.local.inc.php file: <b>define('DB_PASS', 'YOUR DATABASE USER PASSWORD');</b>"; };
 	if(!defined('DB_NAME')) 	{ $errors[] = "DB_NAME is not defined. Please add the following as a new line to your includes/settings.local.inc.php file: <b>define('DB_NAME', 'YOUR DATABASE NAME');</b>"; };
 	if(!defined('SITE_URL')) 	{ $errors[] = "SITE_URL is not defined. Please add the following as a new line to your includes/settings.local.inc.php file: <b>define('SITE_URL', 'YOUR SITE URL');</b>"; };
+	if(!defined('TIMEZONE')) 	{ $errors[] = "TIMEZONE is not defined. Please add the following as a new line to your includes/settings.local.inc.php file: <b>define('TIMEZONE', 'YOUR TIMEZONE');</b>"; };
 
 	// Output the errors to screen if any are present
 	if(!empty($errors)) {
@@ -75,10 +76,7 @@
 	defined("PAGELINK_APIUPDATE")					?	null	:	define("PAGELINK_APIUPDATE", "update-api.php");
 	
 	// Server time zone
-	if ( !isset($_SERVER['TZ']) ) {
-		putenv('TZ=' . "Europe/London");
-	}
- 	date_default_timezone_set(getenv('TZ'));
+ 	date_default_timezone_set(TIMEZONE);
 	
 	// Autoload classes so that they are called as and when they are required
 	spl_autoload_register(function($class_name) { 
