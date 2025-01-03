@@ -35,4 +35,4 @@
 	/**
 	 * The timezone to be used by the system.
 	 */
-	defined("TZ")				?	null	:	define("TZ", "UTC");
+	defined("TIMEZONE")			?	null	:	define("TIMEZONE", "UTC");
