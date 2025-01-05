@@ -1,5 +1,9 @@
 # Address Book Changelog
 
+## 1.0.5 (2025-01-05)
+
+- Added timezone support by [@zaydons](https://github.com/zaydons) in https://github.com/AlexWinder/address-book/pull/6.
+
 ## 1.0.4 (2022-08-03)
 
 - Updated README to include support for `docker compose` on top of `docker-compose`.
