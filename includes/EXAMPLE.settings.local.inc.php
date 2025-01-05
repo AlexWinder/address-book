@@ -31,3 +31,8 @@
 	 * The address which is used to access this system.
 	 */
 	defined('SITE_URL')			?	null	:	define('SITE_URL', 'http://localhost/');
+
+	/**
+	 * The timezone to be used by the system.
+	 */
+	defined("TIMEZONE")			?	null	:	define("TIMEZONE", "UTC");
