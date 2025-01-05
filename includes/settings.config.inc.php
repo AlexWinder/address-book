@@ -53,6 +53,7 @@
 	defined("PAGENAME_CONTACTSDELETE")				?	null	:	define("PAGENAME_CONTACTSDELETE", "Delete Contact");
 	defined("PAGENAME_CONTACTSUPDATE")				?	null	:	define("PAGENAME_CONTACTSUPDATE", "Update Contact");
 	defined("PAGENAME_CONTACTSVIEW")				?	null	:	define("PAGENAME_CONTACTSVIEW", "View Contact");
+	defined("PAGENAME_SETTINGS")					?	null	:	define("PAGENAME_SETTINGS", "Settings");
 	defined("PAGENAME_API")							?	null	:	define("PAGENAME_API", "API");
 	defined("PAGENAME_APIADD")						?	null	:	define("PAGENAME_APIADD", "Add API Token");
 	defined("PAGENAME_APIDELETE")					?	null	:	define("PAGENAME_APIDELETE", "Delete API Token");
@@ -70,6 +71,7 @@
 	defined("PAGELINK_CONTACTSDELETE")				?	null	:	define("PAGELINK_CONTACTSDELETE", "delete-contact.php");
 	defined("PAGELINK_CONTACTSUPDATE")				?	null	:	define("PAGELINK_CONTACTSUPDATE", "update-contact.php");
 	defined("PAGELINK_CONTACTSVIEW")				?	null	:	define("PAGELINK_CONTACTSVIEW", "view-contact.php");
+	defined("PAGELINK_SETTINGS")					?	null	:	define("PAGELINK_SETTINGS", "settings.php");
 	defined("PAGELINK_API")							?	null	:	define("PAGELINK_API", "api.php");
 	defined("PAGELINK_APIADD")						?	null	:	define("PAGELINK_APIADD", "add-api.php");
 	defined("PAGELINK_APIDELETE")					?	null	:	define("PAGELINK_APIDELETE", "delete-api.php");
@@ -119,9 +121,7 @@
 
 	if (!isset($_SERVER['TABLE_CONTACT_DATE_OF_BIRTH'])){
 		putenv('TABLE_CONTACT_DATE_OF_BIRTH=' . "Date of Birth");
-	}	
-
- 	date_default_timezone_set(TIMEZONE);
+	}
 	
 	// Autoload classes so that they are called as and when they are required
 	spl_autoload_register(function($class_name) { 

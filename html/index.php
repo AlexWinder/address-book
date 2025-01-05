@@ -17,19 +17,32 @@
 	// No datatable option required for this page
 	$datatables_option = 'dom: \'Bfrtip\', // Define the layout for buttons and table controls
         buttons: [
-            \'csv\', // CSV Export button
+            {
+                extend: \'csv\', // CSV Export button
+                text: \'Export CSV\',
+                titleAttr: \'Export table data to CSV\',
+                exportOptions: {
+                    columns: \':not(.noVis)\'
+                }
+            },
             {
                 extend: \'colvis\', // Column visibility button
                 columns: \':not(.noVis)\', // Exclude columns with the class `noVis`
                 collectionLayout: \'four-column\', // Control layout of the visibility dropdown
                 text: \'Column visibility\', // Text for the button
                 titleAttr: \'Select columns to display\' // Tooltip for the button
+                columns: \':not(.noVis)\',
+                collectionLayout: \'one-column\',
+                text: \'Column visibility\',
+                titleAttr: \'Select columns to display\'
             }
         ],
         columnDefs: [
             {
                 targets: 1, // Column index to apply class `noVis`
                 className: \'noVis\' // Add this class for exclusion in the visibility button
+                targets: -1, 
+                className: \'noExport noVis\'
             }
         ],
 		stateSave: true';
@@ -64,7 +77,7 @@
 						<th><?php echo getenv('TABLE_CONTACT_HOME_NUMBER'); ?></th>
 						<th><?php echo getenv('TABLE_CONTACT_EMAIL'); ?></th>
 						<th><?php echo getenv('TABLE_CONTACT_DATE_OF_BIRTH'); ?></th>
-						<th>Actions</th>
+						<th class="noExport noVis">Actions</th>
 					</tr>
 				</thead>
 				<tbody>

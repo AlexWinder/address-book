@@ -18,7 +18,8 @@
 						<?php echo PAGENAME_INDEX; ?></a></li>
 						<li <?php if($page_name == PAGENAME_USERS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_USERS; ?>"><span class="iconify" data-icon="mdi-account-group" aria-hidden="true"></span> <?php echo PAGENAME_USERS; ?></a></li>
 						<li <?php if($page_name == PAGENAME_LOGS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_LOGS; ?>"><span class="iconify" data-icon="mdi-format-list-bulleted-square" aria-hidden="true"></span> <?php echo PAGENAME_LOGS; ?></a></li>
-						<li <?php if($page_name == PAGENAME_API) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_API; ?>"><span class="iconify" data-icon="mdi-power-plug" aria-hidden="true"></span> <?php echo PAGENAME_API; ?></a></li>
+						<li <?php if($page_name == PAGENAME_API) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_API; ?>"><span class="iconify" data-icon="mdi-tune" aria-hidden="true"></span> <?php echo PAGENAME_API; ?></a></li>
+						<li <?php if($page_name == PAGENAME_SETTINGS) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_SETTINGS; ?>"><span class="iconify" data-icon="mdi-power-plug" aria-hidden="true"></span> <?php echo PAGENAME_SETTINGS; ?></a></li>
 						<li <?php if($page_name == PAGENAME_LOGOUT) echo 'class="active"'; ?>><a href="<?php echo PAGELINK_LOGOUT; ?>"><span class="iconify" data-icon="mdi-logout" aria-hidden="true"></span> <?php echo PAGENAME_LOGOUT; ?></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
