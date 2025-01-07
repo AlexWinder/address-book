@@ -104,19 +104,26 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Import Contacts</h3>
-                        <button class="btn btn-info" onclick="window.location.href='?action=exportCSVTemplate'">Download Template File</button>
-                        <hr>
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <label for="csvFile">Choose CSV file:</label>
-                            <input type="file" name="csvFile" id="csvFile" accept=".csv" required>
-                            <button class="btn btn-info" type="submit" name="submit">Upload and Import</button>
-                            
-                        </form>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Import Contacts</h3>
+                                <button class="btn btn-info" onclick="window.location.href='?action=exportCSVTemplate'">Download Template File</button>
+                                <hr>
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <label for="csvFile">Choose CSV file:</label>
+                                    <input type="file" name="csvFile" id="csvFile" accept=".csv" required>
+                                    <button class="btn btn-info" type="submit" name="submit">Upload and Import Contacts</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <h3>Export Contacts</h3>
-                        <button class="btn btn-info" onclick="window.location.href='?action=exportContacts'">Download Template File</button>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Export Contacts</h3>
+                                <button class="btn btn-info" onclick="window.location.href='?action=exportContacts'">Export Contacts</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>

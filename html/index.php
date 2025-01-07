@@ -18,19 +18,7 @@
 	$datatables_option = 'dom: \'Bfrtip\', // Define the layout for buttons and table controls
         buttons: [
             {
-                extend: \'csv\', // CSV Export button
-                text: \'Export CSV\',
-                titleAttr: \'Export table data to CSV\',
-                exportOptions: {
-                    columns: \':not(.noVis)\'
-                }
-            },
-            {
                 extend: \'colvis\', // Column visibility button
-                columns: \':not(.noVis)\', // Exclude columns with the class `noVis`
-                collectionLayout: \'four-column\', // Control layout of the visibility dropdown
-                text: \'Column visibility\', // Text for the button
-                titleAttr: \'Select columns to display\' // Tooltip for the button
                 columns: \':not(.noVis)\',
                 collectionLayout: \'one-column\',
                 text: \'Column visibility\',
@@ -39,8 +27,6 @@
         ],
         columnDefs: [
             {
-                targets: 1, // Column index to apply class `noVis`
-                className: \'noVis\' // Add this class for exclusion in the visibility button
                 targets: -1, 
                 className: \'noExport noVis\'
             }
@@ -63,8 +49,6 @@
 			<?php $session->output_message(); ?>
 			
 			<table class="display nowrap" id="<?php echo $datatables_table_id; ?>">
-				<?php
-				?>
 				<thead>
 					<tr>
 						<th><?php echo getenv('TABLE_CONTACT_NAME'); ?></th>
@@ -77,7 +61,7 @@
 						<th><?php echo getenv('TABLE_CONTACT_HOME_NUMBER'); ?></th>
 						<th><?php echo getenv('TABLE_CONTACT_EMAIL'); ?></th>
 						<th><?php echo getenv('TABLE_CONTACT_DATE_OF_BIRTH'); ?></th>
-						<th class="noExport noVis">Actions</th>
+						<th class="noVis">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
