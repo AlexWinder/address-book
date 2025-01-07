@@ -107,12 +107,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">Import Contacts</h3>
-                                <button class="btn btn-info" onclick="window.location.href='?action=exportCSVTemplate'">Download Template File</button>
-                                <hr>
                                 <form action="" method="post" enctype="multipart/form-data">
-                                    <label for="csvFile">Choose CSV file:</label>
-                                    <input type="file" name="csvFile" id="csvFile" accept=".csv" required>
-                                    <button class="btn btn-info" type="submit" name="submit">Upload and Import Contacts</button>
+                                    
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" id="csvFile" accept=".csv" required>
+                                        <label class="input-group-text" for="csvFile">Upload</label>
+                                    </div>
+                                    <button class="btn btn-info" type="submit" name="submit">Import Contacts</button>
+                                    <button class="btn btn-info" onclick="window.location.href='?action=exportCSVTemplate'">Download Template File</button>
+
                                 </form>
                             </div>
                         </div>
