@@ -355,7 +355,112 @@
 				return false;
 			}
 		}
-		
+
+		// Export Contacts
+		public function exportCSV() {
+			// Create a new file
+			$filename = "contacts_" . date('Y-m-d_H-i-s') . ".csv";
+			$fp = fopen($filename, 'w');
+			
+			// Write the headers to the file
+			$headers = array("First Name", "Middle Name", "Last Name", "Home Number", "Mobile Number", "Email", "Date of Birth", "Address Line 1", "Address Line 2", "Town", "County", "Post Code");
+			fputcsv($fp, $headers);
+			
+			// Loop through the contacts and write them to the file
+			foreach($this->all as $contact) {
+				$data = array(
+					$contact['first_name'],
+					$contact['middle_name'],
+					$contact['last_name'],
+					$contact['contact_number_home'],
+					$contact['contact_number_mobile'],
+					$contact['contact_email'],
+					$contact['date_of_birth'],
+					$contact['address_line_1'],
+					$contact['address_line_2'],
+					$contact['address_town'],
+					$contact['address_county'],
+					$contact['address_post_code']
+				);
+				fputcsv($fp, $data);
+			}
+			
+			// Close the file
+			fclose($fp);
+			
+			// Return the filename
+			return $filename;
+		}
+
+		// Create CSV Template
+		public function exportCSVTemplate() {
+			// Create a new file
+			$filename = "contacts_template.csv";
+			$fp = fopen($filename, 'w');
+			
+			// Write the headers to the file
+			$headers = array("First Name", "Middle Name", "Last Name", "Home Number", "Mobile Number", "Email", "Date of Birth", "Address Line 1", "Address Line 2", "Town", "County", "Post Code");
+			fputcsv($fp, $headers);
+			
+			// Close the file
+			fclose($fp);
+			
+			// Return the filename
+			return $filename;
+		}
+
+		// Import an uploaded CSV file 
+		public function importCSV($filePath) {
+			error_log("Importing CSV file: " . $filePath);
+			// Open the CSV file
+			if (($handle = fopen($filePath, "r")) !== FALSE) {
+
+				// Skip the first row (headers)
+				fgetcsv($handle, 1000, ",");
+	
+				// Loop through the file line-by-line
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					// Generate a new contact_id
+					$contact_id = $this->generate_id(12);
+
+					// Prepare SQL query to insert data into the database
+					$sql = "INSERT INTO contacts (contact_id, first_name, middle_name, last_name, contact_number_home, contact_number_mobile, contact_email, date_of_birth, address_line_1, address_line_2, address_town, address_county, address_post_code) 
+								VALUES (:contact_id, :first_name, :middle_name, :last_name, :contact_number_home, :contact_number_mobile, :contact_email, :date_of_birth, :address_line_1, :address_line_2, :address_town, :address_county, :address_post_code)";
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(':contact_id', $contact_id);
+					$stmt->bindParam(':first_name', $data[0]);
+					$stmt->bindParam(':middle_name', $data[1]);
+					$stmt->bindParam(':last_name', $data[2]);
+					$stmt->bindParam(':contact_number_home', $data[3]);
+					$stmt->bindParam(':contact_number_mobile', $data[4]);
+					$stmt->bindParam(':contact_email', $data[5]);
+					$stmt->bindParam(':date_of_birth', $data[6]);
+					$stmt->bindParam(':address_line_1', $data[7]);
+					$stmt->bindParam(':address_line_2', $data[8]);
+					$stmt->bindParam(':address_town', $data[9]);
+					$stmt->bindParam(':address_county', $data[10]);
+					$stmt->bindParam(':address_post_code', $data[11]);
+
+					// Execute the query
+					$result = $stmt->execute();
+
+					// Check if successful
+					if($result) {
+						// Insert successful
+						return $result;
+					} else {
+						// Insert failed
+						return false;
+					}
+				}
+	
+				// Close the file
+				fclose($handle);
+			} else {
+				throw new Exception("Unable to open the file.");
+			}
+		}
+
 	}; // Close class Contact
 	
 // EOF
