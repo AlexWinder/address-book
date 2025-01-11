@@ -34,6 +34,7 @@
 
 	/**
 	 * The timezone to be used by the system.
+	 * See https://www.php.net/manual/en/timezones.php for a list of valid timezones.
 	 */
 	defined("TIMEZONE")			?	null	:	define("TIMEZONE", "UTC");
 
