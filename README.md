@@ -57,6 +57,17 @@ You should take this generated password and populate it in the `DB_PASS` of your
 - `SITE_URL` should be set to the address from which the system will be accessible from. Typically http://localhost/ is acceptable.
 - `TIMEZONE` should be set to the timezone you require. See the [PHP Manual](https://www.php.net/manual/en/timezones.php) for options. 
 
+The following are to define the column names of your contacts table on the main page.
+- `TABLE_CONTACT_NAME` 
+- `TABLE_CONTACT_ADDRESS_1`
+- `TABLE_CONTACT_ADDRESS_2`
+- `TABLE_CONTACT_TOWN`
+- `TABLE_CONTACT_POSTAL_CODE`
+- `TABLE_CONTACT_COUNTY`
+- `TABLE_CONTACT_MOBILE_NUMBER`
+- `TABLE_CONTACT_HOME_NUMBER`
+- `TABLE_CONTACT_EMAIL`
+- `TABLE_CONTACT_DATE_OF_BIRTH`
 
 ### 2. Manual Installation
 
@@ -88,6 +99,18 @@ You should then set your `settings.local.inc.php` values to match your environme
 - `DB_NAME` should be set to `address_book`, if you used the default set up.
 - `SITE_URL` should be the FQDN of the address of the server.
 - `TIMEZONE` should be set to the timezone you require. See the [PHP Manual](https://www.php.net/manual/en/timezones.php) for options. 
+
+The following are to define the column names of your contacts table on the main page.
+- `TABLE_CONTACT_NAME` 
+- `TABLE_CONTACT_ADDRESS_1`
+- `TABLE_CONTACT_ADDRESS_2`
+- `TABLE_CONTACT_TOWN`
+- `TABLE_CONTACT_POSTAL_CODE`
+- `TABLE_CONTACT_COUNTY`
+- `TABLE_CONTACT_MOBILE_NUMBER`
+- `TABLE_CONTACT_HOME_NUMBER`
+- `TABLE_CONTACT_EMAIL`
+- `TABLE_CONTACT_DATE_OF_BIRTH`
 
 #### Web Server Configuration
 

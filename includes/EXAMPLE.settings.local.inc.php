@@ -36,3 +36,54 @@
 	 * The timezone to be used by the system.
 	 */
 	defined("TIMEZONE")			?	null	:	define("TIMEZONE", "UTC");
+
+	/**
+	 * The name of the column for the contact's name
+	 */
+	defined("TABLE_CONTACT_NAME")				?	null	:	define("TABLE_CONTACT_NAME", "Name");
+
+	/**
+	 * The name of the column for the contact's address line 1
+	 */
+	defined("TABLE_CONTACT_ADDRESS_1")			?	null	:	define("TABLE_CONTACT_ADDRESS_1", "Address Line 1");
+
+	/**
+	 * The name of the column for the contact's address line 2
+	 */
+	defined("TABLE_CONTACT_ADDRESS_2")			?	null	:	define("TABLE_CONTACT_ADDRESS_2", "Address Line 2");
+
+	/**
+	 * The name of the column for the contact's town
+	 */	
+	defined("TABLE_CONTACT_TOWN")				?	null	:	define("TABLE_CONTACT_TOWN", "City");
+
+	/**
+	 * The name of the column for the contact's postal code
+	 */
+
+	defined("TABLE_CONTACT_POSTAL_CODE")		?	null	:	define("TABLE_CONTACT_POSTAL_CODE", "Zip Code");
+	
+	/**
+	 * The name of the column for the contact's county or state
+	 */
+	defined("TABLE_CONTACT_COUNTY")			?	null	:	define("TABLE_CONTACT_COUNTY", "State");
+	
+	/**
+	 * The name of the column for the contact's mobile number
+	 */
+	defined("TABLE_CONTACT_MOBILE_NUMBER")		?	null	:	define("TABLE_CONTACT_MOBILE_NUMBER", "Mobile Number");
+	
+	/**
+	 * The name of the column for the contact's home number
+	 */
+	defined("TABLE_CONTACT_HOME_NUMBER")		?	null	:	define("TABLE_CONTACT_HOME_NUMBER", "Home Number");
+	
+	/**
+	 * The name of the column for the contact's email address
+	 */
+	defined("TABLE_CONTACT_EMAIL")				?	null	:	define("TABLE_CONTACT_EMAIL", "Email");
+	
+	/**
+	 * The name of the column for the contact's date of birth
+	 */
+	defined("TABLE_CONTACT_DATE_OF_BIRTH")		?	null	:	define("TABLE_CONTACT_DATE_OF_BIRTH", "DOB");
