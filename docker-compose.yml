@@ -16,7 +16,7 @@ services:
         volumes: 
             - ./:/var/www/html
     mysql:
-        image: mysql:8
+        image: mysql:9
         volumes:
             - 'address-book-db:/var/lib/mysql'
             - ./sql/sql.sql:/docker-entrypoint-initdb.d/initialise.sql
