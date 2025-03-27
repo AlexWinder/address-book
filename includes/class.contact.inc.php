@@ -61,8 +61,8 @@
 					// Contact found
 					$this->found = true; // Specify that a contact could be found
 					// Set the properties of the class as per the users details
-					$this->full_name = htmlentities($this->full_name($result['first_name'], $result['middle_name'], $result['last_name']));
-					$this->full_address = htmlentities($this->full_address($result['address_line_1'], $result['address_line_2'], $result['address_town'], $result['address_county'], $result['address_post_code']));
+					$this->full_name = htmlentities($this->full_name($result));
+					$this->full_address = htmlentities($this->full_address($result));
 					$this->email = htmlentities($result['contact_email']);
 					$this->date_of_birth = htmlentities($this->cosmetic_mysqldate($result["date_of_birth"]));
 					$this->number['home']['raw'] = htmlentities($result['contact_number_home']);
@@ -321,25 +321,25 @@
 			return preg_replace('/\s+/', '', $string);
 		}
 		
-		public function full_name($first_name, $middle_name = null, $last_name){
+		public function full_name(array $contact){
 			// If the person has a middle name
-			if($middle_name != null ) {
+			if($contact['middle_name'] != null ) {
 				// Create their name with a middle name
-				return $first_name . " " . $middle_name . " " . $last_name;
+				return $contact['first_name'] . " " . $contact['middle_name'] . " " . $contact['last_name'];
 			} else {
 				// Don't include the middle name
-				return $first_name . " " . $last_name;
+				return $contact['first_name'] . " " . $contact['last_name'];
 			}
 		}
 		
-		private function full_address($address_line_1, $address_line_2=null, $town, $county, $post_code) {
+		private function full_address(array $contact) {
 			// If the address has a value in address line 2
-			if($address_line_2 != null) {
+			if($contact['address_line_2'] != null) {
 				// Create the address with the line 2 value
-				return $address = $address_line_1 . ", " . $address_line_2 . ", " . $town . ", " . $county . ", " . $post_code;
+				return $contact['address_line_1'] . ", " . $contact['address_line_2'] . ", " . $contact['address_town'] . ", " . $contact['address_county'] . ", " . $contact['address_post_code'];
 			} else {
 				// Don't include the line 2 value
-				return $address = $address_line_1 . ", " . $town . ", " . $county . ", " . $post_code;
+				return $contact['address_line_1'] . ", " . $contact['address_town'] . ", " . $contact['address_county'] . ", " . $contact['address_post_code'];
 			}
 		}
 		

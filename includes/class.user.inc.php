@@ -301,7 +301,7 @@
 		// Method to find all users in the database
 		public function find_all() {
 			// Return all 
-			return $this->all = $this->db->query('SELECT * FROM users', PDO::FETCH_ASSOC);
+			return $this->db->query('SELECT * FROM users', PDO::FETCH_ASSOC);
 		}
 		
 		// Method to delete a particular user
