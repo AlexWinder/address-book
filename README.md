@@ -2,10 +2,6 @@
 
 Address Book is a simple PHP-based contact list manager with authentication, logging features and an API to allow integration with other services. Built using the [Bootstrap](https://getbootstrap.com/) framework, [DataTables](https://datatables.net/), [jQuery](https://jquery.com/) and [FontAwesome](https://fontawesome.com/) to maintain a user-friendly functionality.
 
-## Authors
-
-* [Alex Winder](https://alexwinder.com) 
-
 ## Installation
 
 There are 2 methods to installation. Regardless of which method you choose you should first complete some prerequisites.
@@ -20,22 +16,18 @@ cp includes/EXAMPLE.settings.local.inc.php includes/settings.local.inc.php
 
 ### 1. Docker (Recommended)
 
-Docker is the recommended method to set up this system due to it's ease of getting things configured quickly and also it is far less likely to be a victim of issues which may occur due to OS or versions of software. The below assumes that you have `docker` and `docker compose` (or the `docker-compose` command if you are using older versions of Docker) installed on your system.
+Docker is the recommended method to set up this system due to it's ease of getting things configured quickly and also it is far less likely to be a victim of issues which may occur due to OS or versions of software. The below assumes that you have `docker` and `docker compose` installed on your system.
 
 1. First you should build the environment. This will download any images and set up the custom images which are required to run in the next step.
 
 ```bash
 docker compose build
-# or
-docker-compose build
 ```
 
 2. Once the `build` has completed successfully you can then start the environment with the `up` command.
 
 ```bash
 docker compose up
-# or
-docker-compose up
 ```
 
 This may do some additional downloading which wasn't done during the `build` stage. This is normal.
@@ -43,10 +35,10 @@ This may do some additional downloading which wasn't done during the `build` sta
 3. The first time you run the `up` command the database will be initialised and the `root` user will have a randomly generated password set. You should check through the console logs where there will be a message which indicates what the password has been set to.
 
 ```console
-mysql_1    | 2022-07-16 22:44:24+00:00 [Note] [Entrypoint]: GENERATED ROOT PASSWORD: CT5qDK3cyvh38v8Z+oqIG07YuBQhvkOO
+mysql-1    | 2025-03-27 08:52:31+00:00 [Note] [Entrypoint]: GENERATED ROOT PASSWORD: iNBqruolQSo6ZEsc8ZXyQ5QpUWke9KF5
 ```
 
-You should take this generated password and populate it in the `DB_PASS` of your `settings.local.inc.php`.
+You should take this randomly generated password and populate it in the `DB_PASS` of your `settings.local.inc.php`.
 
 4. The remaining values in your `settings.local.inc.php` should then also be set to meet the Docker environment which you are using:
 
@@ -62,9 +54,9 @@ If you wish to set up the system manually then this too can be done.
 
 #### Requirements
 
-- A web server with PHP (7+ recommended).
+- A web server with PHP (8+ recommended).
 - A relational database management system (RDBMS), such as MySQL or MariaDB.
-- The `mysql` and `pdo` PHP modules should be installed and enabled for your version of PHP. For example if you are using PHP7.4 then you would need to install `php7.4-mysql`.
+- The `mysql` and `pdo` PHP modules should be installed and enabled for your version of PHP. For example if you are using PHP8.4 then you would need to install `php8.4-mysql`.
 
 #### Database Configuration
 
@@ -129,10 +121,19 @@ Results of an API call are returned in a JSON array with the following indexes:
 - `result` - The result of the API call, if any.
 - `result_message` - Used primarily for troubleshooting, such as if a token or method is valid.
 
-``` 
+```json
 {"success":0,"method":null,"query":null,"result":"invalid_token","result_message":"An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address."}
+```
+
+```json
 {"success":0,"method":null,"query":null,"result":"invalid_method","result_message":"An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper\/lower case characters."}
+```
+
+```json
 {"success":0,"method":"findNumber","query":"01189998819991197253","result":"no_result","result_message":"A result could not be found."} 
+```
+
+```json
 {"success":1,"method":"findNumber","query":"156421616","result":"William Shakespeare","result_message":"API call successful."}
 ```
 
@@ -150,3 +151,7 @@ API methods are used in the `m` value in the HTTP GET request. The following met
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+## Contributions
+
+Pull requests (PRs) to this repository are welcome. If your PR is to address an open issue, please try to keep your changes specific to only that issue. Also please avoid addressing multiple issues within a single PR.

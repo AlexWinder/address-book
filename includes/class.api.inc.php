@@ -181,7 +181,7 @@
 		// Method to find all api tokens in the database
 		public function find_all() {
 			// Return all 
-			return $this->all = $this->db->query('SELECT * FROM api', PDO::FETCH_ASSOC);
+			return $this->db->query('SELECT * FROM api', PDO::FETCH_ASSOC);
 		}
 
 		// Method to find specific API token in the database

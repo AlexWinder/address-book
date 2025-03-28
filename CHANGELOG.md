@@ -1,5 +1,11 @@
 # Address Book Changelog
 
+## Upcoming Changes
+
+- Docker PHP support updated version `8.4` ([#8](https://github.com/AlexWinder/address-book/issues/8)).
+- Docker MySQL support updated to version `9`.
+- Fixed incorrect redirect to index page after creating a new user.
+
 ## 1.0.5 (2025-01-05)
 
 - Added timezone support by [@zaydons](https://github.com/zaydons) in https://github.com/AlexWinder/address-book/pull/6.
