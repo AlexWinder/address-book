@@ -122,19 +122,43 @@ Results of an API call are returned in a JSON array with the following indexes:
 - `result_message` - Used primarily for troubleshooting, such as if a token or method is valid.
 
 ```json
-{"success":0,"method":null,"query":null,"result":"invalid_token","result_message":"An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address."}
+{
+    "success": 0,
+    "method": null,
+    "query": null,
+    "result": "invalid_token",
+    "result_message": "An invalid API token was sent. This means that the token does not exist or you are making an API call from an unauthorised IP address."
+}
 ```
 
 ```json
-{"success":0,"method":null,"query":null,"result":"invalid_method","result_message":"An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper\/lower case characters."}
+{
+    "success": 0,
+    "method": null,
+    "query": null,"
+    result": "invalid_method",
+    "result_message": "An invalid API method was requested. Please follow the documentation and check your requested method exists, this includes correct spelling and upper\/lower case characters."
+}
 ```
 
 ```json
-{"success":0,"method":"findNumber","query":"01189998819991197253","result":"no_result","result_message":"A result could not be found."} 
+{
+    "success": 0,
+    "method": "findNumber",
+    "query": "01189998819991197253",
+    "result": "no_result",
+    "result_message": "A result could not be found."
+} 
 ```
 
 ```json
-{"success":1,"method":"findNumber","query":"156421616","result":"William Shakespeare","result_message":"API call successful."}
+{
+    "success": 1,
+    "method": "findNumber",
+    "query": "156421616",
+    "result": "William Shakespeare",
+    "result_message": "API call successful."
+}
 ```
 
 ### API Notes
