@@ -1,6 +1,6 @@
 # Address Book Changelog
 
-## Upcoming Changes
+## 1.0.6 (2025-03-28)
 
 - Docker PHP support updated version `8.4` ([#8](https://github.com/AlexWinder/address-book/issues/8)).
 - Docker MySQL support updated to version `9`.
