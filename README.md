@@ -2,10 +2,6 @@
 
 Address Book is a simple PHP-based contact list manager with authentication, logging features and an API to allow integration with other services. Built using the [Bootstrap](https://getbootstrap.com/) framework, [DataTables](https://datatables.net/), [jQuery](https://jquery.com/) and [FontAwesome](https://fontawesome.com/) to maintain a user-friendly functionality.
 
-## Authors
-
-* [Alex Winder](https://alexwinder.com) 
-
 ## Installation
 
 There are 2 methods to installation. Regardless of which method you choose you should first complete some prerequisites.
@@ -155,3 +151,7 @@ API methods are used in the `m` value in the HTTP GET request. The following met
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+## Contributions
+
+Pull requests (PRs) to this repository are welcome. If your PR is to address an open issue, please try to keep your changes specific to only that issue. Also please avoid addressing multiple issues within a single PR.
