@@ -15,23 +15,7 @@
 	// Table ID to relate to the datatable, as identified in the <table> and in the <script>, needed to identify which tables to make into datatables
 	$datatables_table_id = 'contacts';
 	// No datatable option required for this page
-	$datatables_option = 'dom: \'Bfrtip\', // Define the layout for buttons and table controls
-        buttons: [
-            {
-                extend: \'colvis\', // Column visibility button
-                columns: \':not(.noVis)\',
-                collectionLayout: \'one-column\',
-                text: \'Column visibility\',
-                titleAttr: \'Select columns to display\'
-            }
-        ],
-        columnDefs: [
-            {
-                targets: -1, 
-                className: \'noExport noVis\'
-            }
-        ],
-		stateSave: true';
+	$datatables_option = null;
 	
 	// Obtain all contacts from the database, which will be used to populate the table
 	$contacts = new Contact();
