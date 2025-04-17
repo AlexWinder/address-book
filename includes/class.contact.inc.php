@@ -15,7 +15,23 @@
 			   $number = array(), // Used as an array to store various formatted and unformatted phone numbers
 			   $full_name = null, // Variable used to hold full name of contact
 			   $full_address = null; // Variable used to hold the full address of the contact
-			   
+		
+		// Headers for the CSV files
+		public $csv_headers = array(
+			TABLE_CONTACT_FIRST_NAME, 
+			TABLE_CONTACT_MIDDLE_NAME, 
+			TABLE_CONTACT_LAST_NAME, 
+			TABLE_CONTACT_HOME_NUMBER, 
+			TABLE_CONTACT_MOBILE_NUMBER, 
+			TABLE_CONTACT_EMAIL, 
+			TABLE_CONTACT_DATE_OF_BIRTH, 
+			TABLE_CONTACT_ADDRESS_1, 
+			TABLE_CONTACT_ADDRESS_2, 
+			TABLE_CONTACT_TOWN, 
+			TABLE_CONTACT_COUNTY, 
+			TABLE_CONTACT_POSTAL_CODE
+		);
+
 		// Constructor
 		public function __construct($id = null) {
 			// Set the $db with an instance of the database
@@ -358,13 +374,16 @@
 
 		// Export Contacts
 		public function exportCSV() {
-			// Create a new file
-			$filename = "contacts_" . date('Y-m-d_H-i-s') . ".csv";
-			$fp = fopen($filename, 'w');
+			$date = date('Y-m-d_H-i-s');
+			$fileName = "contacts_{$date}.csv";
+
+			// Create tmp file 
+			$tmpFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $fileName;
+
+			$fp = fopen($tmpFilePath, 'w');
 			
 			// Write the headers to the file
-			$headers = array("First Name", "Middle Name", "Last Name", "Home Number", "Mobile Number", "Email", "Date of Birth", "Address Line 1", "Address Line 2", "Town", "County", "Post Code");
-			fputcsv($fp, $headers);
+			fputcsv($fp, $this->csv_headers);
 			
 			// Loop through the contacts and write them to the file
 			foreach($this->all as $contact) {
@@ -387,26 +406,45 @@
 			
 			// Close the file
 			fclose($fp);
+
+			// Modify some headers for download to name the file properly
+			header('Content-Type: text/csv');
+			header('Content-Disposition: attachment; filename="' . $fileName . '"');
+			header('Content-Length: ' . filesize($tmpFilePath));
 			
 			// Return the filename
-			return $filename;
+			readfile($tmpFilePath);
+			
+			// Delete the temp file
+			unlink($tmpFilePath);
+			exit;
 		}
 
 		// Create CSV Template
 		public function exportCSVTemplate() {
-			// Create a new file
-			$filename = "contacts_template.csv";
-			$fp = fopen($filename, 'w');
-			
-			// Write the headers to the file
-			$headers = array("First Name", "Middle Name", "Last Name", "Home Number", "Mobile Number", "Email", "Date of Birth", "Address Line 1", "Address Line 2", "Town", "County", "Post Code");
-			fputcsv($fp, $headers);
-			
-			// Close the file
+			$fileName = "contacts_template.csv";
+
+			// create a csv file in the tmp directory
+			$tmpFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $fileName;
+
+			// Open the file 
+			$fp = fopen($tmpFilePath, 'w');
+		
+			// Write the headers
+			fputcsv($fp, $this->csv_headers);
 			fclose($fp);
-			
-			// Return the filename
-			return $filename;
+		
+			// Modify some headers for download to name the file properly
+			header('Content-Type: text/csv');
+			header('Content-Disposition: attachment; filename="' . $fileName . '"');
+			header('Content-Length: ' . filesize($tmpFilePath));
+		
+			// Have it download 
+			readfile($tmpFilePath);
+
+			// Delete the temp file
+			unlink($tmpFilePath);
+			exit;
 		}
 
 		// Import an uploaded CSV file 

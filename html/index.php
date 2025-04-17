@@ -35,17 +35,17 @@
 			<table class="display nowrap" id="<?php echo $datatables_table_id; ?>">
 				<thead>
 					<tr>
-						<th><?php echo getenv('TABLE_CONTACT_NAME'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_ADDRESS_1'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_ADDRESS_2'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_TOWN'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_POSTAL_CODE'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_COUNTY'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_MOBILE_NUMBER'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_HOME_NUMBER'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_EMAIL'); ?></th>
-						<th><?php echo getenv('TABLE_CONTACT_DATE_OF_BIRTH'); ?></th>
-						<th class="noVis">Actions</th>
+						<th><?php echo TABLE_CONTACT_FULL_NAME; ?></th>
+						<th><?php echo TABLE_CONTACT_ADDRESS_1; ?></th>
+						<th><?php echo TABLE_CONTACT_ADDRESS_2; ?></th>
+						<th><?php echo TABLE_CONTACT_TOWN; ?></th>
+						<th><?php echo TABLE_CONTACT_POSTAL_CODE; ?></th>
+						<th><?php echo TABLE_CONTACT_COUNTY; ?></th>
+						<th><?php echo TABLE_CONTACT_MOBILE_NUMBER; ?></th>
+						<th><?php echo TABLE_CONTACT_HOME_NUMBER; ?></th>
+						<th><?php echo TABLE_CONTACT_EMAIL; ?></th>
+						<th><?php echo TABLE_CONTACT_DATE_OF_BIRTH; ?></th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>

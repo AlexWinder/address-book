@@ -80,48 +80,20 @@
 	// Server time zone
  	date_default_timezone_set(TIMEZONE);
 
-	// // // // // // // // // //
-	// Set table header names  //
-	// // // // // // // // // //
-	if (!isset($_SERVER['TABLE_CONTACT_NAME'])){
-		putenv('TABLE_CONTACT_NAME=' . "Name");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_ADDRESS_1'])){
-		putenv('TABLE_CONTACT_ADDRESS_1=' . "Address Line 1");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_ADDRESS_2'])){
-		putenv('TABLE_CONTACT_ADDRESS_2=' . "Address Line 2");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_TOWN'])){
-		putenv('TABLE_CONTACT_TOWN=' . "Town");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_POSTAL_CODE'])){
-		putenv('TABLE_CONTACT_POSTAL_CODE=' . "Postal Code");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_COUNTY'])){
-		putenv('TABLE_CONTACT_COUNTY=' . "County");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_MOBILE_NUMBER'])){
-		putenv('TABLE_CONTACT_MOBILE_NUMBER=' . "Mobile Number");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_HOME_NUMBER'])){
-		putenv('TABLE_CONTACT_HOME_NUMBER=' . "Home Number");
-	}
-
-	if (!isset($_SERVER['TABLE_CONTACT_EMAIL'])){
-		putenv('TABLE_CONTACT_EMAIL=' . "Email");
-	}	
-
-	if (!isset($_SERVER['TABLE_CONTACT_DATE_OF_BIRTH'])){
-		putenv('TABLE_CONTACT_DATE_OF_BIRTH=' . "Date of Birth");
-	}
+	// Set table header names 
+	defined("TABLE_CONTACT_FULL_NAME")			?	null	:	define("TABLE_CONTACT_FULL_NAME", "Full Name");
+	defined("TABLE_CONTACT_FIRST_NAME")			?	null	:	define("TABLE_CONTACT_FIRST_NAME", "First Name");
+	defined("TABLE_CONTACT_MIDDLE_NAME")		?	null	:	define("TABLE_CONTACT_MIDDLE_NAME", "Middle Name");
+	defined("TABLE_CONTACT_LAST_NAME")			?	null	:	define("TABLE_CONTACT_LAST_NAME", "Last Name");
+	defined("TABLE_CONTACT_ADDRESS_1")			?	null	:	define("TABLE_CONTACT_ADDRESS_1", "Address Line 1");
+	defined("TABLE_CONTACT_ADDRESS_2")			?	null	:	define("TABLE_CONTACT_ADDRESS_2", "Address Line 2");
+	defined("TABLE_CONTACT_TOWN")				?	null	:	define("TABLE_CONTACT_TOWN", "City");
+	defined("TABLE_CONTACT_POSTAL_CODE")		?	null	:	define("TABLE_CONTACT_POSTAL_CODE", "Postal Code");
+	defined("TABLE_CONTACT_COUNTY")				?	null	:	define("TABLE_CONTACT_COUNTY", "State");
+	defined("TABLE_CONTACT_MOBILE_NUMBER")		?	null	:	define("TABLE_CONTACT_MOBILE_NUMBER", "Mobile Number");
+	defined("TABLE_CONTACT_HOME_NUMBER")		?	null	:	define("TABLE_CONTACT_HOME_NUMBER", "Home Number");
+	defined("TABLE_CONTACT_EMAIL")				?	null	:	define("TABLE_CONTACT_EMAIL", "Email");
+	defined("TABLE_CONTACT_DATE_OF_BIRTH")		?	null	:	define("TABLE_CONTACT_DATE_OF_BIRTH", "DOB");
 	
 	// Autoload classes so that they are called as and when they are required
 	spl_autoload_register(function($class_name) { 

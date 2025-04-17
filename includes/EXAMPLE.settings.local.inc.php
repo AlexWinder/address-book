@@ -41,7 +41,22 @@
 	/**
 	 * The name of the column for the contact's name
 	 */
-	defined("TABLE_CONTACT_NAME")				?	null	:	define("TABLE_CONTACT_NAME", "Name");
+	defined("TABLE_CONTACT_FULL_NAME")				?	null	:	define("TABLE_CONTACT_FULL_NAME", "Name");
+	
+	/**
+	 * The name of the column for the contact's first name
+	 */
+	defined("TABLE_CONTACT_FIRST_NAME")			?	null	:	define("TABLE_CONTACT_FIRST_NAME", "First Name");
+	
+	/**
+	 * The name of the column for the contact's middle name
+	 */
+	defined("TABLE_CONTACT_MIDDLE_NAME")			?	null	:	define("TABLE_CONTACT_MIDDLE_NAME", "Middle Name");
+	
+	/**
+	 * The name of the column for the contact's last name
+	 */
+	defined("TABLE_CONTACT_LAST_NAME")			?	null	:	define("TABLE_CONTACT_LAST_NAME", "Last Name");
 
 	/**
 	 * The name of the column for the contact's address line 1
