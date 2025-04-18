@@ -36,15 +36,9 @@
 				<thead>
 					<tr>
 						<th><?php echo TABLE_CONTACT_FULL_NAME; ?></th>
-						<th><?php echo TABLE_CONTACT_ADDRESS_1; ?></th>
-						<th><?php echo TABLE_CONTACT_ADDRESS_2; ?></th>
 						<th><?php echo TABLE_CONTACT_TOWN; ?></th>
-						<th><?php echo TABLE_CONTACT_POSTAL_CODE; ?></th>
-						<th><?php echo TABLE_CONTACT_COUNTY; ?></th>
 						<th><?php echo TABLE_CONTACT_MOBILE_NUMBER; ?></th>
-						<th><?php echo TABLE_CONTACT_HOME_NUMBER; ?></th>
 						<th><?php echo TABLE_CONTACT_EMAIL; ?></th>
-						<th><?php echo TABLE_CONTACT_DATE_OF_BIRTH; ?></th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -55,15 +49,9 @@
 				?>
 					<tr>
 						<td><?php echo htmlentities($contacts->full_name($contact["first_name"], $contact["middle_name"], $contact["last_name"])); ?></td>
-						<td><?php echo htmlentities($contact["address_line_1"]); ?></td>
-						<td><?php echo htmlentities($contact["address_line_2"]); ?></td>
 						<td><?php echo htmlentities($contact["address_town"]); ?></td>
-						<td><?php echo htmlentities($contact["address_post_code"]); ?></td>
-						<td><?php echo htmlentities($contact["address_county"]); ?></td>
 						<td><?php if(!empty($contact["contact_number_mobile"])) { echo htmlentities($contacts->format_phone_number($contact["contact_number_mobile"])); } else { echo "NOT SPECIFIED"; }; ?></td>
-						<td><?php if(!empty($contact["contact_number_home"])) { echo htmlentities($contacts->format_phone_number($contact["contact_number_home"])); } else { echo "NOT SPECIFIED"; }; ?></td>
 						<td><?php if(!empty($contact["contact_email"])) { echo "<a href=\"mailto:" . htmlentities($contact["contact_email"]) . "\">" .  htmlentities($contact["contact_email"]) . "</a>"; } else { echo "NOT SPECIFIED"; }; ?></td>
-						<td><?php if(!empty($contact["date_of_birth"])) { echo htmlentities($contact["date_of_birth"]); } else { echo "NOT SPECIFIED"; }; ?></td>
 						<td><a href="<?php echo PAGELINK_CONTACTSVIEW; ?>?i=<?php echo urlencode($contact["contact_id"]); ?>">View</a></td>
 					</tr>
 <?php
