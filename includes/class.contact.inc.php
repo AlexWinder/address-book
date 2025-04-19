@@ -15,7 +15,23 @@
 			   $number = array(), // Used as an array to store various formatted and unformatted phone numbers
 			   $full_name = null, // Variable used to hold full name of contact
 			   $full_address = null; // Variable used to hold the full address of the contact
-			   
+		
+		// Headers for the CSV files
+		public $csv_headers = array(
+			TABLE_CONTACT_FIRST_NAME, 
+			TABLE_CONTACT_MIDDLE_NAME, 
+			TABLE_CONTACT_LAST_NAME, 
+			TABLE_CONTACT_HOME_NUMBER, 
+			TABLE_CONTACT_MOBILE_NUMBER, 
+			TABLE_CONTACT_EMAIL, 
+			TABLE_CONTACT_DATE_OF_BIRTH, 
+			TABLE_CONTACT_ADDRESS_1, 
+			TABLE_CONTACT_ADDRESS_2, 
+			TABLE_CONTACT_TOWN, 
+			TABLE_CONTACT_COUNTY, 
+			TABLE_CONTACT_POSTAL_CODE
+		);
+
 		// Constructor
 		public function __construct($id = null) {
 			// Set the $db with an instance of the database
@@ -355,7 +371,134 @@
 				return false;
 			}
 		}
+
+		// Export Contacts
+		public function exportCSV() {
+			$date = date('Y-m-d_H-i-s');
+			$fileName = "contacts_{$date}.csv";
+
+			// Create tmp file 
+			$tmpFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $fileName;
+
+			$fp = fopen($tmpFilePath, 'w');
+			
+			// Write the headers to the file
+			fputcsv($fp, $this->csv_headers);
+			
+			// Loop through the contacts and write them to the file
+			foreach($this->all as $contact) {
+				$data = array(
+					$contact['first_name'],
+					$contact['middle_name'],
+					$contact['last_name'],
+					$contact['contact_number_home'],
+					$contact['contact_number_mobile'],
+					$contact['contact_email'],
+					$contact['date_of_birth'],
+					$contact['address_line_1'],
+					$contact['address_line_2'],
+					$contact['address_town'],
+					$contact['address_county'],
+					$contact['address_post_code']
+				);
+				fputcsv($fp, $data);
+			}
+			
+			// Close the file
+			fclose($fp);
+
+			// Modify some headers for download to name the file properly
+			header('Content-Type: text/csv');
+			header('Content-Disposition: attachment; filename="' . $fileName . '"');
+			header('Content-Length: ' . filesize($tmpFilePath));
+			
+			// Return the filename
+			readfile($tmpFilePath);
+			
+			// Delete the temp file
+			unlink($tmpFilePath);
+			exit;
+		}
+
+		// Create CSV Template
+		public function exportCSVTemplate() {
+			$fileName = "contacts_template.csv";
+
+			// create a csv file in the tmp directory
+			$tmpFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $fileName;
+
+			// Open the file 
+			$fp = fopen($tmpFilePath, 'w');
 		
+			// Write the headers
+			fputcsv($fp, $this->csv_headers);
+			fclose($fp);
+		
+			// Modify some headers for download to name the file properly
+			header('Content-Type: text/csv');
+			header('Content-Disposition: attachment; filename="' . $fileName . '"');
+			header('Content-Length: ' . filesize($tmpFilePath));
+		
+			// Have it download 
+			readfile($tmpFilePath);
+
+			// Delete the temp file
+			unlink($tmpFilePath);
+			exit;
+		}
+
+		// Import an uploaded CSV file 
+		public function importCSV($filePath) {
+			error_log("Importing CSV file: " . $filePath);
+			// Open the CSV file
+			if (($handle = fopen($filePath, "r")) !== FALSE) {
+
+				// Skip the first row (headers)
+				fgetcsv($handle, 1000, ",");
+	
+				// Loop through the file line-by-line
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					// Generate a new contact_id
+					$contact_id = $this->generate_id(12);
+
+					// Prepare SQL query to insert data into the database
+					$sql = "INSERT INTO contacts (contact_id, first_name, middle_name, last_name, contact_number_home, contact_number_mobile, contact_email, date_of_birth, address_line_1, address_line_2, address_town, address_county, address_post_code) 
+								VALUES (:contact_id, :first_name, :middle_name, :last_name, :contact_number_home, :contact_number_mobile, :contact_email, :date_of_birth, :address_line_1, :address_line_2, :address_town, :address_county, :address_post_code)";
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(':contact_id', $contact_id);
+					$stmt->bindParam(':first_name', $data[0]);
+					$stmt->bindParam(':middle_name', $data[1]);
+					$stmt->bindParam(':last_name', $data[2]);
+					$stmt->bindParam(':contact_number_home', $data[3]);
+					$stmt->bindParam(':contact_number_mobile', $data[4]);
+					$stmt->bindParam(':contact_email', $data[5]);
+					$stmt->bindParam(':date_of_birth', $data[6]);
+					$stmt->bindParam(':address_line_1', $data[7]);
+					$stmt->bindParam(':address_line_2', $data[8]);
+					$stmt->bindParam(':address_town', $data[9]);
+					$stmt->bindParam(':address_county', $data[10]);
+					$stmt->bindParam(':address_post_code', $data[11]);
+
+					// Execute the query
+					$result = $stmt->execute();
+
+					// Check if successful
+					if($result) {
+						// Insert successful
+						return $result;
+					} else {
+						// Insert failed
+						return false;
+					}
+				}
+	
+				// Close the file
+				fclose($handle);
+			} else {
+				throw new Exception("Unable to open the file.");
+			}
+		}
+
 	}; // Close class Contact
 	
 // EOF

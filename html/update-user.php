@@ -234,7 +234,7 @@
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" name="submit_name" value="submit_name" class="btn btn-default">Update Name/Username</button>
+						<button type="submit" name="submit_name" value="submit_name" class="btn btn-primary">Update Name/Username</button>
 					</div>
 				</div>
 			</form>
@@ -274,7 +274,7 @@
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" name="submit_password" value="submit_password" class="btn btn-default">Update Password</button>
+						<button type="submit" name="submit_password" value="submit_password" class="btn btn-primary">Update Password</button>
 					</div>
 				</div>
 			</form>

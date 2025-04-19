@@ -32,13 +32,13 @@
 			<!-- CONTENT -->
 			<?php $session->output_message(); ?>
 			
-			<table id="<?php echo $datatables_table_id; ?>">
+			<table class="display nowrap" id="<?php echo $datatables_table_id; ?>">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Town</th>
-						<th>Mobile Number</th>
-						<th>Email Address</th>
+						<th><?php echo TABLE_CONTACT_FULL_NAME; ?></th>
+						<th><?php echo TABLE_CONTACT_TOWN; ?></th>
+						<th><?php echo TABLE_CONTACT_MOBILE_NUMBER; ?></th>
+						<th><?php echo TABLE_CONTACT_EMAIL; ?></th>
 						<th>Actions</th>
 					</tr>
 				</thead>

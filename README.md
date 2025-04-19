@@ -97,6 +97,18 @@ There are several configuration values which can be set in the `includes/setting
 
 - `TIMEZONE` should be set to the timezone you require for the system. See the [PHP Manual](https://www.php.net/manual/en/timezones.php) for options. 
 
+The following are to define the column names of your contacts table on the main page.
+- `TABLE_CONTACT_NAME` 
+- `TABLE_CONTACT_ADDRESS_1`
+- `TABLE_CONTACT_ADDRESS_2`
+- `TABLE_CONTACT_TOWN`
+- `TABLE_CONTACT_POSTAL_CODE`
+- `TABLE_CONTACT_COUNTY`
+- `TABLE_CONTACT_MOBILE_NUMBER`
+- `TABLE_CONTACT_HOME_NUMBER`
+- `TABLE_CONTACT_EMAIL`
+- `TABLE_CONTACT_DATE_OF_BIRTH`
+
 ## Screenshots
 
 Screenshots of the system can be found in the [screenshots](screenshots/) directory, or by viewing the [SCREENSHOTS.md](SCREENSHOTS.md) file.
