@@ -131,20 +131,20 @@
 					<h5>Name</h5>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control form-control-sm" id="first_name" name="first_name" maxlength="50"  placeholder="First Name"<?php if(isset($_POST["first_name"])){ echo "value=\"" . htmlentities($_POST["first_name"]) . "\""; }; ?> required>
-							<label for="first_name">First Name</label>
+							<input type="text" class="form-control form-control-sm" id="first_name" name="first_name" maxlength="50" <?php if(isset($_POST["first_name"])){ echo "value=\"" . htmlentities($_POST["first_name"]) . "\""; }; ?> required>
+							<label for="first_name"><?php echo TABLE_CONTACT_FIRST_NAME; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control form-control-sm" id="middle_name" name="middle_name" maxlength="50" placeholder="Middle Name" <?php if(isset($_POST["middle_name"])){ echo "value=\"" . htmlentities($_POST["middle_name"]) . "\""; }; ?> required>
-							<label for="middle_name">Middle Name</label>
+							<input type="text" class="form-control form-control-sm" id="middle_name" name="middle_name" maxlength="50" <?php if(isset($_POST["middle_name"])){ echo "value=\"" . htmlentities($_POST["middle_name"]) . "\""; }; ?> required>
+							<label for="middle_name"><?php echo TABLE_CONTACT_MIDDLE_NAME; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control form-control-sm" id="last_name" name="last_name" maxlength="50" placeholder="Last Name"<?php if(isset($_POST["last_name"])){ echo "value=\"" . htmlentities($_POST["last_name"]) . "\""; }; ?> required>
-							<label for="last_name">Last Name</label>
+							<input type="text" class="form-control form-control-sm" id="last_name" name="last_name" maxlength="50" <?php if(isset($_POST["last_name"])){ echo "value=\"" . htmlentities($_POST["last_name"]) . "\""; }; ?> required>
+							<label for="last_name"><?php echo TABLE_CONTACT_LAST_NAME; ?></label>
 						</div>
 					</div>					
 				</div>
@@ -154,26 +154,26 @@
 					<h5>Details</h5>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="tel" class="form-control" id="contact_number_home" name="contact_number_home" maxlength="20" placeholder="Contact Number Home"<?php if(isset($_POST["contact_number_home"])){ echo "value=\"" . htmlentities($_POST["contact_number_home"]) . "\""; }; ?>>
-							<label for="contact_number_home">Contact Number Home</label>
+							<input type="tel" class="form-control" id="contact_number_home" name="contact_number_home" maxlength="20" <?php if(isset($_POST["contact_number_home"])){ echo "value=\"" . htmlentities($_POST["contact_number_home"]) . "\""; }; ?>>
+							<label for="contact_number_home"><?php echo TABLE_CONTACT_HOME_NUMBER; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="tel" class="form-control" id="contact_number_mobile" name="contact_number_mobile" maxlength="20" placeholder="Contact Number Mobile"<?php if(isset($_POST["contact_number_mobile"])){ echo "value=\"" . htmlentities($_POST["contact_number_mobile"]) . "\""; }; ?>>
-							<label for="contact_number_mobile">Contact Number Mobile</label>
+							<input type="tel" class="form-control" id="contact_number_mobile" name="contact_number_mobile" maxlength="20" <?php if(isset($_POST["contact_number_mobile"])){ echo "value=\"" . htmlentities($_POST["contact_number_mobile"]) . "\""; }; ?>>
+							<label for="contact_number_mobile"><?php echo TABLE_CONTACT_MOBILE_NUMBER; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="email" class="form-control" id="contact_email" name="contact_email" maxlength="100" placeholder="Contact Email"<?php if(isset($_POST["contact_email"])){ echo "value=\"" . htmlentities($_POST["contact_email"]) . "\""; }; ?>>
-							<label for="contact_email">Contact Email</label>
+							<input type="email" class="form-control" id="contact_email" name="contact_email" maxlength="100" <?php if(isset($_POST["contact_email"])){ echo "value=\"" . htmlentities($_POST["contact_email"]) . "\""; }; ?>>
+							<label for="contact_email"><?php echo TABLE_CONTACT_EMAIL; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Date Of Birth"<?php if(isset($_POST["date_of_birth"])){ echo "value=\"" . htmlentities($_POST["date_of_birth"]) . "\""; }; ?>>
-							<label for="date_of_birth">Date Of Birth</label>
+							<input type="date" class="form-control" id="date_of_birth" name="date_of_birth" <?php if(isset($_POST["date_of_birth"])){ echo "value=\"" . htmlentities($_POST["date_of_birth"]) . "\""; }; ?>>
+							<label for="date_of_birth"><?php echo TABLE_CONTACT_DATE_OF_BIRTH; ?></label>
 						</div>
 					</div>
 				</div>
@@ -183,32 +183,32 @@
 					<h5>Address</h5>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control" id="address_line_1" name="address_line_1" maxlength="100" placeholder="Address Line 1"<?php if(isset($_POST["address_line_1"])){ echo "value=\"" . htmlentities($_POST["address_line_1"]) . "\""; }; ?> required>
-							<label for="address_line_1">Address Line 1</label>
+							<input type="text" class="form-control" id="address_line_1" name="address_line_1" maxlength="100" <?php if(isset($_POST["address_line_1"])){ echo "value=\"" . htmlentities($_POST["address_line_1"]) . "\""; }; ?> required>
+							<label for="address_line_1"><?php echo TABLE_CONTACT_ADDRESS_1; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control" id="address_line_2" name="address_line_2" maxlength="100" placeholder="Address Line 2"<?php if(isset($_POST["address_line_2"])){ echo "value=\"" . htmlentities($_POST["address_line_2"]) . "\""; }; ?>>
-							<label for="address_line_2">Address Line 2</label>
+							<input type="text" class="form-control" id="address_line_2" name="address_line_2" maxlength="100" <?php if(isset($_POST["address_line_2"])){ echo "value=\"" . htmlentities($_POST["address_line_2"]) . "\""; }; ?>>
+							<label for="address_line_2"><?php echo TABLE_CONTACT_ADDRESS_2; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control" id="address_town" name="address_town" maxlength="100" placeholder="Address Town"<?php if(isset($_POST["address_town"])){ echo "value=\"" . htmlentities($_POST["address_town"]) . "\""; }; ?> required>
-							<label for="address_town">Address Town</label>
+							<input type="text" class="form-control" id="address_town" name="address_town" maxlength="100" <?php if(isset($_POST["address_town"])){ echo "value=\"" . htmlentities($_POST["address_town"]) . "\""; }; ?> required>
+							<label for="address_town"><?php echo TABLE_CONTACT_TOWN; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control" id="address_county" name="address_county" maxlength="100" placeholder="Address County"<?php if(isset($_POST["address_county"])){ echo "value=\"" . htmlentities($_POST["address_county"]) . "\""; }; ?> required>
-							<label for="address_county">Address County</label>
+							<input type="text" class="form-control" id="address_county" name="address_county" maxlength="100" <?php if(isset($_POST["address_county"])){ echo "value=\"" . htmlentities($_POST["address_county"]) . "\""; }; ?> required>
+							<label for="address_county"><?php echo TABLE_CONTACT_COUNTY; ?></label>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-floating">
-							<input type="text" class="form-control" id="address_post_code" name="address_post_code" maxlength="20" placeholder="Address Postcode"<?php if(isset($_POST["address_post_code"])){ echo "value=\"" . htmlentities($_POST["address_post_code"]) . "\""; }; ?> required>
-							<label for="address_post_code">Address Postcode</label>
+							<input type="text" class="form-control" id="address_post_code" name="address_post_code" maxlength="20" <?php if(isset($_POST["address_post_code"])){ echo "value=\"" . htmlentities($_POST["address_post_code"]) . "\""; }; ?> required>
+							<label for="address_post_code"><?php echo TABLE_CONTACT_POSTAL_CODE; ?></label>
 						</div>
 					</div>
 				</div>
